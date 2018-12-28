@@ -14,19 +14,25 @@ class Start extends React.Component {
         </div>
         <div className="games">
           <Link to='/other-words'>
-            <ReactSVG src="./otherwords_logo.svg" />
-            <h2>Med andra ord</h2>
-            <p>Gissa order</p>
+            <div className="inner">
+              <ReactSVG src="./otherwords_logo.svg" />
+              <h2>Med andra ord</h2>
+              <p>Gissa ordet</p>
+            </div>
           </Link>
           <Link to='/pictionary'>
-            <ReactSVG src='./pictionary_logo.svg' />
-            <h2>Pictionary</h2>
-            <p>Rita bäst</p>
+            <div className="inner">
+              <ReactSVG src='./pictionary_logo.svg' />
+              <h2>Pictionary</h2>
+              <p>Rita bäst</p>
+            </div>
           </Link>
           <Link to='/fake-artist'>
-            <ReactSVG src='./fakeartist_logo.svg' />
-            <h2>Fake artist</h2>
-            <p>Vem fakear?</p>
+            <div className="inner">
+              <ReactSVG src='./fakeartist_logo.svg' />
+              <h2>Fake artist</h2>
+              <p>Vem luras?</p>
+            </div>
           </Link>
         </div>
       </div>

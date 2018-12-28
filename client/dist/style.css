@@ -1,4 +1,3 @@
-/* Colors */
 body {
   background-color: #1A1A1d;
   color: #ffffff;
@@ -31,8 +30,9 @@ p {
     border: 1px solid #ffffff;
     padding: 0.5em 1em;
     font-size: 0.8em;
-    transition: all 0.3s; }
-    .header a:hover, .header a:active, .header a:focus {
+    transition: all 0.3s;
+    text-decoration: none; }
+    .header a:hover, .header a:focus {
       text-decoration: none;
       background-color: #ffffff;
       color: #1A1A1d; }
@@ -70,16 +70,18 @@ p {
     margin-bottom: 2em;
     flex-basis: 30%;
     text-align: center;
-    padding: 2em 1em;
     border: 2px solid #66FCF1;
     border-radius: 3px;
     transition: all 0.3s;
-    color: white; }
+    color: white;
+    text-decoration: none; }
     .start .games a:hover, .start .games a:focus, .start .games a:active {
       text-decoration: none;
       color: #66FCF1; }
       .start .games a:hover svg, .start .games a:focus svg, .start .games a:active svg {
         fill: #66FCF1; }
+    .start .games a .inner {
+      padding: 2em 1em; }
     .start .games a h2 {
       text-transform: uppercase;
       font-weight: 700;
@@ -99,6 +101,7 @@ p {
 
 /* Other words - Play*/
 .otherwords h1.word {
+  margin-top: 1em;
   word-break: break-all; }
 
 .otherwords .info {
@@ -113,14 +116,14 @@ p {
 .otherwords .newRound,
 .otherwords .startGame,
 .otherwords .nextword {
-  border: 2px solid #66FCF1;
+  background-color: #66FCF1;
   padding: 1em 2em;
   margin: 2em 0 1em;
   display: inline-block;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.3s;
-  color: #ffffff;
+  color: #1A1A1d;
   font-size: 1em;
   font-weight: 700;
   letter-spacing: 1px;
@@ -137,13 +140,12 @@ p {
   .otherwords .nextword:focus,
   .otherwords .nextword:active,
   .otherwords .nextword:hover {
-    background-color: #66FCF1;
-    color: #1A1A1d; }
+    background-color: #5be2d8; }
 
 .otherwords .resetGame,
 .otherwords .finishRound,
 .otherwords .skipword {
-  color: #4E4E50;
+  color: #808080;
   cursor: pointer;
   display: inline-block;
   padding: 0.3em;
@@ -164,7 +166,10 @@ p {
     color: #66FCF1; }
 
 .otherwords .excluded {
-  margin-top: 2em; }
+  margin-top: 2em;
+  font-size: 1.2em; }
+  .otherwords .excluded div {
+    margin-bottom: 0.5em; }
 
 /* Other words - Intro */
 .otherwords .settings {
