@@ -1,0 +1,30 @@
+{
+  "name": "SocialGamesApp",
+  "version": "1.0.0",
+  "description": "A app with social games",
+  "main": "app.js",
+  "author": "alvine@tamkin.se",
+  "license": "MIT",
+  "engines": {
+    "node": "8.0.0"
+  },
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "async": "^2.6.1",
+    "debug": "~2.6.9",
+    "dotenv": "^6.1.0",
+    "express": "~4.16.0",
+    "express-validator": "^5.3.0",
+    "http-errors": "~1.6.2",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.6",
+    "morgan": "~1.9.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
