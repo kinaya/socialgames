@@ -10,7 +10,7 @@ class Start extends React.Component {
       <div className="start">
         <div className="intro">
           <h1>Social games</h1>
-          <p>All your favourite social games. Play easier together!</p>
+          <p>Alla de bästa sociala spelen. Spela lättare tillsammans!</p>
         </div>
         <div className="games">
           <Link to='/other-words'>
