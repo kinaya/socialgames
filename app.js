@@ -32,9 +32,6 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
-// Passport
-//require('./config/passport')(app);
-
 // Allow cors. Must be before we define our routes
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
