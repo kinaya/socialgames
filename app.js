@@ -8,10 +8,7 @@ var path = require('path');
 var logger = require('morgan');
 
 // Set up routes
-//var apiRouter = require('./routes/api');
-//var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
-//var userRouter = require('./routes/user');
 
 // Create the app object
 var app = express();
@@ -40,9 +37,6 @@ app.use(function(req, res, next) {
 });
 
 // Add the previously imported routehandling code to handling chain
-//app.use('/api', passport.authenticate('jwt', {session: false}), apiRouter);
-//app.use('/auth', authRouter);
-//app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
