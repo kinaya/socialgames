@@ -1,0 +1,211 @@
+/* Colors */
+//$black: #333333;
+$black: #1A1A1d;
+$white: #ffffff;
+
+$pink: #950740;
+$gray: #4E4E50;
+$turquoise: #66FCF1;
+
+
+$tablet: 600px;
+
+body {
+  background-color: $black;
+  color: $white;
+  font-family: 'Roboto', sans-serif;
+  padding: 1em;
+}
+
+h1 {
+  font-size: 2.4em;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.5em;
+  @media(min-width: $tablet) {
+    font-size: 3em;
+  }
+}
+p {
+  font-size: 1em;
+  @media(min-width: $tablet) {
+    font-size: 1.2em;
+  }
+}
+
+/* Header */
+.header {
+  background-color: $black;
+  a {
+    color: $white;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid $white;
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+      background-color: $white;
+      color: $black;
+    }
+  }
+}
+
+/* Layout */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2em 0 1em;
+  @media(min-width: $tablet) {
+    padding: 6em 0 2em;
+  }
+}
+
+/* Start */
+.start .intro {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2em 0;
+  @media(min-width: $tablet) {
+    padding: 6em 0 4em;
+  }
+}
+.start .games {
+  max-width: 900px;
+  margin: 0 auto;
+  @media(min-width: $tablet) {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  a {
+    display: block;
+    margin-bottom: 2em;
+    flex-basis: 30%;
+    text-align: center;
+    padding: 2em 1em;
+    border: 2px solid $turquoise;
+    border-radius: 3px;
+    transition: all 0.3s;
+    color: white;
+    &:hover, &:focus, &:active {
+      text-decoration: none;
+      color: $turquoise;
+      svg {
+        fill: $turquoise;
+      }
+    }
+    h2 {
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 1.6em;
+    }
+  }
+  svg {
+    max-width: 100px;
+    fill: $white;
+    margin-bottom: 1em;
+  }
+}
+
+/* Common layout for all games */
+.game .intro {
+  margin-bottom: 3em;
+  @media(min-width: $tablet) {
+    margin-bottom: 5em;
+  }
+}
+
+/* Other words - Play*/
+.otherwords {
+  h1.word {
+    word-break: break-all;
+  }
+  .info {
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.8em;
+  }
+  .newRound,
+  .startGame,
+  .nextword {
+    border: 2px solid $turquoise;
+    padding: 1em 2em;
+    margin: 2em 0 1em;
+    display: inline-block;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    color: $white;
+    font-size: 1em;
+    @media(min-width: $tablet) {
+      font-size: 1.2em;
+    }
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    &:focus, &:active, &:hover {
+      background-color: $turquoise;
+      color: $black;
+    }
+  }
+  .resetGame,
+  .finishRound,
+  .skipword {
+    color: $gray;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.3em;
+    @media(min-width: $tablet) {
+      padding: 1em;
+    }
+    margin: 0 1em;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      color: $turquoise;
+    }
+  }
+  .excluded {
+    margin-top: 2em;
+  }
+}
+
+/* Other words - Intro */
+.otherwords {
+  .settings {
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+    .setting {
+      margin-bottom: 2em;
+    }
+    h3 {
+      text-transform: uppercase;
+      font-size: 0.9em;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-bottom: 1px solid $turquoise;
+    }
+  }
+  .radio label {
+    display: block;
+  }
+}
+
+input[type=checkbox], input[type=radio] {
+  margin-right: 0.5em;
+}
+input[type=radio]:checked,
+input[type=checkbox]:checked {
+  color: $turquoise;
+}

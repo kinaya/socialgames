@@ -1,0 +1,8 @@
+export const CHANGE_WORD = 'CHANGE_WORD'
+export const SKIP_WORD = 'SKIP_WORD'
+export const CHANGE_SETTINGS = 'CHANGE_SETTINGS'
+export const TICK = 'TICK'
+export const SET_GAME_STATE = 'SET_GAME_STATE'
+export const SETUP = 'SETUP'
+export const RESET_TIMER = 'RESET_TIMER'
+export const RESET_GAME = 'RESET_GAME'
