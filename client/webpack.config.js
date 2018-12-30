@@ -66,8 +66,8 @@ module.exports = {
     extensions: ['.js','.jsx'],
   },
   devServer: {
-//    proxy: {
-//      '/': 'http://localhost:3000'
-//    }
+    proxy: {
+      '/': 'http://localhost:3000'
+    }
   }
 };

@@ -1,17 +1,24 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Router } from 'react-router-dom'
+import createHistory from 'history/createMemoryHistory';
 import { Route, Link } from 'react-router-dom'
 
 import Start from './Start'
-import OtherWordsContainer from '../containers/OtherWordsContainer'
-import FakeArtist from './FakeArtist'
-import Pictionary from './Pictionary'
+import OtherWordsContainer from './otherwords/OtherWordsContainer'
+import FakeArtistContainer from './fakeartist/FakeArtistContainer'
+import Pictionary from './pictionary/Pictionary'
+import FakeArtistGameContainer from './fakeartist/FakeArtistGameContainer'
+
+//const history = createHistory();
+import history from './history';
 
 class App extends React.Component {
 
+
   render() {
+
     return (
-      <Router>
+      <Router history={history}>
       <div>
         <div className="header">
           <Link to='/'>Social Games</Link>
@@ -21,7 +28,8 @@ class App extends React.Component {
           <Route exact path='/' component={Start} />
           <Route path='/other-words' component={OtherWordsContainer} />
           <Route path='/pictionary' component={Pictionary} />
-          <Route path='/fake-artist' component={FakeArtist} />
+          <Route exact path='/fake-artist' component={FakeArtistContainer} />
+          <Route path='/fake-artist/:gameId' component={FakeArtistGameContainer} />
         </main>
 
         </div>

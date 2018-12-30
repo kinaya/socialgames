@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import OtherWords from '../components/OtherWords'
-import { changeWord, skipWord, setGameState, changeSettings, finishRound, resetGame, newRound, startGame } from '../actions'
+import OtherWords from './OtherWords'
+import { changeWord, skipWord, setGameState, changeSettings, finishRound, resetGame, newRound, startGame } from '../../actions'
 
 function mapStateToProps(state) {
   return {

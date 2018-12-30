@@ -35,7 +35,7 @@ const OtherWordsIntro = ({settings, setGameState, startGame, changeSettings}) =>
 
       </div>
 
-      <div className="startGame" onClick={() => startGame()}>Starta spelet</div>
+      <div className="startGame button" onClick={() => startGame()}>Starta spelet</div>
 
     </div>
   )

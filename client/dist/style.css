@@ -8,7 +8,8 @@ h1 {
   font-size: 2.4em;
   font-weight: 700;
   line-height: 1.1;
-  margin-bottom: 0.5em; }
+  margin-bottom: 0.5em;
+  margin-top: 0.2em; }
   @media (min-width: 600px) {
     h1 {
       font-size: 3em; } }
@@ -18,6 +19,42 @@ p {
   @media (min-width: 600px) {
     p {
       font-size: 1.2em; } }
+
+.italic {
+  font-style: italic; }
+
+/* Buttons */
+.button {
+  background-color: #66FCF1;
+  padding: 1em 2em;
+  margin: 2em 0.5em 1em;
+  display: inline-block;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #1A1A1d;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
+  @media (min-width: 600px) {
+    .button {
+      font-size: 1.2em; } }
+  .button:focus, .button:active, .button:hover {
+    background-color: #5be2d8; }
+
+.extrabutton {
+  color: #808080;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.3em;
+  margin: 0 1em;
+  transition: all 0.3s; }
+  @media (min-width: 600px) {
+    .extrabutton {
+      padding: 1em; } }
+  .extrabutton:hover, .extrabutton:active, .extrabutton:focus {
+    color: #66FCF1; }
 
 /* Header */
 .header {
@@ -113,58 +150,6 @@ p {
   letter-spacing: 1px;
   font-size: 0.8em; }
 
-.otherwords .newRound,
-.otherwords .startGame,
-.otherwords .nextword {
-  background-color: #66FCF1;
-  padding: 1em 2em;
-  margin: 2em 0 1em;
-  display: inline-block;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: #1A1A1d;
-  font-size: 1em;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase; }
-  @media (min-width: 600px) {
-    .otherwords .newRound,
-    .otherwords .startGame,
-    .otherwords .nextword {
-      font-size: 1.2em; } }
-  .otherwords .newRound:focus, .otherwords .newRound:active, .otherwords .newRound:hover,
-  .otherwords .startGame:focus,
-  .otherwords .startGame:active,
-  .otherwords .startGame:hover,
-  .otherwords .nextword:focus,
-  .otherwords .nextword:active,
-  .otherwords .nextword:hover {
-    background-color: #5be2d8; }
-
-.otherwords .resetGame,
-.otherwords .finishRound,
-.otherwords .skipword {
-  color: #808080;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0.3em;
-  margin: 0 1em;
-  transition: all 0.3s; }
-  @media (min-width: 600px) {
-    .otherwords .resetGame,
-    .otherwords .finishRound,
-    .otherwords .skipword {
-      padding: 1em; } }
-  .otherwords .resetGame:hover, .otherwords .resetGame:active, .otherwords .resetGame:focus,
-  .otherwords .finishRound:hover,
-  .otherwords .finishRound:active,
-  .otherwords .finishRound:focus,
-  .otherwords .skipword:hover,
-  .otherwords .skipword:active,
-  .otherwords .skipword:focus {
-    color: #66FCF1; }
-
 .otherwords .excluded {
   margin-top: 2em;
   font-size: 1.2em; }
@@ -194,4 +179,45 @@ input[type=checkbox], input[type=radio] {
 input[type=radio]:checked,
 input[type=checkbox]:checked {
   color: #66FCF1; }
+
+/* Fake artist */
+table {
+  width: 100%;
+  text-align: left; }
+
+thead th {
+  border-bottom: 2px solid #66FCF1;
+  padding: 0.5em 0.8em; }
+
+tr td {
+  padding: 1em;
+  border-bottom: 1px solid #303033; }
+
+tr:last-child td {
+  border-bottom: 0px; }
+
+form {
+  text-align: left;
+  display: inline-block; }
+  form input {
+    display: block;
+    margin: 0.5em 0 1em 0;
+    padding: 0.5em; }
+
+.fakeartist .words {
+  font-size: 1.4em;
+  text-align: left;
+  margin: 0 auto 2em;
+  display: inline-block; }
+  .fakeartist .words > div {
+    margin-bottom: 1em; }
+  .fakeartist .words span.label {
+    width: 150px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block; }
+  .fakeartist .words span.word {
+    font-weight: 700;
+    display: inline-block; }
 

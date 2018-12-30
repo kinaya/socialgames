@@ -25,10 +25,10 @@ class OtherWordsPlay extends React.Component {
           </div>
         }
 
-        <div className="nextword" onClick={() => changeWord()} >Nästa ord</div>
+        <div className="nextword button" onClick={() => changeWord()} >Nästa ord</div>
         <div>
-          <div className="skipword" onClick={() => skipWord()} >Hoppa över ord</div>
-          <div className="finishRound" onClick={() => finishRound()}>Avsluta omgången</div>
+          <div className="skipword extrabutton" onClick={() => skipWord()} >Hoppa över ord</div>
+          <div className="finishRound extrabutton" onClick={() => finishRound()}>Avsluta omgången</div>
         </div>
 
       </div>

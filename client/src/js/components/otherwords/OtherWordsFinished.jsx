@@ -7,9 +7,9 @@ const OtherWordsFinished = ({score, setGameState, newRound, resetGame}) => {
 
         <h1>{score} poäng</h1>
 
-        <div className="newRound" onClick={() => newRound()} >Ny omgång</div>
+        <div className="newRound button" onClick={() => newRound()} >Ny omgång</div>
         <div>
-          <div className="resetGame" onClick={() => resetGame()} >Starta om spelet</div>
+          <div className="resetGame extrabutton" onClick={() => resetGame()} >Starta om spelet</div>
         </div>
 
     </div>

@@ -9,8 +9,11 @@ var logger = require('morgan');
 
 // Set up routes
 var indexRouter = require('./routes/index');
+var fakeArtistRouter = require('./routes/fakeartist');
 
 // Create the app object
+// Testing to make this availible in controlles
+//var app = module.exports = express();
 var app = express();
 
 // Set up the mongoose connection
@@ -37,6 +40,7 @@ app.use(function(req, res, next) {
 });
 
 // Add the previously imported routehandling code to handling chain
+app.use('/fake-artist', fakeArtistRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

@@ -22,6 +22,7 @@ h1 {
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 0.5em;
+  margin-top: 0.2em;
   @media(min-width: $tablet) {
     font-size: 3em;
   }
@@ -32,6 +33,49 @@ p {
     font-size: 1.2em;
   }
 }
+.italic {
+  font-style: italic;
+}
+/* Buttons */
+.button {
+  background-color: $turquoise;
+  padding: 1em 2em;
+  margin: 2em 0.5em 1em;
+  display: inline-block;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  //color: $white;
+  color: $black;
+  font-size: 1em;
+  @media(min-width: $tablet) {
+    font-size: 1.2em;
+  }
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  &:focus, &:active, &:hover {
+    background-color: $turquoiseDark;
+    //color: $black;
+  }
+}
+.extrabutton {
+  color: $gray;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.3em;
+  @media(min-width: $tablet) {
+    padding: 1em;
+  }
+  margin: 0 1em;
+  transition: all 0.3s;
+  &:hover, &:active, &:focus {
+    color: $turquoise;
+  }
+
+}
+
 
 
 /* Header */
@@ -126,6 +170,8 @@ p {
   }
 }
 
+
+
 /* Other words - Play*/
 .otherwords {
   h1.word {
@@ -144,44 +190,10 @@ p {
   .newRound,
   .startGame,
   .nextword {
-    //border: 2px solid $turquoise;
-    background-color: $turquoise;
-    padding: 1em 2em;
-    margin: 2em 0 1em;
-    display: inline-block;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    //color: $white;
-    color: $black;
-    font-size: 1em;
-    @media(min-width: $tablet) {
-      font-size: 1.2em;
-    }
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    &:focus, &:active, &:hover {
-      background-color: $turquoiseDark;
-      //color: $black;
-    }
   }
   .resetGame,
   .finishRound,
   .skipword {
-    color: $gray;
-    cursor: pointer;
-    display: inline-block;
-    padding: 0.3em;
-    @media(min-width: $tablet) {
-      padding: 1em;
-    }
-    margin: 0 1em;
-    transition: all 0.3s;
-    &:hover, &:active, &:focus {
-      color: $turquoise;
-    }
   }
   .excluded {
     margin-top: 2em;
@@ -220,4 +232,52 @@ input[type=checkbox], input[type=radio] {
 input[type=radio]:checked,
 input[type=checkbox]:checked {
   color: $turquoise;
+}
+
+
+/* Fake artist */
+table {
+  width: 100%;
+  text-align: left;
+}
+thead th {
+  border-bottom: 2px solid $turquoise;
+  padding: 0.5em 0.8em;
+}
+tr td {
+  padding: 1em;
+  border-bottom: 1px solid #303033;
+}
+tr:last-child td {
+  border-bottom: 0px;
+}
+form {
+  text-align: left;
+  display: inline-block;
+  input {
+    display: block;
+    margin: 0.5em 0 1em 0;
+    padding: 0.5em;
+  }
+}
+
+.fakeartist .words {
+  font-size: 1.4em;
+  text-align: left;
+  margin: 0 auto 2em;
+  display: inline-block;
+  > div {
+    margin-bottom: 1em;
+  }
+  span.label {
+    width: 150px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+  }
+  span.word {
+    font-weight: 700;
+    display: inline-block;
+  }
 }

@@ -3,10 +3,19 @@ import App from './js/components/App'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './configureStore'
+
 import './sass/style.scss'
 
 // Initial store
 const initialStore = {
+  fakeartist: {
+    gamestate: 'intro',
+    game: {
+      game: {},
+      users: [],
+      word: {}
+    }
+  },
   otherwords: {
     gamestate: 'intro',
     currentword: null,
