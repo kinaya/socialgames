@@ -15,7 +15,9 @@ class CreateGame extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.fa_createGame(this.state.name);
+    if(this.state.name) {
+      this.props.fa_createGame(this.state.name);
+    }
   }
 
   render() {
@@ -28,8 +30,8 @@ class CreateGame extends React.Component {
 
         <form onSubmit={this.handleSubmit}>
           <label>
-            Ditt namn:
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+            Ditt namn: (Bara bokstäver)
+            <input type="text" name="name" required pattern="[A-Za-z]+" value={this.state.name} onChange={this.handleChange} />
           </label>
           <input type="submit" value="Skapa spel" />
         </form>

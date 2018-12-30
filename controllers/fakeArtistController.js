@@ -90,6 +90,11 @@ exports.addRemoveUser = function(req, res, next) {
         FakeArtistGame.findOne({'code': req.body.code}, function(err, game) {
           if(err) { return next(err);}
 
+          if(!game) {
+            return next("Invalid game code");
+            //callback(return"Invalid game code");
+          }
+
           // Create the user
           if(req.body.addOrRemove === 'add' ) {
             var user = new FakeArtistUser({
@@ -125,7 +130,9 @@ exports.addRemoveUser = function(req, res, next) {
       }
 
     ], function(err, user, game, users) {
-      if(err) { next(err);}
+      if(err) {
+        next(err);
+      }
       // Return game and user
       res.setHeader('Content-type', 'application/json');
       res.send(JSON.stringify({game, users, user}));
@@ -279,22 +286,6 @@ exports.events = function(req, res, next) {
       console.log('Stopped sending events');
     }
   });
-
-  // Create a websocket server
-  // Exemplet sa server = express()
-  // Jag har app = express()
-  // Jag kommer inte åt app i denna fil, men testar använd req.app
-  //const server = req.app
-  //const wss = new SocketServer({server})
-  //wss.on('startStopGame', data => {
-  //  console.log('startStopGame');
-  //});
-
-//  req.socket.setTimeout(Infinite);
-//  req.socket.setTimeout(0x7FFFFFFF);
-
-  //console.log('och här')
-  //console.log(req.app);
 
   // Prepare the headers
   res.set({

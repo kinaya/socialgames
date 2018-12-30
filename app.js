@@ -54,14 +54,12 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
 
-  // Todo: What is thsi?
   if (res.headersSent) {
     return next(err)
   }
-
-  // Set the httpStatusCode and statusText of the error
-  res.writeHead(err.httpStatusCode | 500, err.message, {'content-type' : 'text/plain'});
-  res.end(err.message);
+  res.status(500)
+  //res.render('error', { error: err })
+  res.json({ error: err })
 
 });
 
