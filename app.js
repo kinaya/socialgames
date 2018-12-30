@@ -6,6 +6,8 @@ var express = require('express');
 var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
+const WebSocket = require('ws');
+
 
 // Set up routes
 var indexRouter = require('./routes/index');
@@ -15,6 +17,7 @@ var fakeArtistRouter = require('./routes/fakeartist');
 // Testing to make this availible in controlles
 //var app = module.exports = express();
 var app = express();
+const wss = new WebSocket.Server({server: app})
 
 // Set up the mongoose connection
 var mongoose = require('mongoose');

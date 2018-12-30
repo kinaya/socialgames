@@ -280,6 +280,22 @@ exports.events = function(req, res, next) {
     }
   });
 
+  // Create a websocket server
+  // Exemplet sa server = express()
+  // Jag har app = express()
+  // Jag kommer inte åt app i denna fil, men testar använd req.app
+  //const server = req.app
+  //const wss = new SocketServer({server})
+  //wss.on('startStopGame', data => {
+  //  console.log('startStopGame');
+  //});
+
+//  req.socket.setTimeout(Infinite);
+//  req.socket.setTimeout(0x7FFFFFFF);
+
+  //console.log('och här')
+  //console.log(req.app);
+
   // Prepare the headers
   res.set({
   	'Content-Type': 'text/event-stream',
