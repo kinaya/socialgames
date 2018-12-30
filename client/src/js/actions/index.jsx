@@ -11,7 +11,6 @@ import { FA_START_STOP_GAME, FA_SET_GAME_STATE, FA_CREATE_GAME, FA_SSE_ADD_REMOV
 */
 export function fa_setGameState(gamestate) {
   return function(dispatch) {
-    console.log('setGameState is run')
     dispatch({
       type: FA_SET_GAME_STATE,
       gamestate: gamestate
@@ -27,7 +26,6 @@ export function fa_setGameState(gamestate) {
 */
 export function fa_createGame(name) {
   return function(dispatch) {
-  console.log('createGame is run');
 
   fetch('/fake-artist/createGame', {
     method: 'POST',
@@ -62,7 +60,6 @@ export function fa_createGame(name) {
 */
 export function fa_addRemoveUser(addOrRemove, code, name, userId) {
   return function(dispatch) {
-    console.log('addRemoveUser is run')
 
     fetch('/fake-artist/addRemoveUser', {
       method: 'POST',
@@ -90,7 +87,6 @@ export function fa_addRemoveUser(addOrRemove, code, name, userId) {
 
       // If user is removed, remove sessionStorage, redirect to Fake artist, remove game state and set gamestage to 'intro'
       if(addOrRemove === 'remove') {
-        console.log('The user will be removed')
         dispatch({
           type: FA_ADD_REMOVE_USER_REMOVE
         })
@@ -134,8 +130,6 @@ export function fa_startStopGame(startOrStop, game) {
       if(!response.ok) {}
       return response.json();
     }).then((response) => {
-      console.log('Incoming word')
-      console.log(response);
       dispatch({
         type: FA_START_STOP_GAME,
         game: response.game,

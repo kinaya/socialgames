@@ -7,7 +7,8 @@ class FakeArtistGame extends React.Component {
 
   constructor(props) {
     super(props);
-    this.eventSource = new EventSource('http://localhost:3000/fake-artist/events');
+//    this.eventSource = new EventSource('http://localhost:3000/fake-artist/events');
+    this.eventSource = new EventSource('/fake-artist/events');
   }
 
   componentDidMount() {
