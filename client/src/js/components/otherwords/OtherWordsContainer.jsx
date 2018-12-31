@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import OtherWords from './OtherWords'
 import { changeWord, skipWord, setGameState, changeSettings, finishRound, resetGame, newRound, startGame } from '../../actions'
 
-function mapStateToProps(state) {
+const mapStateToProps =  state => {
   return {
     currentword: state.otherwords.currentword,
     settings: state.otherwords.settings,
@@ -12,13 +12,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     changeWord: () => dispatch(changeWord()),
     skipWord: () => dispatch(skipWord()),
     setGameState: (gameState) => dispatch(setGameState(gameState)),
     changeSettings: (what, how) => dispatch(changeSettings(what, how)),
-//    stopTimer: () => dispatch(stopTimer())
     resetGame: () => dispatch(resetGame()),
     finishRound: () => dispatch(finishRound()),
     startGame: () => dispatch(startGame()),

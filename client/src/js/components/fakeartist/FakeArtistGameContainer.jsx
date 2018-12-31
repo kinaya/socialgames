@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import FakeArtistGame from './FakeArtistGame'
-import { fa_sse_addRemoveUser, fa_resetGame, fa_startStopGame, fa_updateGame, fa_exitRound, fa_sse_startStopGame, fa_sse_exitRound, fa_addRemoveUser } from '../../actions'
+import { fa_sse_addRemoveUser, fa_resetGame, fa_startStopGame, fa_updateGame, fa_exitRound, fa_sse_startStopGame, fa_addRemoveUser } from '../../actions'
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     game: state.fakeartist.game,
     userId: sessionStorage.getItem('userId'),
@@ -10,7 +10,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     fa_sse_addRemoveUser: (data) => dispatch(fa_sse_addRemoveUser(data)),
     fa_startStopGame: (startOrStop, game) => dispatch(fa_startStopGame(startOrStop, game)),

@@ -6,15 +6,13 @@ class JoinGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {name: '', code: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
     this.props.fa_addRemoveUser('add', this.state.code, this.state.name, null);
   }

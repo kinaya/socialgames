@@ -1,0 +1,715 @@
+[
+  {
+    "word": "Brandbil",
+    "forbidden": [
+      "Eld", "Fordon", "Röd"
+    ],
+    "used": false
+  },
+  {
+    "word": "Jongleringsboll",
+    "forbidden": [
+      "Sport", "Clown", "Cirkus"
+    ],
+    "used": false
+  },
+  {
+    "word": "Äppelmos",
+    "forbidden": [
+      "Frukt", "Pure", "Pannkaka"
+    ],
+    "used": false
+  },
+  {
+    "word": "Privatdektektiv",
+    "forbidden": [
+      "Ture", "Förstoringsglas", "Brott"
+    ],
+    "used": false
+  },
+  {
+    "word": "Snöbollskrig",
+    "forbidden": [
+      "Boll", "Is", "Vit"
+    ],
+    "used": false
+  },
+  {
+    "word": "Matlåda",
+    "forbidden": [
+      "Lunch", "Äta", "Plast"
+    ],
+    "used": false
+  },
+  {
+    "word": "Gränna",
+    "forbidden": [
+      "Polkagris", "Stad", "Randig"
+    ],
+    "used": false
+  },
+  {
+    "word": "Victoriasjön",
+    "forbidden": [
+      "Afrika", "Vatten", "Blöt"
+    ],
+    "used": false
+  },
+  {
+  "word": "Diarré",
+    "forbidden": [
+      "Mage", "Rinnande", "Bajs"
+    ],
+    "used": false
+  },
+  {
+  "word": "Jak",
+    "forbidden": [
+      "Djur", "Hårig", "Berg"
+    ],
+    "used": false
+  },
+  {
+  "word": "Tampong",
+    "forbidden": [
+      "Mens", "Avlång", "Kvinna"
+    ],
+    "used": false
+  },
+  {
+  "word": "Grodyngel",
+    "forbidden": [
+      "Barn", "Vatten", "Svans"
+    ],
+    "used": false
+  },
+  {
+  "word": "Vintergatan",
+    "forbidden": [
+      "Stjärna", "Himlen", "Lysa"
+    ],
+    "used": false
+  },
+  {
+  "word": "Ungern",
+    "forbidden": [
+      "Land", "Europa", "Budapest"
+    ],
+    "used": false
+  },
+  {
+  "word": "President",
+    "forbidden": [
+      "Statsminister", "Chef", "Demokrati"
+    ],
+    "used": false
+  },
+  {
+  "word": "Björnligan",
+    "forbidden": [
+      "Kalle Anka", "Tjuv", "Djur"
+    ],
+    "used": false
+  },
+  {
+  "word": "Aborre",
+    "forbidden": [
+      "Djur", "Fisk", "Vatten"
+    ],
+    "used": false
+  },
+  {
+  "word": "Ananas",
+    "forbidden": [
+      "Frukt", "Rutig", "Konserv"
+    ],
+    "used": false
+  },
+  {
+  "word": "Badanka",
+    "forbidden": [
+      "Vatten", "Plast", "Gul"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bakterie",
+    "forbidden": [
+      "Liten", "Kroppen", "Virus"
+    ],
+    "used": false
+  },
+  {
+  "word": "Barnkalas",
+    "forbidden": [
+      "Fest", "Tårta", "Födelsedag"
+    ],
+    "used": false
+  },
+  {
+  "word": "Barskåp",
+    "forbidden": [
+      "Alkohol", "Möbel", "Sprit"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bilfärja",
+    "forbidden": [
+      "Båt", "Fordon", "Vatten"
+    ],
+    "used": false
+  },
+  {
+  "word": "Biskvi",
+    "forbidden": [
+      "Bakverk", "Kaka", "Söt"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bisonoxe",
+    "forbidden": [
+      "Djur", "Stor", "Geting"
+    ],
+    "used": false
+  },
+  {
+  "word": "Blogg",
+    "forbidden": [
+      "Internet", "Hemsida", "Kändis"
+    ],
+    "used": false
+  },
+  {
+  "word": "Blåbär",
+    "forbidden": [
+      "Bär", "Färg", "Soppa"
+    ],
+    "used": false
+  },
+  {
+  "word": "Fågelskrämma",
+    "forbidden": [
+      "Åker", "Halm", "Docka"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bokmal",
+    "forbidden": [
+      "Läsa", "Djur", "Bibliotek"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bredband",
+    "forbidden": [
+      "Internet", "Modem", "Wifi"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bensin",
+    "forbidden": [
+      "Diesel", "Fordon", "Tanka"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bandage",
+    "forbidden": [
+      "Skada", "Sår", "Gips"
+    ],
+    "used": false
+  },
+  {
+  "word": "Betyg",
+    "forbidden": [
+      "Skola", "Omdöme", "Papper"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bulle",
+    "forbidden": [
+      "Kanel", "Kaka", "Bakverk"
+    ],
+    "used": false
+  },
+  {
+  "word": "Bärgningsbil",
+    "forbidden": [
+      "Fordon", "Trasig", "Krok"
+    ],
+    "used": false
+  },
+  {
+  "word": "Gummiboll",
+    "forbidden": [
+      "Rund", "Studsa", "Leksak"
+    ],
+    "used": false
+  },
+  {
+  "word": "Chili",
+    "forbidden": [
+      "Grönsak", "Stark", "Röd"
+    ]
+  },
+  {
+  "word": "Dörrvakt",
+    "forbidden": [
+      "Biffig", "Yrke", "Klubb"
+    ],
+    "used": false
+  },
+  {
+  "word": "Gummistövlar",
+    "forbidden": [
+      "Skor", "Regn", "Fot"
+    ],
+    "used": false
+  },
+  {
+  "word": "Gästrum",
+    "forbidden": [
+      "Sova", "Hem", "Besök"
+    ],
+    "used": false
+  },
+  {
+  "word": "Balkong",
+    "forbidden": [
+      "Ute", "Betong", "Inglasad"
+    ],
+    "used": false
+  },
+  {
+  "word": "Stetoskop",
+    "forbidden": [
+      "Läkare", "Doktor", "Lyssna"
+    ],
+    "used": false
+  },
+  {
+  "word": "Isolde",
+    "forbidden": [
+      "Tristan", "Saga", "Gammal"
+    ],
+    "used": false
+  },
+  {
+    "word": "Brandbil",
+    "forbidden": [
+      "Eld", "Fordon", "Röd"
+    ],
+    "used": false
+  },
+  {
+    "word": "Jongleringsboll",
+    "forbidden": [
+      "Sport", "Clown", "Cirkus"
+    ],
+    "used": false
+  },
+  {
+    "word": "Datorspråk",
+    "forbidden": [
+      "PHP", "Java", "C ++", "programmering", "kod"
+    ],
+    "used": false
+  },
+  {
+    "word": "Camping",
+    "forbidden": [
+       "Tält", "Vandring", "Berg", "Eld", "Fiske"
+    ],
+    "used": false
+  },
+  {
+    "word": "Ananas",
+    "forbidden": [
+       "Frukt", "Tropisk", "Gul", "Pina Colada"
+    ],
+    "used": false
+  },
+  {
+    "word": "Vecka",
+    "forbidden": [
+       "Måndag", "Tisdag", "Fredag", "Söndag", "Onsdag"
+    ],
+    "used": false
+  },
+  {
+    "word": "Kylskåp",
+    "forbidden": [
+       "Kallt", "Förvaring", "Frys", "Is"
+    ],
+    "used": false
+  },
+  {
+    "word": "Kreditkort",
+    "forbidden": [
+       "Plånbok", "Betala", "Kontant", "Handla", "Inköp"
+    ],
+    "used": false
+  },
+  {
+    "word": "Krita",
+    "forbidden": [
+       "Barn", "Måla", "Färg", "Rita"
+    ],
+    "used": false
+  },
+  {
+    "word": "New York",
+    "forbidden": [
+       "Big Apple", "Frihetsgudinnan", "Manhattan", "Stad", "USA"
+    ],
+    "used": false
+  },
+  {
+    "word": "Sandaler",
+    "forbidden": [
+       "Tofflor", "Skor", "Fötter", "Sand", "Strand"
+    ],
+    "used": false
+  },
+  {
+    "word": "Målning",
+    "forbidden": [
+       "Färg", "Konstnär", "Pensel", "Duk", "Galleri"
+    ],
+    "used": false
+  },
+  {
+    "word": "Diamant",
+    "forbidden": [
+       "Ring", "Karat", "Juvel", "Glas", "Smycke"
+    ],
+    "used": false
+  },
+  {
+    "word": "Pizza",
+    "forbidden": [
+       "Rund", "Italien", "Ost", "Hemkörning", "Kebab"
+    ],
+    "used": false
+  },
+  {
+    "word": "Super Mario",
+    "forbidden": [
+       "Luigi", "Yoshi", "Svamp", "Nintendo", "Spel"
+    ],
+    "used": false
+  },
+  {
+    "word": "Sherlock Holmes",
+    "forbidden": [
+       "Detektiv", "Britisk", "Mysterier", "Mord", "Ledtrådar"
+    ],
+    "used": false
+  },
+  {
+    "word": "Sengångare",
+    "forbidden": [
+       "Hårig", "Sömnig", "Hängande", "Djur", "Långsam"
+    ],
+    "used": false
+  },
+  {
+    "word": "Atlas",
+    "forbidden": [
+       "Karta", "Värld", "Land", "Jord", "Glob"
+    ],
+    "used": false
+  },
+  {
+    "word": "Flamingo",
+    "forbidden": [
+       "Rosa", "Räkor", "Ett Ben", "Vatten", "Fågel"
+    ],
+    "used": false
+  },
+  {
+    "word": "Miniräknare",
+    "forbidden": [
+       "Matte", "Skola", "Digital", "Klurigt", "Tal"
+    ],
+    "used": false
+  },
+  {
+    "word": "Näsborre",
+    "forbidden": [
+       "Bredvid", "Kind", "Mun", "Hål", "Ansikte"
+    ],
+    "used": false
+  },
+  {
+    "word": "Dammråtta",
+    "forbidden": [
+       "Allergi", "Skräp", "Städa", "Grå", "Djur"
+    ],
+    "used": false
+  },
+  {
+    "word": "Tortilla",
+  	"forbidden": [
+  		 "Majs", "Bröd", "Mexiko", "Taco", "Platt"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Dammsugare",
+  	"forbidden": [
+  		 "Matta", "Smuts", "Städa", "Rent", "Maskin"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Protein",
+  	"forbidden": [
+  		 "Aminosyra", "Träning", "Soja", "Kött", "Näring"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Slips",
+  	"forbidden": [
+  		 "Uppklädd", "Kavaj", "Hängande", "Hals", "Färg"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Ensam",
+  	"forbidden": [
+  		 "Människor", "Vänner", "Bara du", "Ingen", "Person"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Atom",
+  	"forbidden": [
+  		 "Partikel", "Elektron", "Liten", "Proton", "Vetenskap"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Arkitekt",
+  	"forbidden": [
+  		 "Skapa", "Rita", "Hus", "Byggnad", "Konstruera"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Fett",
+  	"forbidden": [
+  		 "Kalorier", "Skräpmat", "Stort", "Mage", "Amerika"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Tandborste",
+  	"forbidden": [
+  		 "Tandkräm", "Morgon", "Karies", "Tandläkare", "Borsta"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Licens",
+  	"forbidden": [
+  		 "Köpa", "Dokument", "Rättighet", "Papper", "Officiell"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Big Ben",
+  	"forbidden": [
+  		 "London", "Klocka", "Byggnad", "Turism", "England"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Stoppljus",
+  	"forbidden": [
+  		 "Red", "Green", "Köra", "Trafik", "Korsning"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Kudde",
+  	"forbidden": [
+  		 "Mjuk", "Sova", "Säng", "Örngott", "Huvud"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Bläckfisk",
+  	"forbidden": [
+  		 "Färg", "Hav", "Djur", "Tentakel", "Arm"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Författare",
+  	"forbidden": [
+  		 "Bok", "Skriva", "Penna", "Namn"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Beatles",
+  	"forbidden": [
+  		 "Sångare", "Band", "Music", "60-tal", "John Lennon"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Kanin",
+  	"forbidden": [
+  		 "Vit", "Mjuk", "Liseberg", "Husdjur", "Djur"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Ögonbryn",
+  	"forbidden": [
+  		 "Ansikte", "Hår", "Ovanför", "Under", "Måla"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Musik",
+  	"forbidden": [
+  		 "Not", "Ljud", "Höra", "Band", "Instrument"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Blomma",
+  	"forbidden": [
+  		 "Färgrik", "Vår", "Blad", "Växt", "Stjälk"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Beröring",
+  	"forbidden": [
+  		 "Hand", "Finger", "Känsla", "Sinne", "Hud"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Tid",
+  	"forbidden": [
+  		 "Klocka", "Ur", "Sekund", "Minut", "Timma"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Fiber",
+  	"forbidden": [
+  		 "Spannmål", "Hälsa", "Nyttigt", "Mage"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Internet",
+  	"forbidden": [
+  		 "Dator", "Ansluta", "WiFi", "Router", "Modem"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Skriva",
+  	"forbidden": [
+  		 "Författare", "Böcker", "Penna", "Ord", "Papper"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Granne",
+  	"forbidden": [
+  		 "Bo", "Nära", "Hus", "Person", "Intill"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Kamera",
+  	"forbidden": [
+  		 "Bild", "Digital", "Fokus", "Minne", "Foto"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Snögubbe",
+  	"forbidden": [
+  		 "Staty", "Is", "Vinter", "Kallt", "Vit"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Pytagoras sats",
+  	"forbidden": [
+  		 "Matte", "Trangel", "Vinkel", "Egypten", "Formel"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Disco",
+  	"forbidden": [
+  		 "Dans", "Kludd", "Ljus", "Kula", "Feber"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Vardaglig",
+  	"forbidden": [
+  		 "Avslappnad", "Informell", "Allmän"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Poker",
+  	"forbidden": [
+  		 "Marker", "Kort", "Spel", "Hold em", "Casino"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Mt Everest",
+  	"forbidden": [
+  		 "Högsta", "Himalaya", "Tibet", "Berg", "Klättra"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Lejon",
+  	"forbidden": [
+  		 "Katt", "Stor", "Vild", "Ryt", "Man"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Gondol",
+  	"forbidden": [
+  		 "Venedig", "Båt", "Taxi", "Kanal", "Italien"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Circus",
+  	"forbidden": [
+  		 "Manege", "Tält", "Clown", "Djur", "Kringresande"
+  	],
+  	"used": false
+  },
+  {
+    "word": "Pixar",
+  	"forbidden": [
+  		 "Hitta Nemo", "Animattion", "Film", "Zootropolis", "Tecknad"
+  	],
+  	"used": false
+  }
+]

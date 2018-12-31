@@ -4,13 +4,7 @@ const FakeArtistPlayers = ({game}) => {
 
   return (
     <table className="players">
-      <thead>
-        <tr>
-          <th>
-            Spelare
-          </th>
-        </tr>
-      </thead>
+      <thead><tr><th>Spelare</th></tr></thead>
       <tbody>
         {game.users.length > 0 &&
           game.users.map((user, i) => { return (

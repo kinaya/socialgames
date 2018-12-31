@@ -4,20 +4,16 @@ class CreateGame extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {name: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {name: ''}
   }
 
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
+  handleChange = (event) => {
+    this.setState({name: event.target.value})
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    if(this.state.name) {
-      this.props.fa_createGame(this.state.name);
-    }
+    this.props.fa_createGame(this.state.name)
   }
 
   render() {

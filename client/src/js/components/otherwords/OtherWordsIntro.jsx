@@ -24,7 +24,7 @@ const OtherWordsIntro = ({settings, setGameState, startGame, changeSettings}) =>
           </label>
 
           <label>
-            <input type="radio" value="option1" checked={settings.timer === 5} onChange={() => changeSettings('timer', 5)} />5 sekunder
+            <input type="radio" value="option1" checked={settings.timer === 60} onChange={() => changeSettings('timer', 60)} />60 sekunder
           </label>
 
           <label>

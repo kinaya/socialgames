@@ -10,18 +10,15 @@ class FakeArtist extends React.Component {
   }
 
   render() {
-    const {gamestate, fa_addRemoveUser, fa_createGame, fa_setGameState } = this.props;
+
+    const { gamestate, fa_addRemoveUser, fa_createGame, fa_setGameState } = this.props;
 
     return (
       <div className="game fakeartist">
         <div className="container">
-
           {gamestate === 'intro' && <FakeArtistIntro fa_setGameState={fa_setGameState} />}
-
           {gamestate === 'create' && <CreateGame fa_createGame={fa_createGame} />}
-
           {gamestate === 'join' && <JoinGame fa_addRemoveUser={fa_addRemoveUser} />}
-
         </div>
       </div>
     )

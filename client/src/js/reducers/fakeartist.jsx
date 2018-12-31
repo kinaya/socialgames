@@ -1,7 +1,6 @@
 import { FA_START_STOP_GAME, FA_CREATE_GAME, FA_SSE_ADD_REMOVE_USER, FA_ADD_REMOVE_USER_ADD, FA_ADD_REMOVE_USER_REMOVE, FA_SET_GAME_STATE } from '../constants'
 
 const fakeartist = (state = [], action) => {
-  let newState = JSON.parse(JSON.stringify(state))
 
   switch (action.type) {
 
@@ -12,30 +11,55 @@ const fakeartist = (state = [], action) => {
       }
 
     case FA_START_STOP_GAME:
-      newState.game.game = action.game;
-      newState.game.users = action.users;
-      newState.game.word = action.word;
-      return newState;
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          game: action.game,
+          users: action.users,
+          word: action.word
+        }
+      }
 
     case FA_CREATE_GAME:
-      newState.game.game = action.game;
-      newState.game.users.push(action.user)
-      return newState;
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          game: action.game,
+          users: [...state.game.users, action.user]
+        }
+      }
 
     case FA_SSE_ADD_REMOVE_USER:
-      newState.game.users = action.data;
-      return newState;
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          users: action.data
+        }
+      }
 
     case FA_ADD_REMOVE_USER_ADD:
-      newState.game.game = action.game;
-      newState.game.users = action.users;
-      return newState;
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          game: action.game,
+          users: action.users
+        }
+      }
 
     case FA_ADD_REMOVE_USER_REMOVE:
-      newState.game.game = {}
-      newState.game.users = []
-      newState.gamestate = 'intro'
-      return newState;
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          game: {},
+          users: [],
+          gamestate: 'intro'
+        }
+      }
 
     default:
       return state
