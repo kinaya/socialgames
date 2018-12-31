@@ -11,14 +11,18 @@ class FakeArtistGame extends React.Component {
   }
 
   componentDidMount() {
-    // Listen for added or removed users
-    this.eventSource.addEventListener('addRemoveUser', e => {
-      this.props.fa_sse_addRemoveUser(JSON.parse(e.data).users)
-    })
-    // Listen for game start or stop
-    this.eventSource.addEventListener('startStopGame', e => {
+
+    // Listen for Start stop game for this game
+    const gameIdOne = JSON.stringify(this.props.game.game._id) + 'startStopGame'
+    this.eventSource.addEventListener(gameIdOne, e => {
       this.props.fa_sse_startStopGame(JSON.parse(e.data))
     })
+    // Listen for added or removed users for this game
+    const gameIdTwo = JSON.stringify(this.props.game.game._id) + 'addRemoveUser'
+    this.eventSource.addEventListener(gameIdTwo, e => {
+      this.props.fa_sse_addRemoveUser(JSON.parse(e.data).users)
+    })
+
   }
 
   componentWillUnmount() {

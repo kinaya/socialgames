@@ -7,8 +7,6 @@ import configureStore from './configureStore'
 import './sass/style.scss'
 import otherWords from './otherWords.json'
 
-console.log(otherWords);
-
 // Initial store
 const initialStore = {
   fakeartist: {

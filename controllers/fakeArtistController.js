@@ -92,7 +92,6 @@ exports.addRemoveUser = function(req, res, next) {
 
           if(!game) {
             return next("Invalid game code");
-            //callback(return"Invalid game code");
           }
 
           // Create the user
@@ -123,7 +122,8 @@ exports.addRemoveUser = function(req, res, next) {
         FakeArtistUser.find({game : game.id}).populate('game').exec(function(err, users) {
           if(err) { return next(err); }
           req.app.emit('addRemoveUser', {
-            users: users
+            users: users,
+            game: game
           });
           callback(null, user, game, users);
         })
@@ -297,17 +297,22 @@ exports.events = function(req, res, next) {
   // Start game
   req.app.on('startStopGame', data => {
     if(!res.finished) {
-      // Data container game and users
-      res.write('event: startStopGame\n');
+
+      // Sending data to game with correct id
+      res.write('event: ' + JSON.stringify(data.game._id) + 'startStopGame\n');
       res.write('data: ' + JSON.stringify(data) + '\n\n')
+
     }
   })
 
   // Listen for emitted "message" events and send SSE data when received
-  req.app.on('addRemoveUser', users => {
+  req.app.on('addRemoveUser', data => {
     if(!res.finished) {
-      res.write('event: addRemoveUser\n');
-      res.write('data: ' + JSON.stringify(users) + '\n\n');
+
+      // Sending data to game with correct id
+      res.write('event: ' + JSON.stringify(data.game._id) + 'addRemoveUser\n');
+      res.write('data: ' + JSON.stringify(data) + '\n\n')
+
     }
   });
 

@@ -28,7 +28,7 @@ class JoinGame extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Spelkod:
-            <input type="text" name="code" pattern="[A-Z1-9]{6}" value={this.state.code} onChange={this.handleChange} />
+            <input type="text" name="code" pattern="[A-Z0-9]{6}" value={this.state.code} onChange={this.handleChange} />
           </label>
           <label>
             Ditt namn: (bara bokstäver)
