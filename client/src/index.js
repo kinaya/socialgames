@@ -11,6 +11,7 @@ import otherWords from './otherWords.json'
 const initialStore = {
   fakeartist: {
     gamestate: 'intro',
+    user: {},
     game: {
       game: {},
       users: [],

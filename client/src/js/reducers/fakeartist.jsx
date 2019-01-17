@@ -1,4 +1,4 @@
-import { FA_START_STOP_GAME, FA_CREATE_GAME, FA_SSE_ADD_REMOVE_USER, FA_ADD_REMOVE_USER_ADD, FA_ADD_REMOVE_USER_REMOVE, FA_SET_GAME_STATE } from '../constants'
+import { FA_RESET_GAME, FA_UPDATE_USERS, FA_UPDATE_WORD, FA_UPDATE_GAME, FA_UPDATE_USER, FA_SET_GAME_STATE } from '../constants'
 
 const fakeartist = (state = [], action) => {
 
@@ -10,54 +10,49 @@ const fakeartist = (state = [], action) => {
         gamestate: action.gamestate
       }
 
-    case FA_START_STOP_GAME:
+    case FA_UPDATE_USERS:
       return {
         ...state,
         game: {
           ...state.game,
-          game: action.game,
-          users: action.users,
-          word: action.word
-        }
-      }
-
-    case FA_CREATE_GAME:
-      return {
-        ...state,
-        game: {
-          ...state.game,
-          game: action.game,
-          users: [...state.game.users, action.user]
-        }
-      }
-
-    case FA_SSE_ADD_REMOVE_USER:
-      return {
-        ...state,
-        game: {
-          ...state.game,
-          users: action.data
-        }
-      }
-
-    case FA_ADD_REMOVE_USER_ADD:
-      return {
-        ...state,
-        game: {
-          ...state.game,
-          game: action.game,
           users: action.users
         }
       }
 
-    case FA_ADD_REMOVE_USER_REMOVE:
+    case FA_UPDATE_GAME:
       return {
         ...state,
         game: {
           ...state.game,
+          game: action.game
+        }
+      }
+
+    case FA_UPDATE_USER:
+      return {
+        ...state,
+        user: action.user
+      }
+
+    case FA_UPDATE_WORD:
+        return {
+          ...state,
+          game: {
+            ...state.game,
+            word: action.word
+          }
+        }
+
+    case FA_RESET_GAME:
+      return {
+        ...state,
+        gamestate: 'intro',
+        user: {},
+        game: {
+          ...state.game,
           game: {},
           users: [],
-          gamestate: 'intro'
+          word: {}
         }
       }
 

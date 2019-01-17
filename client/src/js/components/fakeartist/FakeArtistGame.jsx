@@ -7,34 +7,53 @@ class FakeArtistGame extends React.Component {
 
   constructor(props) {
     super(props);
-    this.eventSource = new EventSource('/fake-artist/events');
+    const code = this.props.game.game.code;
+    const url = 'ws://localhost:3000/fake-artist/' + code + '/play';
+    //const url = 'ws://localhost:3000/fake-artist/code/play';
+    this.socket = new WebSocket(url);
   }
 
   componentDidMount() {
 
-    // Listen for Start stop game for this game
-    const gameIdOne = JSON.stringify(this.props.game.game._id) + 'startStopGame'
-    this.eventSource.addEventListener(gameIdOne, e => {
-      this.props.fa_sse_startStopGame(JSON.parse(e.data))
+    const userId = this.props.userId;
+    const gameCode = this.props.game.game.code;
+
+    // This happens when the socket is opening, ie when you enter the game area
+    this.socket.addEventListener('open', function(event) {
+      this.send(JSON.stringify({type: 'opening', gameCode: gameCode, userId: userId}));
     })
-    // Listen for added or removed users for this game
-    const gameIdTwo = JSON.stringify(this.props.game.game._id) + 'addRemoveUser'
-    this.eventSource.addEventListener(gameIdTwo, e => {
-      this.props.fa_sse_addRemoveUser(JSON.parse(e.data).users)
+
+    // This happens when anyone else enters the game area, or when the game start/stops
+    const self = this;
+    this.socket.addEventListener('message', function(event) {
+      console.log('Incoming data!')
+      const data = JSON.parse(event.data);
+      console.log(data);
+      if(data.users) {self.props.fa_updateUsers(data.users);}
+      if(data.game) {self.props.fa_updateGame(data.game);}
+      if(data.word) {self.props.fa_updateWord(data.word);}
     })
 
   }
 
+  _startGame() {
+    this.socket.send(JSON.stringify({type: 'startGame', gameCode: this.props.game.game.code}))
+  }
+
+  _stopGame() {
+    this.socket.send(JSON.stringify({type: 'stopGame', gameCode: this.props.game.game.code}))
+  }
+
   componentWillUnmount() {
-    // Close the stream connection
-    this.eventSource.close();
+    // Close the webSocket
+    this.socket.close();
     // Reset game
     this.props.fa_resetGame();
   }
 
   render() {
 
-    const { game, fa_startStopGame, fa_addRemoveUser, userId, userName } = this.props;
+    const { game, fa_leaveGame, userId, userName } = this.props;
 
     return (
       <div className="game fakeartist">
@@ -47,13 +66,15 @@ class FakeArtistGame extends React.Component {
 
           <FakeArtistPlayers game={game} />
 
-          {game.game.state === 'waiting' && <div className="startGame button" onClick={() => fa_startStopGame('start', game.game)}>Starta spelet</div>}
+          {game.game.state === 'waiting' && <div className="startGame button" onClick={() => this._startGame()}>Starta spelet</div>}
+
+
 
           {game.game.state === 'waiting' &&
-            <div><div className="leaveGame extrabutton" onClick={() => fa_addRemoveUser('remove', game.game.code, userName, userId)}>Lämna spelet</div></div>
+            <div><div className="leaveGame extrabutton" onClick={() => fa_leaveGame()}>Lämna spelet</div></div>
           }
 
-          {game.game.state === 'play' && <div className="exitGame button" onClick={() => fa_startStopGame('stop', game.game)}>Avsluta omgången</div>}
+          {game.game.state === 'play' && <div className="exitGame button" onClick={() => this._stopGame()}>Avsluta omgången</div>}
 
         </div>
       </div>

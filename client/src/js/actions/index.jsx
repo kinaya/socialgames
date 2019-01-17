@@ -1,5 +1,5 @@
 /* ---------------- Fake Artist -------------------- */
-import { FA_START_STOP_GAME, FA_SET_GAME_STATE, FA_CREATE_GAME, FA_SSE_ADD_REMOVE_USER, FA_ADD_REMOVE_USER_ADD, FA_ADD_REMOVE_USER_REMOVE } from '../constants'
+import { FA_RESET_GAME, FA_UPDATE_GAME, FA_UPDATE_WORD, FA_UPDATE_USER, FA_UPDATE_USERS, FA_SET_GAME_STATE } from '../constants'
 import history from '../components/history'
 const defaultHeader = {'Accept':'application/json', 'Content-Type': 'application/json'}
 
@@ -9,19 +9,23 @@ export const fa_setGameState = gamestate => dispatch => {
 }
 
 // Create a new game
-export const fa_createGame = name => dispatch => {
+export const fa_createGame = userName => dispatch => {
   fetch('/fake-artist/createGame', {
     method: 'POST',
     headers: defaultHeader,
-    body: JSON.stringify({'name':name})
+    body: JSON.stringify({'userName': userName})
   })
   .then(response => response.json())
   .then(response => {
     dispatch({
-      type: FA_CREATE_GAME,
-      game: response.game,
+      type: FA_UPDATE_GAME,
+      game: response.game
+    })
+    dispatch({
+      type: FA_UPDATE_USER,
       user: response.user
     })
+    // Set session and push to game url
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
     history.push('/fake-artist/' + response.game.code);
@@ -29,74 +33,71 @@ export const fa_createGame = name => dispatch => {
   .catch(error => console.log(error));
 }
 
-// Add or remove a user
-export const fa_addRemoveUser = (addOrRemove, code, name, userId) => dispatch => {
-  fetch('/fake-artist/addRemoveUser', {
+// Join a game
+export const fa_joinGame = (userName, gameCode) => dispatch => {
+  fetch('/fake-artist/joinGame', {
     method: 'POST',
     headers: defaultHeader,
-    body: JSON.stringify({'addOrRemove': addOrRemove, 'code': code, 'name': name, 'userId': userId})
-  }).then(response => response.json())
-    .then(response => {
-
-    if(addOrRemove === 'add') {
-      dispatch({
-        type: FA_ADD_REMOVE_USER_ADD,
-        game: response.game,
-        users: response.users
-      })
-      sessionStorage.setItem('userId', response.user._id);
-      sessionStorage.setItem('userName', response.user.name);
-      history.push('/fake-artist/' + response.game.code);
+    body: JSON.stringify({'userName': userName, 'gameCode': gameCode})
+  })
+  .then(response => {
+    if(!response.ok) {
+      const error = Object.assign({}, response, {
+        status: response.status,
+        statusText: response.statusText
+      });
+      return Promise.reject(error);
     }
-
-    if(addOrRemove === 'remove') {
-      dispatch({
-        type: FA_ADD_REMOVE_USER_REMOVE
-      })
-      sessionStorage.removeItem('userId');
-      sessionStorage.removeItem('userName');
-      history.push('/fake-artist');
-    }
-
+    response.json()
   })
-  .catch(error => console.log(error));
-}
-
-// Update users when new ones arrive via SSE
-export const fa_sse_addRemoveUser = data => dispatch => {
-  dispatch({
-    type: FA_SSE_ADD_REMOVE_USER,
-    data: data
-  })
-}
-
-// Start or stop game
-export const fa_startStopGame = (startOrStop, game) => dispatch => {
-
-  fetch ('/fake-artist/startStopGame', {
-    method: 'POST',
-    headers: defaultHeader,
-    body: JSON.stringify({'startOrStop': startOrStop, 'game': game})
-  })
-  .then(response => response.json())
-  .then(data => {
+  .then(response => {
     dispatch({
-      type: FA_START_STOP_GAME,
-      game: data.game,
-      users: data.users,
-      word: data.word
+      type: FA_UPDATE_GAME,
+      game: response.game
     })
+    dispatch({
+      type: FA_UPDATE_USER,
+      user: response.user
+    })
+    // Set session and push to game url
+    sessionStorage.setItem('userId', response.user._id);
+    sessionStorage.setItem('userName', response.user.name);
+    history.push('/fake-artist/' + response.game.code);
   })
-  .catch(error => console.log(error))
+  .catch(error => {
+    console.error(error)
+  });
 }
 
-// SSE start or stop game
-export const fa_sse_startStopGame = data => dispatch => {
+// Leave game
+export const fa_leaveGame = () => dispatch => {
+  // Run resetGame
+  fa_resetGame()
+  // Change url
+  history.push('/fake-artist');
+}
+
+// Update users
+export const fa_updateUsers = (users) => dispatch => {
   dispatch({
-    type: FA_START_STOP_GAME,
-    game: data.game,
-    users: data.users,
-    word: data.word
+    type: FA_UPDATE_USERS,
+    users: users
+  })
+}
+
+// Update game
+export const fa_updateGame = (game) => dispatch => {
+  dispatch({
+    type: FA_UPDATE_GAME,
+    game: game
+  })
+}
+
+// Update word
+export const fa_updateWord = (word) => dispatch => {
+  dispatch({
+    type: FA_UPDATE_WORD,
+    word: word
   })
 }
 
@@ -107,24 +108,14 @@ export const fa_resetGame = () => dispatch => {
   const userName = sessionStorage.getItem('userName')
   const userId = sessionStorage.getItem('userId')
 
-  if(userId) {
+  // Remove localStorage
+  sessionStorage.removeItem('userName')
+  sessionStorage.removeItem('userId')
 
-    // Remove user on server
-    fetch('/fake-artist/resetGame', {
-      method: 'POST',
-      headers: defaultHeader,
-      body: JSON.stringify({'userId': userId})
-    })
-    .catch(error => console.log(error));
-
-    // Remove localStorage
-    sessionStorage.removeItem('userName')
-    sessionStorage.removeItem('userId')
-
-  }
-
-  // Reset game data
-  dispatch({ type: FA_ADD_REMOVE_USER_REMOVE })
+  // Reset game date
+  dispatch({
+    type: FA_RESET_GAME
+  })
 
 }
 

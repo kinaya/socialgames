@@ -1,23 +1,26 @@
 // Used for storing environmental variables in an .env file in root
 require('dotenv').load();
 
+// A module that stores the connections in Memory
+var socketCollection = require('./socketCollection');
+
 // Require plugins
 var express = require('express');
 var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
-const WebSocket = require('ws');
 
+// Create the app object
+var app = express();
+// Added fix: https://github.com/HenningM/express-ws/issues/104
+var http = require('http');
+app.server = http.createServer(app);
+
+var expressWs = require('express-ws')(app, app.server);
 
 // Set up routes
 var indexRouter = require('./routes/index');
 var fakeArtistRouter = require('./routes/fakeartist');
-
-// Create the app object
-// Testing to make this availible in controlles
-//var app = module.exports = express();
-var app = express();
-const wss = new WebSocket.Server({server: app})
 
 // Set up the mongoose connection
 var mongoose = require('mongoose');
@@ -57,9 +60,15 @@ app.use(function(err, req, res, next) {
   if (res.headersSent) {
     return next(err)
   }
-  res.status(500)
+  //res.status(500)
+  //console.log(err);
   //res.render('error', { error: err })
-  res.json({ error: err })
+  //res.json({ : err })
+  //res.status(500).send({error: err})
+
+  // Set the httpStatusCode and statusText of the error
+  res.writeHead(err.httpStatusCode | 500, err.message, {'content-type' : 'text/plain'});
+  res.end(err.message);
 
 });
 
