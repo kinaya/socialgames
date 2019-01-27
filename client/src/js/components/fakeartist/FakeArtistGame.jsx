@@ -2,6 +2,8 @@ import React from 'react'
 import FakeArtistGameWaiting from './FakeArtistGameWaiting'
 import FakeArtistGamePlay from './FakeArtistGamePlay'
 import FakeArtistPlayers from './FakeArtistPlayers'
+import dotenv from 'dotenv'
+dotenv.config()
 
 class FakeArtistGame extends React.Component {
 
