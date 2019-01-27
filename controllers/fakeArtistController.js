@@ -230,12 +230,13 @@ exports.joinGame = async function(req, res, next) {
   try {
     const user = await saveUser(req.body.userName, req.body.gameCode);
     const game = await getGame(req.body.gameCode);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({game, user}));
+
   } catch (err) {
     return next(err);
   }
-
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({game, user}));
 
 }
 

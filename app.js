@@ -16,11 +16,14 @@ var app = express();
 var http = require('http');
 app.server = http.createServer(app);
 
-var expressWs = require('express-ws')(app, app.server);
+// npm package 'ws'
+var WebSocketServer = require('ws').Server;
+const wss = new WebSocketServer({server:app.server, path: '/fake-artist/play'});
 
 // Set up routes
+const server = app.server;
 var indexRouter = require('./routes/index');
-var fakeArtistRouter = require('./routes/fakeartist');
+var fakeArtistRouter = require('./routes/fakeartist')(wss); // Pass in wss
 
 // Set up the mongoose connection
 var mongoose = require('mongoose');

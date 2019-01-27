@@ -1,12 +1,15 @@
 var express = require('express');
 var router = express.Router();
-
-// Get Fake Artist Controller
 var fakeArtistController = require('../controllers/fakeArtistController');
 
-router.post('/addWords', fakeArtistController.addWords);
-router.post('/createGame', fakeArtistController.createGame);
-router.post('/joinGame', fakeArtistController.joinGame);
-router.ws('/:code/play', fakeArtistController.play);
+module.exports = function(wss) {
 
-module.exports = router;
+  router.post('/addWords', fakeArtistController.addWords);
+  router.post('/createGame', fakeArtistController.createGame);
+  router.post('/joinGame', fakeArtistController.joinGame);
+
+  wss.on('connection', fakeArtistController.play);
+
+  return router;
+
+}

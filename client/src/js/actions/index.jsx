@@ -48,7 +48,7 @@ export const fa_joinGame = (userName, gameCode) => dispatch => {
       });
       return Promise.reject(error);
     }
-    response.json()
+    return response.json()
   })
   .then(response => {
     dispatch({

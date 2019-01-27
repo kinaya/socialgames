@@ -8,8 +8,8 @@ class FakeArtistGame extends React.Component {
   constructor(props) {
     super(props);
     const code = this.props.game.game.code;
-    const url = 'ws://localhost:3000/fake-artist/' + code + '/play';
-    //const url = 'ws://localhost:3000/fake-artist/code/play';
+    //const url = 'ws://localhost:3000/fake-artist/' + code + '/play';
+    const url = 'ws://localhost:3000/fake-artist/play';
     this.socket = new WebSocket(url);
   }
 
