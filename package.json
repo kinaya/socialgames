@@ -12,7 +12,7 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "postinstall": "cd client && npm install --dev",
-    "heroku-postbuild": "cd client && webpack --config webpack.config.js --mode production"
+    "heroku-postbuild": "ls -l && webpack --config webpack.config.js --mode production"
   },
   "dependencies": {
     "async": "^2.6.1",
