@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "heroku-postbuild": "cd client && npm install --dev && webpack --mode production"
+    "heroku-postbuild": "cd client && npm install --dev && npm run start"
   },
   "dependencies": {
     "async": "^2.6.1",
