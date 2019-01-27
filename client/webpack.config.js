@@ -2,19 +2,19 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //const dotenv = require('dotenv').config({ path: '../.env' })
-const dotenv = require('dotenv').config();
+//const dotenv = require('dotenv').config();
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
-module.exports = () => {
+module.exports = {
   // call dotenv and it will return an Object with a parsed key
-  const env = dotenv.parsed;
+  //const env = dotenv.parsed;
   // reduce it to a nice object
-  const envKeys = Object.keys(env).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(env[next]);
-    return prev;
-  }, {});
+  //const envKeys = Object.keys(env).reduce((prev, next) => {
+  //  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  //  return prev;
+  //}, {});
 //  entry: './src/index.js',
-return {
   module: {
     rules: [
       {
@@ -72,7 +72,8 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new webpack.DefinePlugin(envKeys)
+   new Dotenv()
+//   new webpack.DefinePlugin(env)
   ],
   resolve: {
     extensions: ['.js','.jsx'],
@@ -82,6 +83,5 @@ return {
       '/': 'http://localhost:3000'
     }
   },
-  node: { fs: 'empty'}
-};
+  //node: { fs: 'empty' }
 };

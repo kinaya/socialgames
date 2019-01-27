@@ -2,15 +2,12 @@ import React from 'react'
 import FakeArtistGameWaiting from './FakeArtistGameWaiting'
 import FakeArtistGamePlay from './FakeArtistGamePlay'
 import FakeArtistPlayers from './FakeArtistPlayers'
-import dotenv from 'dotenv'
-dotenv.config()
 
 class FakeArtistGame extends React.Component {
 
   constructor(props) {
     super(props);
     const code = this.props.game.game.code;
-    console.log(process.env);
     const url = process.env.WS_URI;
     this.socket = new WebSocket(url);
   }
