@@ -81,6 +81,7 @@ return {
     proxy: {
       '/': 'http://localhost:3000'
     }
-  }
+  },
+  node: { fs: 'empty'}
 };
 };
