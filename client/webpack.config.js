@@ -71,7 +71,7 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new webpack.DefinePlugin(envKeys)
+   //new webpack.DefinePlugin(envKeys)
   ],
   resolve: {
     extensions: ['.js','.jsx'],
