@@ -3,6 +3,7 @@ import App from './js/components/App'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './configureStore'
+//require('dotenv').config()
 
 import './sass/style.scss'
 import otherWords from './otherWords.json'

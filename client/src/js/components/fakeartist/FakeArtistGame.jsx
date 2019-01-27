@@ -8,6 +8,7 @@ class FakeArtistGame extends React.Component {
   constructor(props) {
     super(props);
     const code = this.props.game.game.code;
+    console.log(process.env);
     const url = process.env.WS_URI;
     this.socket = new WebSocket(url);
   }
@@ -54,12 +55,16 @@ class FakeArtistGame extends React.Component {
 
     const { game, fa_leaveGame, userId, userName } = this.props;
 
+console.log('här:');
+console.log(process.env);
+
     return (
       <div className="game fakeartist">
         <div className="container">
           <div className="currentUser">{userName}</div>
 
           url: {process.env.WS_URI}
+
 
           {game.game.state === 'waiting' && <FakeArtistGameWaiting code={game.game.code} />}
 
