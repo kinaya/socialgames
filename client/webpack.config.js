@@ -1,9 +1,19 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const dotenv = require('dotenv');
+const webpack = require('webpack');
 
-module.exports = {
+module.exports = () => {
+  // call dotenv and it will return an Object with a parsed key
+  const env = dotenv.config().parsed;
+  // reduce it to a nice object
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
 //  entry: './src/index.js',
+return {
   module: {
     rules: [
       {
@@ -60,7 +70,8 @@ module.exports = {
    new MiniCssExtractPlugin({
      filename: "style.css",
      chunkFilenanem: "[id].css"
-   })
+   }),
+   new webpack.DefinePlugin(envKeys)
   ],
   resolve: {
     extensions: ['.js','.jsx'],
@@ -70,4 +81,5 @@ module.exports = {
       '/': 'http://localhost:3000'
     }
   }
+};
 };

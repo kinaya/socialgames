@@ -9,7 +9,8 @@ class FakeArtistGame extends React.Component {
     super(props);
     const code = this.props.game.game.code;
     //const url = 'ws://localhost:3000/fake-artist/' + code + '/play';
-    const url = 'ws://localhost:3000/fake-artist/play';
+    //const url = 'ws://localhost:3000/fake-artist/play';
+    const url = process.env.WS_URI;
     this.socket = new WebSocket(url);
   }
 
