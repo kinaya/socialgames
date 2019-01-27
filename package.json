@@ -27,7 +27,7 @@
     "randomatic": "^3.1.1",
     "request": "^2.88.0",
     "ws": "^6.1.2",
-    "webpack": "^4.28.2",
+    "webpack": "^4.28.2"
   },
   "devDependencies": {
     "jest": "^23.6.0",
