@@ -25,9 +25,7 @@ class FakeArtistGame extends React.Component {
     // This happens when anyone else enters the game area, or when the game start/stops
     const self = this;
     this.socket.addEventListener('message', function(event) {
-      console.log('FakeArtistGame: An incoming message from the socket:')
       const data = JSON.parse(event.data);
-      console.log(data);
       if(data.users) {self.props.fa_updateUsers(data.users);}
       if(data.game) {self.props.fa_updateGame(data.game);}
       if(data.word) {self.props.fa_updateWord(data.word);}

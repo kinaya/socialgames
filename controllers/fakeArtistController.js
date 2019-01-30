@@ -63,12 +63,16 @@ var saveUser = (userName, gameCode) => {
 /**
  * Remove a user from the db
  * Params: userId
- * Returns: true
+ * Returns: the user
  */
-function removeUser(userId) {
-  FakeArtistUser.findByIdAndRemove(userId, function(err, user) {
-    if(err) { reject(new Error(err)); return;}
-    return true;
+var removeUser = (userId) => {
+  return new Promise((resolve, reject) => {
+
+    FakeArtistUser.findByIdAndRemove(userId, function(err, user) {
+      if(err) { reject(new Error(err)); return;}
+      resolve(user);
+    })
+
   })
 }
 
@@ -246,6 +250,8 @@ exports.joinGame = async function(req, res, next) {
 exports.play = function(ws, req) {
 
   ws.on('close', async function() {
+
+    console.log('Someone closed their connection')
 
     try {
       // Get the closing client
