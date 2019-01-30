@@ -372,5 +372,34 @@ exports.play = function(ws, req) {
 
     }
 
+    if(msgObject.type == 'leaveGame') {
+
+      // Remove connection
+      socketCollection = socketCollection.filter(connection => connection.socket != ws)
+
+      // Get the game
+      var game = await getGame(msgObject.gameCode);
+
+      // Remove the user
+      await removeUser(msgObject.userId);
+
+      // Get all users
+      var users = await getAllUsers(game._id);
+
+      // Prepare the data
+      const data = JSON.stringify({users: users})
+
+      // Filter out the sockets to send to
+      let socketsToSendTo = socketCollection.filter((client) => {
+        return client.gameCode === msgObject.gameCode;
+      })
+
+      // Send message
+      socketsToSendTo.forEach(function (client) {
+        client.socket.send(data);
+      })
+
+    }
+
   });
 }

@@ -28,7 +28,8 @@ export const fa_createGame = userName => dispatch => {
     // Set session and push to game url
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
-    history.push('/fake-artist/' + response.game.code);
+    //history.push('/fake-artist/' + response.game.code);
+    history.push('/fake-artist/play');
   })
   .catch(error => console.log(error));
 }
@@ -62,7 +63,8 @@ export const fa_joinGame = (userName, gameCode) => dispatch => {
     // Set session and push to game url
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
-    history.push('/fake-artist/' + response.game.code);
+    history.push('/fake-artist/play');
+    //history.push('/fake-artist/' + response.game.code);
   })
   .catch(error => {
     console.error(error)

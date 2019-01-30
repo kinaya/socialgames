@@ -17,6 +17,9 @@ class App extends React.Component {
 
   render() {
 
+//    <Route path='/fake-artist/:gameId' component={FakeArtistGameContainer} />
+
+
     return (
       <Router history={history}>
       <div>
@@ -29,7 +32,7 @@ class App extends React.Component {
           <Route path='/other-words' component={OtherWordsContainer} />
           <Route path='/pictionary' component={Pictionary} />
           <Route exact path='/fake-artist' component={FakeArtistContainer} />
-          <Route path='/fake-artist/:gameId' component={FakeArtistGameContainer} />
+          <Route path='/fake-artist/play' component={FakeArtistGameContainer} />
         </main>
 
         </div>
