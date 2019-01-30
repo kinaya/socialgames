@@ -72,7 +72,8 @@ module.exports = {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new Dotenv({path: '../.env'})
+   new Dotenv({})
+   //new Dotenv({path: '../.env'})
 //   new webpack.DefinePlugin(env)
   ],
   resolve: {
