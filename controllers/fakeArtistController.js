@@ -253,33 +253,43 @@ exports.play = function(ws, req) {
 
     console.log('Someone closed their connection')
 
-    try {
       // Get the closing client
       var closingClient = await socketCollection.find(function(client) {
         return client = ws;
       })
+
       // Remove connection
       socketCollection = await socketCollection.filter(connection => connection.socket != ws)
-      // Remove the user
-      // Todo: does this return the user?
-      const user = await removeUser(closingClient.userId);
+
       // Get the game
       const game = await getGame(closingClient.gameCode);
+
+      // Remove the user
+      const user = removeUser(closingClient.userId);
+
       // Get the remaining users
-      const users = await getAllUsers(game._id)
-      // Prepare data to send
-      const data = JSON.stringify({users: users})
-      // Filter out the sockets to send to
-      let socketsToSendTo = socketCollection.filter((client) => {
-        return client.gameCode == closingClient.gameCode;
+      // Wait until user if resolved
+      const users = user.then(user => {
+        return getAllUsers(game._id)
       })
-      // Send message
-      socketsToSendTo.forEach(function (client) {
-        client.socket.send(data);
+
+      // Wait until users is resolved
+      users.then(users => {
+
+        // Prepare data to send
+        const data = JSON.stringify({users: users})
+
+        // Filter out the sockets to send to
+        let socketsToSendTo = socketCollection.filter((client) => {
+          return client.gameCode == closingClient.gameCode;
+        })
+
+        // Send message
+        socketsToSendTo.forEach(function (client) {
+          client.socket.send(data);
+        })
+
       })
-    } catch (err) {
-      return next(err);
-    }
 
   })
 
@@ -287,6 +297,9 @@ exports.play = function(ws, req) {
     var msgObject = JSON.parse(msg);
 
     if(msgObject.type == 'opening') {
+
+      console.log('Someone opened a connection with data: ')
+      console.log(msgObject)
 
       // Add the new connection to the array
       socketCollection.push({

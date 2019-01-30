@@ -19,6 +19,8 @@ class FakeArtistGame extends React.Component {
     // This happens when the socket is opening, ie when you enter the game area
     this.socket.addEventListener('open', function(event) {
       console.log('FakeArtistGame: The socket i opening')
+      console.log(gameCode)
+      console.log(userId)
       this.send(JSON.stringify({type: 'opening', gameCode: gameCode, userId: userId}));
     })
 
@@ -42,8 +44,9 @@ class FakeArtistGame extends React.Component {
   }
 
   componentWillUnmount() {
-    this.socket.close();
+    console.log('The Game component will unmount! Im leaving the game')
     this.props.fa_resetGame();
+    this.socket.close();
   }
 
   render() {
@@ -62,7 +65,6 @@ class FakeArtistGame extends React.Component {
           <FakeArtistPlayers game={game} />
 
           {game.game.state === 'waiting' && <div className="startGame button" onClick={() => this._startGame()}>Starta spelet</div>}
-
 
 
           {game.game.state === 'waiting' &&

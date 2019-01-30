@@ -24,12 +24,13 @@ export const fa_createGame = userName => dispatch => {
       type: FA_UPDATE_USER,
       user: response.user
     })
+    sessionStorage.setItem('userId', response.user._id);
+    sessionStorage.setItem('userName', response.user.name);
+  }).then(response => {
     dispatch({
       type: FA_SET_GAME_STATE,
       gamestate: 'play'
     })
-    sessionStorage.setItem('userId', response.user._id);
-    sessionStorage.setItem('userName', response.user.name);
   })
   .catch(error => console.log(error));
 }
@@ -60,13 +61,14 @@ export const fa_joinGame = (userName, gameCode) => dispatch => {
       type: FA_UPDATE_USER,
       user: response.user
     })
+    // Set session and push to game url
+    sessionStorage.setItem('userId', response.user._id);
+    sessionStorage.setItem('userName', response.user.name);
+  }).then(response => {
     dispatch({
       type: FA_SET_GAME_STATE,
       gamestate: 'play'
     })
-    // Set session and push to game url
-    sessionStorage.setItem('userId', response.user._id);
-    sessionStorage.setItem('userName', response.user.name);
   })
   .catch(error => {
     console.error(error)
