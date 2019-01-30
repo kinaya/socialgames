@@ -48,7 +48,7 @@ class FakeArtistGame extends React.Component {
 
   render() {
 
-    const { game, fa_leaveGame, userId, userName } = this.props;
+    const { game, fa_setGameState, fa_resetGame, userId, userName } = this.props;
 
     return (
       <div className="game fakeartist">
@@ -66,7 +66,7 @@ class FakeArtistGame extends React.Component {
 
 
           {game.game.state === 'waiting' &&
-            <div><div className="leaveGame extrabutton" onClick={() => fa_leaveGame()}>Lämna spelet</div></div>
+            <div><div className="leaveGame extrabutton" onClick={() => fa_setGameState('intro')}>Lämna spelet</div></div>
           }
 
           {game.game.state === 'play' && <div className="exitGame button" onClick={() => this._stopGame()}>Avsluta omgången</div>}

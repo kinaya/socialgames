@@ -1,6 +1,5 @@
 /* ---------------- Fake Artist -------------------- */
 import { FA_RESET_GAME, FA_UPDATE_GAME, FA_UPDATE_WORD, FA_UPDATE_USER, FA_UPDATE_USERS, FA_SET_GAME_STATE } from '../constants'
-import history from '../components/history'
 const defaultHeader = {'Accept':'application/json', 'Content-Type': 'application/json'}
 
 // Set the local gamestate
@@ -25,11 +24,12 @@ export const fa_createGame = userName => dispatch => {
       type: FA_UPDATE_USER,
       user: response.user
     })
-    // Set session and push to game url
+    dispatch({
+      type: FA_SET_GAME_STATE,
+      gamestate: 'play'
+    })
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
-    //history.push('/fake-artist/' + response.game.code);
-    history.push('/fake-artist/play');
   })
   .catch(error => console.log(error));
 }
@@ -60,23 +60,17 @@ export const fa_joinGame = (userName, gameCode) => dispatch => {
       type: FA_UPDATE_USER,
       user: response.user
     })
+    dispatch({
+      type: FA_SET_GAME_STATE,
+      gamestate: 'play'
+    })
     // Set session and push to game url
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
-    history.push('/fake-artist/play');
-    //history.push('/fake-artist/' + response.game.code);
   })
   .catch(error => {
     console.error(error)
   });
-}
-
-// Leave game
-export const fa_leaveGame = () => dispatch => {
-  // Run resetGame
-  fa_resetGame()
-  // Change url
-  history.push('/fake-artist');
 }
 
 // Update users

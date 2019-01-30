@@ -2,6 +2,7 @@ import React from 'react'
 import FakeArtistIntro from './FakeArtistIntro'
 import JoinGame from './JoinGame'
 import CreateGame from './CreateGame'
+import FakeArtistGameContainer from './FakeArtistGameContainer'
 
 class FakeArtist extends React.Component {
 
@@ -19,6 +20,9 @@ class FakeArtist extends React.Component {
           {gamestate === 'intro' && <FakeArtistIntro fa_setGameState={fa_setGameState} />}
           {gamestate === 'create' && <CreateGame fa_createGame={fa_createGame} />}
           {gamestate === 'join' && <JoinGame fa_joinGame={fa_joinGame} />}
+
+          {gamestate === 'play' && <FakeArtistGameContainer />}
+
         </div>
       </div>
     )

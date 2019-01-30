@@ -9,16 +9,12 @@ import FakeArtistContainer from './fakeartist/FakeArtistContainer'
 import Pictionary from './pictionary/Pictionary'
 import FakeArtistGameContainer from './fakeartist/FakeArtistGameContainer'
 
-//const history = createHistory();
 import history from './history';
 
 class App extends React.Component {
 
 
   render() {
-
-//    <Route path='/fake-artist/:gameId' component={FakeArtistGameContainer} />
-
 
     return (
       <Router history={history}>
