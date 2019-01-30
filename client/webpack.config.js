@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
-module.exports = {
+module.exports = (env) => {
   // call dotenv and it will return an Object with a parsed key
   //const env = dotenv.parsed;
   // reduce it to a nice object
@@ -15,6 +15,7 @@ module.exports = {
   //  return prev;
   //}, {});
 //  entry: './src/index.js',
+return {
   module: {
     rules: [
       {
@@ -72,9 +73,12 @@ module.exports = {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new Dotenv({})
+   //new webpack.DefinePlugin({ 'API_URL': JSON.stringify('ws://localhost:3000/fake-artist/play') })
+   new webpack.DefinePlugin({
+     'API_URL': JSON.stringify(env.API_URL)
+   })
+   //new Dotenv({})
    //new Dotenv({path: '../.env'})
-//   new webpack.DefinePlugin(env)
   ],
   resolve: {
     extensions: ['.js','.jsx'],
@@ -84,5 +88,6 @@ module.exports = {
       '/': 'http://localhost:3000'
     }
   },
+}
   //node: { fs: 'empty' }
 };

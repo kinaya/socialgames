@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
-    "build": "webpack --config webpack.config.js --mode production"
+    "start": "webpack-dev-server --mode development --env.API_URL=ws://localhost:3000/fake-artist/play",
+    "build": "webpack --config webpack.config.js --mode production --env.API_URL=ws://socialgamesapp.herokuapp.com/fake-artist/play"
   },
   "author": "",
   "license": "ISC",
