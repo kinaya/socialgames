@@ -1,20 +1,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-//const dotenv = require('dotenv').config({ path: '../.env' })
-//const dotenv = require('dotenv').config();
 const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => {
-  // call dotenv and it will return an Object with a parsed key
-  //const env = dotenv.parsed;
-  // reduce it to a nice object
-  //const envKeys = Object.keys(env).reduce((prev, next) => {
-  //  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  //  return prev;
-  //}, {});
-//  entry: './src/index.js',
 return {
   module: {
     rules: [
@@ -73,12 +62,9 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   //new webpack.DefinePlugin({ 'API_URL': JSON.stringify('ws://localhost:3000/fake-artist/play') })
    new webpack.DefinePlugin({
      'API_URL': JSON.stringify(env.API_URL)
    })
-   //new Dotenv({})
-   //new Dotenv({path: '../.env'})
   ],
   resolve: {
     extensions: ['.js','.jsx'],
@@ -89,5 +75,4 @@ return {
     }
   },
 }
-  //node: { fs: 'empty' }
 };
