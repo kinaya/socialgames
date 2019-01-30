@@ -15,13 +15,15 @@ class FakeArtistGame extends React.Component {
 
     const userId = this.props.userId;
     const gameCode = this.props.game.game.code;
+    const userName = this.props.userName;
 
     // This happens when the socket is opening, ie when you enter the game area
     this.socket.addEventListener('open', function(event) {
       console.log('FakeArtistGame: The socket i opening')
       console.log(gameCode)
       console.log(userId)
-      this.send(JSON.stringify({type: 'opening', gameCode: gameCode, userId: userId}));
+      console.log(userName)
+      this.send(JSON.stringify({type: 'opening', gameCode: gameCode, userId: userId, userName: userName}));
     })
 
     // This happens when anyone else enters the game area, or when the game start/stops

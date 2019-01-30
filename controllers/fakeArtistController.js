@@ -251,15 +251,13 @@ exports.play = function(ws, req) {
 
   ws.on('close', async function() {
 
-    console.log('Someone closed their connection')
-
       // Get the closing client
       var closingClient = await socketCollection.find(function(client) {
-        return client = ws;
+        return client.key == req.headers['sec-websocket-key'];
       })
 
-      // Remove connection
-      socketCollection = await socketCollection.filter(connection => connection.socket != ws)
+      // Remove the closing client from socketCollection
+      socketCollection = await socketCollection.filter(client => client.key != req.headers['sec-websocket-key'])
 
       // Get the game
       const game = await getGame(closingClient.gameCode);
@@ -267,8 +265,7 @@ exports.play = function(ws, req) {
       // Remove the user
       const user = removeUser(closingClient.userId);
 
-      // Get the remaining users
-      // Wait until user if resolved
+      // Get the remaining users after user is removes
       const users = user.then(user => {
         return getAllUsers(game._id)
       })
@@ -298,13 +295,12 @@ exports.play = function(ws, req) {
 
     if(msgObject.type == 'opening') {
 
-      console.log('Someone opened a connection with data: ')
-      console.log(msgObject)
-
       // Add the new connection to the array
       socketCollection.push({
         userId: msgObject.userId,
         gameCode: msgObject.gameCode,
+        userName: msgObject.userName,
+        key: req.headers['sec-websocket-key'],
         socket: ws,
       });
 
