@@ -43,16 +43,8 @@ class FakeArtistGame extends React.Component {
     this.socket.send(JSON.stringify({type: 'stopGame', gameCode: this.props.game.game.code}))
   }
 
-  _leaveGame() {
-    console.log('Leave game is run!')
-    this.socket.send(JSON.stringify({type: 'leaveGame', gameCode: this.props.game.game.code, userId: this.props.userId}))
-    this.props.fa_leaveGame();
-  }
-
   componentWillUnmount() {
-    // Close the webSocket
-    //this.socket.close();
-    // Reset game
+    this.socket.close();
     this.props.fa_resetGame();
   }
 
@@ -76,7 +68,7 @@ class FakeArtistGame extends React.Component {
 
 
           {game.game.state === 'waiting' &&
-            <div><div className="leaveGame extrabutton" onClick={() => this._leaveGame()}>Lämna spelet</div></div>
+            <div><div className="leaveGame extrabutton" onClick={() => fa_leaveGame()}>Lämna spelet</div></div>
           }
 
           {game.game.state === 'play' && <div className="exitGame button" onClick={() => this._stopGame()}>Avsluta omgången</div>}

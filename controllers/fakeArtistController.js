@@ -247,37 +247,33 @@ exports.play = function(ws, req) {
 
   ws.on('close', async function() {
 
-    // Get the closing client
-    var closingClient = socketCollection.find(function(client) {
-      return client = ws;
-    })
-
-    // Remove the user from the db
-    await removeUser(closingClient.userId);
-
-    // Remove the connection from the socketCollection
-    socketCollection = socketCollection.filter(function(client) {
-      return client.userId != closingClient.userId;
-    })
-
-    // Get the game
-    var game = await getGame(closingClient.gameCode);
-
-    // Get all users for the game
-    var users = await getAllUsers(game._id)
-
-    // Prepare data to send
-    const data = JSON.stringify({game: game, users: users})
-
-    // Filter out the sockets to send to
-    let socketsToSendTo = socketCollection.filter((client) => {
-      return client.gameCode == closingClient.gameCode;
-    })
-
-    // Send message
-    socketsToSendTo.forEach(function (client) {
-      client.socket.send(data);
-    })
+    try {
+      // Get the closing client
+      var closingClient = await socketCollection.find(function(client) {
+        return client = ws;
+      })
+      // Remove connection
+      socketCollection = await socketCollection.filter(connection => connection.socket != ws)
+      // Remove the user
+      // Todo: does this return the user?
+      const user = await removeUser(closingClient.userId);
+      // Get the game
+      const game = await getGame(closingClient.gameCode);
+      // Get the remaining users
+      const users = await getAllUsers(game._id)
+      // Prepare data to send
+      const data = JSON.stringify({users: users})
+      // Filter out the sockets to send to
+      let socketsToSendTo = socketCollection.filter((client) => {
+        return client.gameCode == closingClient.gameCode;
+      })
+      // Send message
+      socketsToSendTo.forEach(function (client) {
+        client.socket.send(data);
+      })
+    } catch (err) {
+      return next(err);
+    }
 
   })
 
@@ -359,35 +355,6 @@ exports.play = function(ws, req) {
 
       // Prepare the data
       const data = JSON.stringify({game: game})
-
-      // Filter out the sockets to send to
-      let socketsToSendTo = socketCollection.filter((client) => {
-        return client.gameCode === msgObject.gameCode;
-      })
-
-      // Send message
-      socketsToSendTo.forEach(function (client) {
-        client.socket.send(data);
-      })
-
-    }
-
-    if(msgObject.type == 'leaveGame') {
-
-      // Remove connection
-      socketCollection = socketCollection.filter(connection => connection.socket != ws)
-
-      // Get the game
-      var game = await getGame(msgObject.gameCode);
-
-      // Remove the user
-      await removeUser(msgObject.userId);
-
-      // Get all users
-      var users = await getAllUsers(game._id);
-
-      // Prepare the data
-      const data = JSON.stringify({users: users})
 
       // Filter out the sockets to send to
       let socketsToSendTo = socketCollection.filter((client) => {
