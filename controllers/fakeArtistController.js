@@ -252,6 +252,7 @@ exports.play = function(ws, req) {
   ws.on('close', async function() {
 
       // Get the closing client
+      // Todo: Maybe it works with just checking ws?
       var closingClient = await socketCollection.find(function(client) {
         return client.key == req.headers['sec-websocket-key'];
       })

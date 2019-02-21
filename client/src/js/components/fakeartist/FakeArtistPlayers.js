@@ -1,8 +1,8 @@
 import React from 'react'
 
 const FakeArtistPlayers = ({game}) => {
-
   return (
+
     <table className="players">
       <thead><tr><th>Spelare</th></tr></thead>
       <tbody>
@@ -13,8 +13,8 @@ const FakeArtistPlayers = ({game}) => {
         }
       </tbody>
     </table>
-  )
 
+  )
 }
 
 export default FakeArtistPlayers;

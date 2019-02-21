@@ -1,14 +1,8 @@
-import { FA_RESET_GAME, FA_UPDATE_USERS, FA_UPDATE_WORD, FA_UPDATE_GAME, FA_UPDATE_USER, FA_SET_GAME_STATE } from '../constants'
+import { FA_RESET_GAME, FA_UPDATE_USERS, FA_UPDATE_WORD, FA_UPDATE_GAME, FA_UPDATE_USER } from '../constants'
 
 const fakeartist = (state = [], action) => {
 
   switch (action.type) {
-
-    case FA_SET_GAME_STATE:
-      return {
-        ...state,
-        gamestate: action.gamestate
-      }
 
     case FA_UPDATE_USERS:
       return {

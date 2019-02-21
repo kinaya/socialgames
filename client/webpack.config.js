@@ -5,6 +5,9 @@ const webpack = require('webpack');
 
 module.exports = (env) => {
 return {
+  output: {
+    publicPath: '/'
+  },
   module: {
     rules: [
       {

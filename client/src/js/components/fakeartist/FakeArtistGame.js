@@ -2,12 +2,14 @@ import React from 'react'
 import FakeArtistGameWaiting from './FakeArtistGameWaiting'
 import FakeArtistGamePlay from './FakeArtistGamePlay'
 import FakeArtistPlayers from './FakeArtistPlayers'
+import { connect } from 'react-redux'
+import { fa_updateUsers, fa_setGameState, fa_updateGame, fa_updateWord, fa_resetGame } from '../../actions'
+import { Link } from 'react-router-dom'
 
 class FakeArtistGame extends React.Component {
 
   constructor(props) {
     super(props);
-    const code = this.props.game.game.code;
     this.socket = new WebSocket(API_URL);
   }
 
@@ -19,10 +21,6 @@ class FakeArtistGame extends React.Component {
 
     // This happens when the socket is opening, ie when you enter the game area
     this.socket.addEventListener('open', function(event) {
-      console.log('FakeArtistGame: The socket i opening')
-      console.log(gameCode)
-      console.log(userId)
-      console.log(userName)
       this.send(JSON.stringify({type: 'opening', gameCode: gameCode, userId: userId, userName: userName}));
     })
 
@@ -46,20 +44,18 @@ class FakeArtistGame extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('The Game component will unmount! Im leaving the game')
     this.props.fa_resetGame();
     this.socket.close();
   }
 
   render() {
 
-    const { game, fa_setGameState, fa_resetGame, userId, userName } = this.props;
+    const { game, fa_resetGame, userId, userName } = this.props;
 
     return (
       <div className="game fakeartist">
         <div className="container">
           <div className="currentUser">{userName}</div>
-
           {game.game.state === 'waiting' && <FakeArtistGameWaiting code={game.game.code} />}
 
           {game.game.state === 'play' && <FakeArtistGamePlay userId={userId} game={game} />}
@@ -68,9 +64,8 @@ class FakeArtistGame extends React.Component {
 
           {game.game.state === 'waiting' && <div className="startGame button" onClick={() => this._startGame()}>Starta spelet</div>}
 
-
           {game.game.state === 'waiting' &&
-            <div><div className="leaveGame extrabutton" onClick={() => fa_setGameState('intro')}>Lämna spelet</div></div>
+            <div><Link className="leaveGame extrabutton" to='/fake-artist'>Leave game</Link></div>
           }
 
           {game.game.state === 'play' && <div className="exitGame button" onClick={() => this._stopGame()}>Avsluta omgången</div>}
@@ -82,4 +77,24 @@ class FakeArtistGame extends React.Component {
   }
 }
 
-export default FakeArtistGame;
+const mapStateToProps = state => {
+  return {
+    game: state.fakeartist.game,
+    userId: sessionStorage.getItem('userId'),
+    userName: sessionStorage.getItem('userName')
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fa_resetGame: () => dispatch(fa_resetGame()),
+    fa_updateUsers: (users) => dispatch(fa_updateUsers(users)),
+    fa_updateGame: (game) => dispatch(fa_updateGame(game)),
+    fa_updateWord: (word) => dispatch(fa_updateWord(word))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FakeArtistGame)

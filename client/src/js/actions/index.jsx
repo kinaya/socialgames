@@ -1,11 +1,13 @@
 /* ---------------- Fake Artist -------------------- */
 import { FA_RESET_GAME, FA_UPDATE_GAME, FA_UPDATE_WORD, FA_UPDATE_USER, FA_UPDATE_USERS, FA_SET_GAME_STATE } from '../constants'
 const defaultHeader = {'Accept':'application/json', 'Content-Type': 'application/json'}
+import history from '../history'
 
 // Set the local gamestate
-export const fa_setGameState = gamestate => dispatch => {
-  dispatch({type: FA_SET_GAME_STATE, gamestate})
-}
+// Todo: change to normal action creator. Does not need to be async!
+//export const fa_setGameState = gamestate => dispatch => {
+//  dispatch({type: FA_SET_GAME_STATE, gamestate})
+//}
 
 // Create a new game
 export const fa_createGame = userName => dispatch => {
@@ -26,11 +28,8 @@ export const fa_createGame = userName => dispatch => {
     })
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
-  }).then(response => {
-    dispatch({
-      type: FA_SET_GAME_STATE,
-      gamestate: 'play'
-    })
+    sessionStorage.setItem('gameCode', response.game.code);
+    history.push('/fake-artist/' + response.game.code);
   })
   .catch(error => console.log(error));
 }
@@ -64,11 +63,8 @@ export const fa_joinGame = (userName, gameCode) => dispatch => {
     // Set session and push to game url
     sessionStorage.setItem('userId', response.user._id);
     sessionStorage.setItem('userName', response.user.name);
-  }).then(response => {
-    dispatch({
-      type: FA_SET_GAME_STATE,
-      gamestate: 'play'
-    })
+    sessionStorage.setItem('gameCode', response.game.code);
+    history.push('/fake-artist/' + response.game.code);
   })
   .catch(error => {
     console.error(error)
@@ -109,6 +105,7 @@ export const fa_resetGame = () => dispatch => {
   // Remove localStorage
   sessionStorage.removeItem('userName')
   sessionStorage.removeItem('userId')
+  sessionStorage.removeItem('gameCode')
 
   // Reset game date
   dispatch({

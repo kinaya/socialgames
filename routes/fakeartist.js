@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fakeArtistController = require('../controllers/fakeArtistController');
+var path = require('path');
 
 module.exports = function(wss) {
 
