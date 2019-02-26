@@ -3,7 +3,7 @@ import FakeArtistGame from './FakeArtistGame'
 import JoinGameForm from './JoinGameForm'
 import { connect } from 'react-redux'
 
-const FakeArtistGameArea = ({match, game}) => {
+const FakeArtistGameArea = ({match}) => {
 
   const userName = sessionStorage.getItem('userName')
 
@@ -28,13 +28,15 @@ const FakeArtistGameArea = ({match, game}) => {
 
 }
 
-const mapStateToProps = state => {
+export default FakeArtistGameArea;
+
+/*const mapStateToProps = state => {
   return {
     game: state.fakeartist.game
   }
-}
+}*/
 
-export default connect(
+/*export default connect(
   mapStateToProps,
   null
-)(FakeArtistGameArea)
+)(FakeArtistGameArea)*/

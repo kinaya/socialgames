@@ -6,29 +6,30 @@ class OtherWordsPlay extends React.Component {
     const {settings, score, time, currentword, changeWord, skipWord, finishRound} = this.props;
 
     return (
-      <div>
+      <div className="ui text container center aligned">
 
-        <div className="info">
-          <div className="score">Poäng: {score}</div>
+        <div className="ui two column grid">
+          <div className="column">Poäng: {score}</div>
           {settings.timer != 0 &&
-            <div className="time">Timer: {time}</div>
+            <div className="column">Timer: {time}</div>
           }
         </div>
 
         <h1 className="word">{currentword.word}</h1>
 
         {settings.forbidden &&
-          <div className="excluded">
+          <div>
             {currentword.forbidden.map((word, i) => { return (
               <div key={i}>{word}</div>
             )})}
           </div>
         }
 
-        <div className="nextword button" onClick={() => changeWord()} >Nästa ord</div>
+        <button className="ui primary button large" onClick={() => changeWord()} >Nästa ord</button>
+
         <div>
-          <div className="skipword extrabutton" onClick={() => skipWord()} >Hoppa över ord</div>
-          <div className="finishRound extrabutton" onClick={() => finishRound()}>Avsluta omgången</div>
+          <button className="ui button" onClick={() => skipWord()} >Hoppa över ord</button>
+          <button className="ui button" onClick={() => finishRound()}>Avsluta omgången</button>
         </div>
 
       </div>

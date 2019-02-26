@@ -7,10 +7,14 @@ class CreateGameForm extends React.Component {
 
   renderInput = ({input, label, meta}) => {
     return (
-      <div className="field">
+      <div className={`field ${meta.error && meta.touched && 'error'}`}>
         <label>{label}</label>
         <input {...input} />
-        {meta.touched && meta.error && meta.error}
+        {meta.touched && meta.error && (
+          <div className="ui error message">
+            <div className="header">{meta.error}</div>
+          </div>
+        )}
       </div>
     )
   }
@@ -21,13 +25,13 @@ class CreateGameForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <Field
           name="name"
           component={this.renderInput}
           label="Ditt namn"
         />
-        <button type="submit">Skapa spel</button>
+        <button className="ui large primary button" type="submit">Skapa spel</button>
       </form>
     )
   }
@@ -37,10 +41,10 @@ class CreateGameForm extends React.Component {
 const validate = (formValues) => {
   const errors = {}
   if(!formValues.name) {
-    errors.name = "You must enter a name"
+    errors.name = "Du måste ange ett namn"
   }
   if(!/^[A-Za-z]+$/i.test(formValues.name)) {
-    errors.name = "The name can only contain letters"
+    errors.name = "Du kan bara ha bokstäver i namnet"
   }
   return errors;
 }

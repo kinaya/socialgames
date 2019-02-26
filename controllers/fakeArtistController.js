@@ -232,9 +232,6 @@ exports.play = async function(ws, req) {
 
   ws.on('close', async function() {
 
-      console.log('The websocket is closing')
-      console.log(req.headers['sec-websocket-key'])
-
       // Get the closing client
       var closingClient = await socketCollection.find(function(client) {
         return client.key == req.headers['sec-websocket-key'];

@@ -40,11 +40,11 @@ class FakeArtistGame extends React.Component {
   }
 
   _startGame() {
-    this.socket.send(JSON.stringify({type: 'startGame', gameCode: this.props.game.game.code}))
+    this.socket.send(JSON.stringify({type: 'startGame', gameCode: this.props.game.code}))
   }
 
   _stopGame() {
-    this.socket.send(JSON.stringify({type: 'stopGame', gameCode: this.props.game.game.code}))
+    this.socket.send(JSON.stringify({type: 'stopGame', gameCode: this.props.game.code}))
   }
 
   // This happens when the user navigates inside React, but not on manual navigation/refresh
@@ -56,28 +56,27 @@ class FakeArtistGame extends React.Component {
 
   render() {
 
-    const { game, fa_resetGame, userId, userName } = this.props;
+    const { game, users, word } = this.props;
+
+    const userId = sessionStorage.getItem('userId')
+    const userName = sessionStorage.getItem('userName')
 
     return (
-      <div className="game fakeartist">
-        <div className="container">
-          <div className="currentUser">{userName}</div>
+      <div className="ui text container center aligned">
+        <div>{userName}</div>
 
-          {game.game.state === 'waiting' && <FakeArtistGameWaiting code={game.game.code} />}
+        {game.state === 'waiting' && <FakeArtistGameWaiting code={game.code} />}
 
-          {game.game.state === 'play' && <FakeArtistGamePlay userId={userId} game={game} />}
+        {game.state === 'play' && <FakeArtistGamePlay userId={userId} users={users} word={word} />}
 
-          <FakeArtistPlayers game={game} />
+        <FakeArtistPlayers users={users} />
 
-          {game.game.state === 'waiting' && <div className="startGame button" onClick={() => this._startGame()}>Starta spelet</div>}
+        {game.state === 'waiting' && <button className="ui primary large button" onClick={() => this._startGame()}>Starta spelet</button>}
 
-          {game.game.state === 'waiting' &&
-            <div><Link className="leaveGame extrabutton" to='/fake-artist'>Leave game</Link></div>
-          }
+        {game.state === 'waiting' && <div><Link className="ui basic button" to='/fake-artist'>Lämna spelet</Link></div>}
 
-          {game.game.state === 'play' && <div className="exitGame button" onClick={() => this._stopGame()}>Avsluta omgången</div>}
+        {game.state === 'play' && <button className="ui basic button" onClick={() => this._stopGame()}>Avsluta omgången</button>}
 
-        </div>
       </div>
     )
 
@@ -87,8 +86,8 @@ class FakeArtistGame extends React.Component {
 const mapStateToProps = state => {
   return {
     game: state.fakeartist.game,
-    userId: sessionStorage.getItem('userId'),
-    userName: sessionStorage.getItem('userName')
+    users: state.fakeartist.users,
+    word: state.fakeartist.word
   }
 }
 

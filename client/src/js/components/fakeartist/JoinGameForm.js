@@ -7,10 +7,14 @@ class JoinGameForm extends React.Component {
 
   renderInput = ({input, label, meta}) => {
     return (
-      <div className="field">
+      <div className={`field ${meta.error && meta.touched && 'error'}`}>
         <label>{label}</label>
         <input {...input} />
-        {meta.touched && meta.error && meta.error}
+        {meta.touched && meta.error && (
+          <div className="ui error message">
+            <div className="header">{meta.error}</div>
+          </div>
+        )}
       </div>
     )
   }
@@ -21,7 +25,7 @@ class JoinGameForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <Field
           name="name"
           component={this.renderInput}
@@ -32,7 +36,7 @@ class JoinGameForm extends React.Component {
           component={this.renderInput}
           label="Spelkod"
         />
-        <button type="submit">Gå med i spel</button>
+        <button className="ui large primary button" type="submit">Gå med i spel</button>
       </form>
     )
   }
@@ -44,16 +48,16 @@ class JoinGameForm extends React.Component {
 const validate = (formValues) => {
   const errors = {}
   if(!formValues.name) {
-    errors.name = "You must enter a name"
+    errors.name = "Du måste ange ett namn"
   }
   if(!/^[A-Za-z]+$/i.test(formValues.name)) {
-    errors.name = "The name can only contain letters"
+    errors.name = "Du kan bara ha bokstäver i namnet"
   }
   if(!formValues.code) {
-    errors.code = "You must enter a game code"
+    errors.code = "Du måste ange en spelkod"
   }
   if(!/^[A-Z0-9]{6}$/i.test(formValues.code)) {
-    errors.code = "Wrong format for the game code"
+    errors.code = "Spelkoden har fel format"
   }
   return errors;
 }

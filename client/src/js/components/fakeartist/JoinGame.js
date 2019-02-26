@@ -4,17 +4,12 @@ import JoinGameForm from './JoinGameForm'
 
 const JoinGame = () => {
   return (
+    <div className="ui text container">
 
-    <div className="game fakeartist">
-      <div className="container">
+      <h1 className="heading">Gå med i ett spel</h1>
 
-        <div className="intro">
-          <h1>Gå med i ett spel</h1>
-        </div>
+      <JoinGameForm />
 
-        <JoinGameForm />
-
-      </div>
     </div>
 
   )

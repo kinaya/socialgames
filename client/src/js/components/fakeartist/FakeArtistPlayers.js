@@ -1,19 +1,15 @@
 import React from 'react'
 
-const FakeArtistPlayers = ({game}) => {
+const FakeArtistPlayers = ({users}) => {
   return (
-
-    <table className="players">
-      <thead><tr><th>Spelare</th></tr></thead>
-      <tbody>
-        {game.users.length > 0 &&
-          game.users.map((user, i) => { return (
-            <tr key={i}><td>{user.name}</td></tr>
-          )})
-        }
-      </tbody>
-    </table>
-
+    <div className="ui container left aligned">
+      <h4 className="ui top attached block header">Spelare</h4>
+      {users.length > 0 &&
+        users.map((user, i) => { return (
+          <div key={i} className="ui attached segment">{user.name}</div>
+        )})
+      }
+    </div>
   )
 }
 

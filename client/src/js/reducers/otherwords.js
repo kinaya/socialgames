@@ -1,6 +1,19 @@
 import { CHANGE_WORD, SKIP_WORD, TICK, SET_GAME_STATE, SETUP, CHANGE_SETTINGS, RESET_TIMER, RESET_GAME } from '../constants'
+import otherWords from '../../otherWords.json'
 
-const otherwords = (state = [], action) => {
+const initialState = {
+  gamestate: 'intro',
+  currentword: null,
+  score: 0,
+  time: 30,
+  settings: {
+    forbidden: true,
+    timer: 30
+  },
+  words: otherWords
+}
+
+const otherwords = (state = initialState, action) => {
   let newState = JSON.parse(JSON.stringify(state))
 
   switch (action.type) {

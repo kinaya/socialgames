@@ -8,16 +8,37 @@ $turquoise: #66FCF1;
 $turquoiseDark: #5be2d8;
 
 // Breakpoints
-$tablet: 600px;
+//$tablet: 600px;
 
 body {
+  font-size: 16px;
+}
+p {
+  font-size: 1.2em;
+}
+.site-header {
+  margin-bottom: 2em;
+}
+
+// Med andra ord
+.intro {
+  margin: 0 0 4em 0;
+}
+.ui.button {
+  margin-top: 2em;
+}
+.ui.info.message {
+  margin: 1em 0;
+}
+
+/*body {
   background-color: $black;
   color: $white;
   font-family: 'Roboto', sans-serif;
   padding: 1em;
-}
+}*/
 
-h1 {
+/*h1 {
   font-size: 2.4em;
   font-weight: 700;
   line-height: 1.1;
@@ -35,9 +56,9 @@ p {
 }
 .italic {
   font-style: italic;
-}
+}*/
 /* Buttons */
-.button {
+/*.button {
   background-color: $turquoise;
   padding: 1em 2em;
   margin: 2em 0.5em 1em;
@@ -74,12 +95,12 @@ p {
     color: $turquoise;
   }
 
-}
+}*/
 
 
 
 /* Header */
-.header {
+/*.header {
   background-color: $black;
   a {
     color: $white;
@@ -97,10 +118,10 @@ p {
       color: $black;
     }
   }
-}
+}*/
 
 /* Layout */
-.container {
+/*.container {
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
@@ -108,10 +129,10 @@ p {
   @media(min-width: $tablet) {
     padding: 6em 0 2em;
   }
-}
+}*/
 
 /* Start */
-.start .intro {
+/*.start .intro {
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
@@ -160,20 +181,20 @@ p {
     fill: $white;
     margin-bottom: 1em;
   }
-}
+}*/
 
 /* Common layout for all games */
-.game .intro {
+/*.game .intro {
   margin-bottom: 3em;
   @media(min-width: $tablet) {
     margin-bottom: 5em;
   }
-}
+}*/
 
 
 
 /* Other words - Play*/
-.otherwords {
+/*.otherwords {
   h1.word {
     margin-top: 1em;
     word-break: break-all;
@@ -202,10 +223,10 @@ p {
       margin-bottom: 0.5em;
     }
   }
-}
+}*/
 
 /* Other words - Intro */
-.otherwords {
+/*.otherwords {
   .settings {
     text-align: left;
     max-width: 500px;
@@ -232,11 +253,11 @@ input[type=checkbox], input[type=radio] {
 input[type=radio]:checked,
 input[type=checkbox]:checked {
   color: $turquoise;
-}
+}*/
 
 
 /* Fake artist */
-table {
+/*table {
   width: 100%;
   text-align: left;
 }
@@ -280,4 +301,4 @@ form {
     font-weight: 700;
     display: inline-block;
   }
-}
+}*/

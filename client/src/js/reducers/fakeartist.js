@@ -1,46 +1,35 @@
 import { FA_RESET_GAME, FA_UPDATE_USERS, FA_UPDATE_WORD, FA_UPDATE_GAME } from '../constants'
 
-const fakeartist = (state = [], action) => {
+const initialState = {
+  game: {},
+  users: [],
+  word: {}
+}
+
+const fakeartist = (state = initialState, action) => {
 
   switch (action.type) {
 
     case FA_UPDATE_USERS:
       return {
         ...state,
-        game: {
-          ...state.game,
-          users: action.users
-        }
+        users: action.users
       }
 
     case FA_UPDATE_GAME:
       return {
         ...state,
-        game: {
-          ...state.game,
-          game: action.game
-        }
+        game: action.game
       }
 
     case FA_UPDATE_WORD:
         return {
           ...state,
-          game: {
-            ...state.game,
-            word: action.word
-          }
+          word: action.word
         }
 
     case FA_RESET_GAME:
-      return {
-        ...state,
-        game: {
-          ...state.game,
-          game: {},
-          users: [],
-          word: {}
-        }
-      }
+      return initialState
 
     default:
       return state

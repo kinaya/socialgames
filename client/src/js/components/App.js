@@ -13,6 +13,7 @@ import JoinGameForm from './fakeartist/JoinGameForm'
 import CreateGame from './fakeartist/CreateGame'
 import JoinGame from './fakeartist/JoinGame'
 import FakeArtistGameArea from './fakeartist/FakeArtistGameArea'
+import Spyfall from './spyfall/Spyfall'
 
 import history from '../history';
 
@@ -24,21 +25,21 @@ class App extends React.Component {
     return (
       <Router history={history}>
       <div>
-        <div className="header">
-          <Link to='/'>Social Games</Link>
+        <div className="site-header">
+          <Link className="ui pink button" to='/'>Socials spel</Link>
         </div>
 
-        <main>
+        <main className="ui container">
+
           <Switch>
-
-          <Route exact path='/' component={Start} />
-          <Route path='/other-words' component={OtherWordsContainer} />
-          <Route path='/pictionary' component={Pictionary} />
-          <Route exact path='/fake-artist' component={FakeArtistIntro} />
-          <Route exact path='/fake-artist/create' component={CreateGame} />
-          <Route exact path='/fake-artist/join' component={JoinGame} />
-          <Route path="/fake-artist/:id" component={FakeArtistGameArea} />
-
+            <Route exact path='/' component={Start} />
+            <Route path='/other-words' component={OtherWordsContainer} />
+            <Route path='/pictionary' component={Pictionary} />
+            <Route path='/spyfall' component={Spyfall} />
+            <Route exact path='/fake-artist' component={FakeArtistIntro} />
+            <Route exact path='/fake-artist/create' component={CreateGame} />
+            <Route exact path='/fake-artist/join' component={JoinGame} />
+            <Route path="/fake-artist/:id" component={FakeArtistGameArea} />
           </Switch>
 
         </main>

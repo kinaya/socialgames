@@ -3,17 +3,12 @@ import CreateGameForm from './CreateGameForm'
 
 const CreateGame = () => {
   return (
+    <div className="ui text container">
 
-    <div className="game fakeartist">
-      <div className="container">
+      <h1>Starta ett nytt spel</h1>
 
-        <div className="intro">
-          <h1>Create a new game</h1>
-        </div>
+      <CreateGameForm />
 
-        <CreateGameForm />
-
-      </div>
     </div>
 
   )
