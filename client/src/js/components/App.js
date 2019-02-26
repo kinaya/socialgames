@@ -12,6 +12,7 @@ import CreateGameForm from './fakeartist/CreateGameForm'
 import JoinGameForm from './fakeartist/JoinGameForm'
 import CreateGame from './fakeartist/CreateGame'
 import JoinGame from './fakeartist/JoinGame'
+import FakeArtistGameArea from './fakeartist/FakeArtistGameArea'
 
 import history from '../history';
 
@@ -36,7 +37,7 @@ class App extends React.Component {
           <Route exact path='/fake-artist' component={FakeArtistIntro} />
           <Route exact path='/fake-artist/create' component={CreateGame} />
           <Route exact path='/fake-artist/join' component={JoinGame} />
-          <Route path="/fake-artist/:id" component={FakeArtistGame} />
+          <Route path="/fake-artist/:id" component={FakeArtistGameArea} />
 
           </Switch>
 

@@ -7,7 +7,10 @@ const FakeArtistGamePlay = ({userId, game}) => {
   const fakeUser = game.users.find(function(user) {
     return user.fakeArtist == true;
   })
-  if(fakeUser._id === userId) { amIFake = true; }
+  // The game state might update before the users state, so check if a fakeUser was found
+  if(fakeUser && fakeUser._id === userId) {
+    amIFake = true;
+  }
 
   return (
     <div>

@@ -16,7 +16,6 @@ class JoinGameForm extends React.Component {
   }
 
   onSubmit = (formValues) => {
-    console.log('onSubmit is called!')
     this.props.fa_joinGame(formValues.name, formValues.code);
   }
 
@@ -55,11 +54,12 @@ const validate = (formValues) => {
   }
   if(!/^[A-Z0-9]{6}$/i.test(formValues.code)) {
     errors.code = "Wrong format for the game code"
-    // TODO: When the game code was wrong?
   }
   return errors;
 }
 
+// For me it needs to be a connected component, bc i don't pass the onsubmit action from parent.
+// I get it from action
 export default connect(null, {fa_joinGame})(reduxForm({
   form: 'createGameForm',
   validate: validate

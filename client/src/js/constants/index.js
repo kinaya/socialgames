@@ -13,6 +13,5 @@ export const RESET_GAME = 'RESET_GAME'
 // Fake artist
 export const FA_UPDATE_USERS = 'FA_UPDATE_USERS'
 export const FA_UPDATE_GAME = 'FA_UPDATE_GAME'
-export const FA_UPDATE_USER = 'FA_UPDATE_USER'
 export const FA_UPDATE_WORD = 'FA_UPDATE_WORD'
 export const FA_RESET_GAME = 'FA_RESET_GAME'

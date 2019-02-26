@@ -1,95 +1,56 @@
 /* ---------------- Fake Artist -------------------- */
-import { FA_RESET_GAME, FA_UPDATE_GAME, FA_UPDATE_WORD, FA_UPDATE_USER, FA_UPDATE_USERS, FA_SET_GAME_STATE } from '../constants'
-const defaultHeader = {'Accept':'application/json', 'Content-Type': 'application/json'}
+import { FA_RESET_GAME, FA_UPDATE_GAME, FA_UPDATE_WORD, FA_UPDATE_USERS} from '../constants'
 import history from '../history'
-
-// Set the local gamestate
-// Todo: change to normal action creator. Does not need to be async!
-//export const fa_setGameState = gamestate => dispatch => {
-//  dispatch({type: FA_SET_GAME_STATE, gamestate})
-//}
+import axios from 'axios'
 
 // Create a new game
 export const fa_createGame = userName => dispatch => {
-  fetch('/fake-artist/createGame', {
-    method: 'POST',
-    headers: defaultHeader,
-    body: JSON.stringify({'userName': userName})
-  })
-  .then(response => response.json())
+  axios.post('/fake-artist/createGame')
   .then(response => {
-    dispatch({
-      type: FA_UPDATE_GAME,
-      game: response.game
-    })
-    dispatch({
-      type: FA_UPDATE_USER,
-      user: response.user
-    })
-    sessionStorage.setItem('userId', response.user._id);
-    sessionStorage.setItem('userName', response.user.name);
-    sessionStorage.setItem('gameCode', response.game.code);
-    history.push('/fake-artist/' + response.game.code);
-  })
-  .catch(error => console.log(error));
-}
-
-// Join a game
-export const fa_joinGame = (userName, gameCode) => dispatch => {
-  fetch('/fake-artist/joinGame', {
-    method: 'POST',
-    headers: defaultHeader,
-    body: JSON.stringify({'userName': userName, 'gameCode': gameCode})
-  })
-  .then(response => {
-    if(!response.ok) {
-      const error = Object.assign({}, response, {
-        status: response.status,
-        statusText: response.statusText
-      });
-      return Promise.reject(error);
-    }
-    return response.json()
-  })
-  .then(response => {
-    dispatch({
-      type: FA_UPDATE_GAME,
-      game: response.game
-    })
-    dispatch({
-      type: FA_UPDATE_USER,
-      user: response.user
-    })
-    // Set session and push to game url
-    sessionStorage.setItem('userId', response.user._id);
-    sessionStorage.setItem('userName', response.user.name);
-    sessionStorage.setItem('gameCode', response.game.code);
-    history.push('/fake-artist/' + response.game.code);
+    sessionStorage.setItem('userName', userName);
+    sessionStorage.setItem('gameCode', response.data.game.code);
+    history.push('/fake-artist/' + response.data.game.code);
   })
   .catch(error => {
-    console.error(error)
+    if(error.response) {
+      console.log(error.response.data)
+    }
   });
 }
 
+// Update the user
+// TODO: THis doesnt dispatch anythin, should it ve in a different format?
+export const fa_updateUser = (user) => dispatch => {
+  sessionStorage.setItem('userId', user._id);
+}
+
+// Join a game
+// TODO: This doesnt dispatch anything, should it be in a different format?
+export const fa_joinGame = (userName, gameCode) => dispatch => {
+  sessionStorage.setItem('userName', userName)
+  sessionStorage.setItem('gameCode', gameCode)
+  history.push('/fake-artist/' + gameCode);
+}
+
 // Update users
-export const fa_updateUsers = (users) => dispatch => {
-  dispatch({
+export const fa_updateUsers = (users) => {
+  return ({
     type: FA_UPDATE_USERS,
     users: users
   })
 }
 
 // Update game
-export const fa_updateGame = (game) => dispatch => {
-  dispatch({
+export const fa_updateGame = (game) => {
+  return ({
     type: FA_UPDATE_GAME,
     game: game
   })
 }
 
 // Update word
-export const fa_updateWord = (word) => dispatch => {
-  dispatch({
+export const fa_updateWord = (word) => {
+  return ({
     type: FA_UPDATE_WORD,
     word: word
   })
@@ -98,16 +59,10 @@ export const fa_updateWord = (word) => dispatch => {
 // Reset game
 export const fa_resetGame = () => dispatch => {
 
-  // Check if sessionStorage i set
-  const userName = sessionStorage.getItem('userName')
-  const userId = sessionStorage.getItem('userId')
-
-  // Remove localStorage
   sessionStorage.removeItem('userName')
   sessionStorage.removeItem('userId')
   sessionStorage.removeItem('gameCode')
 
-  // Reset game date
   dispatch({
     type: FA_RESET_GAME
   })

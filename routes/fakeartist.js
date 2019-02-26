@@ -7,7 +7,6 @@ module.exports = function(wss) {
 
   router.post('/addWords', fakeArtistController.addWords);
   router.post('/createGame', fakeArtistController.createGame);
-  router.post('/joinGame', fakeArtistController.joinGame);
 
   wss.on('connection', fakeArtistController.play);
 

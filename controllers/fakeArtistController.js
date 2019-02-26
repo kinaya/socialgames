@@ -216,43 +216,26 @@ exports.createGame = async function(req, res, next) {
 
   try {
     var game = await saveGame();
-    var user = await saveUser(req.body.userName, game.code);
   } catch (err) {
     return next(err);
   }
 
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({game, user}));
-
-}
-
-/**
- * User trigged action at fake-artist/joinGame - Join a game
- */
-exports.joinGame = async function(req, res, next) {
-
-  try {
-    const user = await saveUser(req.body.userName, req.body.gameCode);
-    const game = await getGame(req.body.gameCode);
-
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({game, user}));
-
-  } catch (err) {
-    return next(err);
-  }
+  res.send(JSON.stringify({game}));
 
 }
 
 /**
  * Websocket at fake-artist/:code/play
  */
-exports.play = function(ws, req) {
+exports.play = async function(ws, req) {
 
   ws.on('close', async function() {
 
+      console.log('The websocket is closing')
+      console.log(req.headers['sec-websocket-key'])
+
       // Get the closing client
-      // Todo: Maybe it works with just checking ws?
       var closingClient = await socketCollection.find(function(client) {
         return client.key == req.headers['sec-websocket-key'];
       })
@@ -260,13 +243,16 @@ exports.play = function(ws, req) {
       // Remove the closing client from socketCollection
       socketCollection = await socketCollection.filter(client => client.key != req.headers['sec-websocket-key'])
 
+      // Stop the game
+      await stopGame(closingClient.gameCode);
+
       // Get the game
       const game = await getGame(closingClient.gameCode);
 
       // Remove the user
       const user = removeUser(closingClient.userId);
 
-      // Get the remaining users after user is removes
+      // Get the remaining users after user is removed
       const users = user.then(user => {
         return getAllUsers(game._id)
       })
@@ -275,7 +261,7 @@ exports.play = function(ws, req) {
       users.then(users => {
 
         // Prepare data to send
-        const data = JSON.stringify({users: users})
+        const data = JSON.stringify({users: users, game: game})
 
         // Filter out the sockets to send to
         let socketsToSendTo = socketCollection.filter((client) => {
@@ -296,11 +282,13 @@ exports.play = function(ws, req) {
 
     if(msgObject.type == 'opening') {
 
+      // Save the user
+      var user = await saveUser(msgObject.userName, msgObject.gameCode);
+
       // Add the new connection to the array
       socketCollection.push({
-        userId: msgObject.userId,
+        userId: user._id,
         gameCode: msgObject.gameCode,
-        userName: msgObject.userName,
         key: req.headers['sec-websocket-key'],
         socket: ws,
       });
@@ -310,6 +298,10 @@ exports.play = function(ws, req) {
 
       // Get all users for the game
       var users = await getAllUsers(game._id);
+
+      // Send an update to the opening client with the user
+      const userData = JSON.stringify({user: user})
+      ws.send(userData)
 
       // Prepare the data
       const data = JSON.stringify({game: game, users: users})
