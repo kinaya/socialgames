@@ -3,7 +3,7 @@ var FakeArtistUser = require('../models/fakeArtistUser');
 var randomize = require('randomatic');
 var mongoose = require('mongoose');
 var socketCollection = require('../socketCollection');
-var fakeArtistWords = require('../../data/FakeArtistWords');
+var fakeArtistWords = require('../data/FakeArtistWords');
 var async = require('async');
 
 /**

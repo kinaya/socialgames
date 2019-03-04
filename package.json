@@ -1,15 +1,35 @@
 {
-  "name": "socialgames",
+  "name": "SocialGamesApp",
   "version": "1.0.0",
-  "description": "A collection of social games to play live together, but with the help of this webapp",
-  "main": "index.js",
+  "description": "A app with social games",
+  "main": "app.js",
+  "author": "alvine@tamkin.se",
+  "license": "MIT",
   "engines": {
     "node": "8.0.0"
   },
   "scripts": {
-    "start": "cd server && npm install --dev && npm run start",
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
     "heroku-postbuild": "cd client && npm install --dev && npm run build"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "async": "^2.6.1",
+    "debug": "~2.6.9",
+    "dotenv": "^6.1.0",
+    "express": "~4.16.0",
+    "express-validator": "^5.3.0",
+    "http-errors": "~1.6.2",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.6",
+    "morgan": "~1.9.0",
+    "randomatic": "^3.1.1",
+    "request": "^2.88.0",
+    "ws": "^6.1.2",
+    "webpack": "^4.28.2"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.3"
+  }
 }
