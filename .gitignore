@@ -1,6 +1,11 @@
-node_modules
-client/dist/.htaccess
-.env
-otherWordsWords
+# Client
 client/dist
+client/dist/.htaccess
+client/node_modules
+
+# Server
+server/.env
+server/node_modules
+
+# Other
 todo

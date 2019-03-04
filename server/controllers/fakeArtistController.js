@@ -1,38 +1,10 @@
 var FakeArtistGame = require('../models/fakeArtistGame');
 var FakeArtistUser = require('../models/fakeArtistUser');
-var FakeArtistWord = require('../models/fakeArtistWord');
 var randomize = require('randomatic');
 var mongoose = require('mongoose');
 var socketCollection = require('../socketCollection');
+var fakeArtistWords = require('../../data/FakeArtistWords');
 var async = require('async');
-
-/**
- * Import words into the databas
- * [{"word":"broccoli","category":"food"},{"word"...}]
- */
-exports.addWords = function(req, res, next) {
-
-  for(let i = 0; i < req.body.length; i++) {
-    FakeArtistWord.findOne({word:req.body[i].word}, function(err, word) {
-      if(err){return next(err);}
-
-      // Only save new words
-      if(!word) {
-        var newWord = new FakeArtistWord({
-          word: req.body[i].word,
-          category: req.body[i].category
-        })
-        newWord.save(function(err) {
-          if(err){return next(err);}
-        })
-      }
-
-    })
-  }
-
-  res.send('Words saved');
-
-}
 
 /**
  * Save a new user in the db
@@ -171,12 +143,29 @@ var getAllUsers = gameId => {
 var getRandomWord = () => {
   return new Promise((resolve, reject) => {
 
-    FakeArtistWord.find().exec(function(err, words) {
+    var randomWord = fakeArtistWords[Math.floor(Math.random()*fakeArtistWords.length)];
+    resolve(randomWord);
+
+    /*FakeArtistWord.find().exec(function(err, words) {
       if(err) { reject(new Error(err)); return;}
       var randomWord = words[Math.floor(Math.random()*words.length)];
       resolve(randomWord);
-    })
+    })*/
 
+  })
+}
+
+/**
+ * Add the random word to the saved game
+ * Returns: game
+ */
+var addWordToGame = (randomWord, gameCode) => {
+  return new Promise((resolve, reject) => {
+
+    FakeArtistGame.findOneAndUpdate({code: gameCode}, { $push: { usedWords: randomWord.word }}, { new: true }, function (err, game) {
+      if(err) { reject(new Error(err)); return;}
+      resolve(game);
+    });
   })
 }
 
@@ -317,8 +306,18 @@ exports.play = async function(ws, req) {
 
     if(msgObject.type == 'startGame') {
 
-      // Get a random word
-      var randomWord = await getRandomWord();
+      // Get a random word that hasn't been used before in the game
+      var game = await getGame(msgObject.gameCode)
+      var randomWord = null
+      while(randomWord == null) {
+        word = await getRandomWord();
+        if(!(game.usedWords).includes(word.word)) {
+          randomWord = word;
+        }
+      }
+
+      // Add random word to game
+      await addWordToGame(randomWord, msgObject.gameCode);
 
       // Update game state
       await startGame(msgObject.gameCode);
