@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --mode development --env.BASE_URL=http://localhost:3000",
-    "build": "webpack --mode production --env.BASE_URL=http://socialgamesapp.herokuapp.com"
+    "build": "webpack --mode production --env.BASE_URL=https://socialgamesapp.herokuapp.com"
   },
   "author": "",
   "license": "ISC",
