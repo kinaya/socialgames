@@ -3,6 +3,7 @@ var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
 var socketio = require('socket.io');
+var sslRedirect = require('heroku-ssl-redirect');
 
 // === Create the app object
 var app = express();
@@ -23,6 +24,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // === Add Middlewares
+app.use(sslRedirect());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
