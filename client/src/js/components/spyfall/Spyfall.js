@@ -26,6 +26,9 @@ class Spyfall extends React.Component {
       if(data.users) {
         this.props.spyfall_updateUsers(data.users)
       }
+      if(data.error) {
+        toast.error(data.error)
+      }
     })
 
   }
@@ -59,7 +62,7 @@ class Spyfall extends React.Component {
           <SpyfallPlayers users={users} />
         )}
 
-        {!game.spyfall_running && <div><Link className="ui basic button" to={{pathname: `/${game.code}`}}>Lämna spelet</Link></div>}
+        {!game.spyfall_running && <div><Link className="ui basic button" to={{pathname: `/${game.code}`}}>Tillbaka till alla spel</Link></div>}
 
       </div>
     )

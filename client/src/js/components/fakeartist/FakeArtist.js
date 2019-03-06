@@ -5,6 +5,7 @@ import { fakeArtist_updateGame, fakeArtist_updateUsers, fakeArtist_resetGame } f
 import FakeArtistPlayers from './FakeArtistPlayers'
 import FakeArtistPlay from './FakeArtistPlay'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 class FakeArtist extends React.Component {
 
@@ -26,6 +27,9 @@ class FakeArtist extends React.Component {
       }
       if(data.users) {
         this.props.fakeArtist_updateUsers(data.users)
+      }
+      if(data.error) {
+        toast.error(data.error)
       }
     })
 
@@ -71,7 +75,7 @@ class FakeArtist extends React.Component {
 
         {!game.fakeArtist_running && <button className="ui primary large button" onClick={() => this._startGame()}>Starta spelet</button>}
 
-        {!game.fakeArtist_running && <div><Link className="ui basic button" to={{pathname: `/${game.code}`}}>Lämna spelet</Link></div>}
+        {!game.fakeArtist_running && <div><Link className="ui basic button" to={{pathname: `/${game.code}`}}>Tillbaka till alla spel</Link></div>}
 
         {game.fakeArtist_running && <button className="ui basic button" onClick={() => this._stopGame()}>Avsluta omgången</button>}
 

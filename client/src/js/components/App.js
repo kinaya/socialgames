@@ -12,6 +12,9 @@ import Spyfall from './spyfall/Spyfall'
 import FakeArtist from './fakeartist/FakeArtist'
 import NewGame from './NewGame'
 import JoinGame from './JoinGame'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 
 import {checkUserStatus} from '../actions'
 import {connect} from 'react-redux'
@@ -32,17 +35,14 @@ class App extends React.Component {
 
         <Header />
 
+        <ToastContainer position={toast.POSITION.TOP_CENTER} />
+
         <main className="ui text container">
 
           <Switch>
             <Route exact path='/' component={Start} />
             <Route exact path='/newgame' component={NewGame} />
             <Route exact path='/joinGame' component={JoinGame} />
-
-            <Route path='/:id/fake-artist' component={FakeArtist} />
-            <Route path='/:id/other-words' component={OtherWordsContainer} />
-            <Route path='/:id/pictionary' component={Pictionary} />
-            <Route path='/:id/spyfall' component={Spyfall} />
 
             <Route path='/:id' component={GameArea} />
 

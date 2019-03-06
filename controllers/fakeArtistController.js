@@ -156,14 +156,19 @@ exports.fakeartist = async function(socket) {
     // Remove the closing client from fakeArtistSocketCollection
     fakeArtistSocketCollection = await fakeArtistSocketCollection.filter(client => client.socketid != socket.id)
 
-    // Stop the game
-    var game = await stopGame(closingClient.gameCode)
+    // Find out if game is running
+    var error = null
+    var game = await getGame(closingClient.gameCode)
+    if(game.fakeArtist_running) {
+      var game = await stopGame(closingClient.gameCode)
+      error = 'Spelomgången stoppades eftersom en spelare lämnade spelet.'
+    }
 
     // Get all users for the room
     var users = await getAllUsers(closingClient.gameCode)
 
     // Send the list of users
-    socket.broadcast.to(closingClient.gameCode).emit('fakeartist', { users })
+    socket.broadcast.to(closingClient.gameCode).emit('fakeartist', { error, game, users })
 
   })
 

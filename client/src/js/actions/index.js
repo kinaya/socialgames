@@ -1,6 +1,7 @@
 import { LOGIN, LOGOUT } from '../constants'
 import history from '../history'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 /* --------------- Social games app ----------------- */
 
@@ -42,7 +43,7 @@ export const sga_joinGame = (userName, gameCode) => dispatch => {
   })
   .catch(error => {
     if(error.response) {
-      console.log(error.response.data)
+      toast.error(error.response.data)
     }
   });
 }
@@ -70,6 +71,9 @@ export const sga_logout = () => dispatch => {
 
 // Check user Status
 export const checkUserStatus = () => (dispatch, getState) => {
+  const path = history.location.pathname;
+
+  // If user is logged in, but lost state
   if(!getState().authenticated && sessionStorage.getItem('userId') && sessionStorage.getItem('userName') && sessionStorage.getItem('gameCode')) {
     dispatch ({
       type: LOGIN
@@ -78,6 +82,7 @@ export const checkUserStatus = () => (dispatch, getState) => {
       history.push('/'+ sessionStorage.getItem('gameCode'));
     }
   }
+
 }
 
 /* ----------- Fake artist ---------------*/

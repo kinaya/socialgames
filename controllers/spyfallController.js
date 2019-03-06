@@ -74,14 +74,19 @@ exports.spyfall = async function(socket) {
     // Remove the closing client from fakeArtistSocketCollection
     spyfallSocketCollection = await spyfallSocketCollection.filter(client => client.socketid != socket.id)
 
-    // Stop the game
-    var game = await stopGame(closingClient.gameCode)
+    // Find out if game is running
+    var error = null
+    var game = await getGame(closingClient.gameCode)
+    /*if(game.spyfall_running) {
+      var game = await stopGame(closingClient.gameCode)
+      error = 'Spelomgången stoppades eftersom en spelare lämnade spelet.'
+    }*/
 
     // Get all users for the room
     var users = await getAllUsers(closingClient.gameCode)
 
     // Send the list of users
-    socket.broadcast.to(closingClient.gameCode).emit('spyfall', { users })
+    socket.broadcast.to(closingClient.gameCode).emit('spyfall', { error, game, users })
   })
 
 }
