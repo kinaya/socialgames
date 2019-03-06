@@ -1,15 +1,22 @@
-/* ---------------- Fake Artist -------------------- */
-import { FA_RESET_GAME, FA_UPDATE_GAME, FA_UPDATE_WORD, FA_UPDATE_USERS} from '../constants'
+import { LOGIN, LOGOUT } from '../constants'
 import history from '../history'
 import axios from 'axios'
 
+/* --------------- Social games app ----------------- */
+
 // Create a new game
-export const fa_createGame = userName => dispatch => {
-  axios.post('/fake-artist/createGame')
+export const sga_newGame = userName => dispatch => {
+  axios.post('/newGame', {
+    userName
+  })
   .then(response => {
-    sessionStorage.setItem('userName', userName);
+    sessionStorage.setItem('userName', response.data.user.name);
+    sessionStorage.setItem('userId', response.data.user._id);
     sessionStorage.setItem('gameCode', response.data.game.code);
-    history.push('/fake-artist/' + response.data.game.code);
+    dispatch ({
+      type: LOGIN
+    })
+    history.push('/'+ response.data.game.code);
   })
   .catch(error => {
     if(error.response) {
@@ -18,55 +25,113 @@ export const fa_createGame = userName => dispatch => {
   });
 }
 
-// Update the user
-// TODO: THis doesnt dispatch anythin, should it ve in a different format?
-export const fa_updateUser = (user) => dispatch => {
-  sessionStorage.setItem('userId', user._id);
+// Join a game
+export const sga_joinGame = (userName, gameCode) => dispatch => {
+  axios.post('/joinGame', {
+    userName,
+    gameCode
+  })
+  .then(response => {
+    sessionStorage.setItem('userName', response.data.user.name);
+    sessionStorage.setItem('userId', response.data.user._id);
+    sessionStorage.setItem('gameCode', response.data.game.code);
+    dispatch ({
+      type: LOGIN
+    })
+    history.push('/'+ response.data.game.code);
+  })
+  .catch(error => {
+    if(error.response) {
+      console.log(error.response.data)
+    }
+  });
 }
 
-// Join a game
-// TODO: This doesnt dispatch anything, should it be in a different format?
-export const fa_joinGame = (userName, gameCode) => dispatch => {
-  sessionStorage.setItem('userName', userName)
-  sessionStorage.setItem('gameCode', gameCode)
-  history.push('/fake-artist/' + gameCode);
+// Logout
+export const sga_logout = () => dispatch => {
+  axios.post('/leaveGame', {
+    userId: sessionStorage.getItem('userId')
+  })
+  .then(response => {
+    sessionStorage.removeItem('userName')
+    sessionStorage.removeItem('userId')
+    sessionStorage.removeItem('gameCode')
+    dispatch ({
+      type: LOGOUT
+    })
+    history.push('/');
+  })
+  .catch(error => {
+    if(error.response) {
+      console.log(error.response.data)
+    }
+  });
 }
+
+// Check user Status
+export const checkUserStatus = () => (dispatch, getState) => {
+  if(!getState().authenticated && sessionStorage.getItem('userId') && sessionStorage.getItem('userName') && sessionStorage.getItem('gameCode')) {
+    dispatch ({
+      type: LOGIN
+    })
+    if(history.location.pathname == '/') {
+      history.push('/'+ sessionStorage.getItem('gameCode'));
+    }
+  }
+}
+
+/* ----------- Fake artist ---------------*/
+import { FAKEARTIST_UPDATE_GAME, FAKEARTIST_UPDATE_USERS, FAKEARTIST_RESET_GAME} from '../constants'
 
 // Update users
-export const fa_updateUsers = (users) => {
+export const fakeArtist_updateUsers = (users) => {
   return ({
-    type: FA_UPDATE_USERS,
+    type: FAKEARTIST_UPDATE_USERS,
     users: users
   })
 }
 
 // Update game
-export const fa_updateGame = (game) => {
+export const fakeArtist_updateGame = (game) => {
   return ({
-    type: FA_UPDATE_GAME,
+    type: FAKEARTIST_UPDATE_GAME,
     game: game
   })
 }
 
-// Update word
-export const fa_updateWord = (word) => {
+// Reset game
+export const fakeArtist_resetGame = () => dispatch => {
+  dispatch({
+    type: FAKEARTIST_RESET_GAME
+  })
+}
+
+
+
+/*---------Spyfall ------------*/
+import { SPYFALL_UPDATE_GAME, SPYFALL_UPDATE_USERS, SPYFALL_RESET_GAME} from '../constants'
+
+// Update users
+export const spyfall_updateUsers = (users) => {
   return ({
-    type: FA_UPDATE_WORD,
-    word: word
+    type: SPYFALL_UPDATE_USERS,
+    users: users
+  })
+}
+
+// Update game
+export const spyfall_updateGame = (game) => {
+  return ({
+    type: SPYFALL_UPDATE_GAME,
+    game: game
   })
 }
 
 // Reset game
-export const fa_resetGame = () => dispatch => {
-
-  sessionStorage.removeItem('userName')
-  sessionStorage.removeItem('userId')
-  sessionStorage.removeItem('gameCode')
-
+export const spyfall_resetGame = () => dispatch => {
   dispatch({
-    type: FA_RESET_GAME
+    type: SPYFALL_RESET_GAME
   })
-
 }
 
 

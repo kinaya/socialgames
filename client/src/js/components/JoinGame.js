@@ -1,5 +1,4 @@
 import React from 'react'
-import FakeArtistIntro from './FakeArtistIntro'
 import JoinGameForm from './JoinGameForm'
 
 const JoinGame = () => {

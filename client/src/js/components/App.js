@@ -1,53 +1,69 @@
 import React from 'react'
-import { Router } from 'react-router-dom'
-import createHistory from 'history/createMemoryHistory';
-import { Route, Link, Switch } from 'react-router-dom'
-
-import Start from './Start'
-import OtherWordsContainer from './otherwords/OtherWordsContainer'
-import FakeArtistIntro from './fakeartist/FakeArtistIntro'
-import Pictionary from './pictionary/Pictionary'
-import FakeArtistGame from './fakeartist/FakeArtistGame'
-import CreateGameForm from './fakeartist/CreateGameForm'
-import JoinGameForm from './fakeartist/JoinGameForm'
-import CreateGame from './fakeartist/CreateGame'
-import JoinGame from './fakeartist/JoinGame'
-import FakeArtistGameArea from './fakeartist/FakeArtistGameArea'
-import Spyfall from './spyfall/Spyfall'
-
+import { Router, Route, Switch } from 'react-router-dom'
 import history from '../history';
+
+import Header from './Header'
+import Footer from './Footer'
+import Start from './Start'
+import GameArea from './GameArea'
+import OtherWordsContainer from './otherwords/OtherWordsContainer'
+import Pictionary from './pictionary/Pictionary'
+import Spyfall from './spyfall/Spyfall'
+import FakeArtist from './fakeartist/FakeArtist'
+import NewGame from './NewGame'
+import JoinGame from './JoinGame'
+
+import {checkUserStatus} from '../actions'
+import {connect} from 'react-redux'
 
 class App extends React.Component {
 
+  componentDidMount() {
+    // If user is logged in - redirect to /:id or requested url
+    // If user is not logged in but has data in localStorage - login and redirect to /:id or requested url
+    // if user is not logged in and does not have data - do nothing
+    this.props.checkUserStatus()
+  }
 
   render() {
 
     return (
-      <Router history={history}>
-      <div>
-        <div className="site-header">
-          <Link className="ui pink button" to='/'>Socials spel</Link>
-        </div>
+      <Router history={history}><div>
 
-        <main className="ui container">
+        <Header />
+
+        <main className="ui text container">
 
           <Switch>
             <Route exact path='/' component={Start} />
-            <Route path='/other-words' component={OtherWordsContainer} />
-            <Route path='/pictionary' component={Pictionary} />
-            <Route path='/spyfall' component={Spyfall} />
-            <Route exact path='/fake-artist' component={FakeArtistIntro} />
-            <Route exact path='/fake-artist/create' component={CreateGame} />
-            <Route exact path='/fake-artist/join' component={JoinGame} />
-            <Route path="/fake-artist/:id" component={FakeArtistGameArea} />
+            <Route exact path='/newgame' component={NewGame} />
+            <Route exact path='/joinGame' component={JoinGame} />
+
+            <Route path='/:id/fake-artist' component={FakeArtist} />
+            <Route path='/:id/other-words' component={OtherWordsContainer} />
+            <Route path='/:id/pictionary' component={Pictionary} />
+            <Route path='/:id/spyfall' component={Spyfall} />
+
+            <Route path='/:id' component={GameArea} />
+
           </Switch>
 
         </main>
 
-        </div>
-      </Router>
+        <Footer />
+
+      </div></Router>
     )
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    authenticated: state.authenticated
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { checkUserStatus }
+)(App)

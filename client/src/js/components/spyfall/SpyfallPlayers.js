@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FakeArtistPlayers = ({users}) => {
+const SpyfallPlayers = ({users}) => {
   return (
     <div className="ui container left aligned">
       <h4 className="ui top attached block header">Spelare</h4>
@@ -13,4 +13,4 @@ const FakeArtistPlayers = ({users}) => {
   )
 }
 
-export default FakeArtistPlayers;
+export default SpyfallPlayers;

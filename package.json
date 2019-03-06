@@ -10,8 +10,12 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
+    "dev": "env-cmd ./config/dev.env node ./bin/www",
+    "test": "jest --watch",
     "heroku-postbuild": "cd client && npm install --dev && npm run build"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -25,11 +29,13 @@
     "morgan": "~1.9.0",
     "randomatic": "^3.1.1",
     "request": "^2.88.0",
-    "ws": "^6.1.2",
+    "socket.io": "^2.2.0",
     "webpack": "^4.28.2"
   },
   "devDependencies": {
+    "env-cmd": "^8.0.2",
     "jest": "^23.6.0",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "supertest": "^3.4.2"
   }
 }

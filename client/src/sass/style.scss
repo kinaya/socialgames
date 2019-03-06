@@ -1,14 +1,16 @@
 // Colors
 $black: #1A1A1d;
 $white: #ffffff;
-$pink: #950740;
+$pink: #E03997;
+$pinkDark: #c93387;
 //$gray: #4E4E50;
 $gray: #808080;
 $turquoise: #66FCF1;
 $turquoiseDark: #5be2d8;
 
 // Breakpoints
-//$tablet: 600px;
+$mobile: 480px;
+$tablet: 600px;
 
 body {
   font-size: 16px;
@@ -16,8 +18,80 @@ body {
 p {
   font-size: 1.2em;
 }
+
+// Site-header
 .site-header {
-  margin-bottom: 2em;
+  background-color: $black;
+  color: $white;
+  margin-bottom: 4em;
+  padding: 1em;
+  @media(min-width: $tablet) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #logo {
+    @media(min-width: $tablet) {
+      margin-right: auto;
+    }
+  }
+
+  > div:first-of-type {
+    margin-top: 0.5em;
+    @media(min-width: $tablet) {
+      margin-top: 0em;
+    }
+  }
+
+  > div {
+    padding: 0.5em 0;
+    > span {
+      text-transform: uppercase;
+      font-size: 0.7em;
+      line-height: 1.4;
+      margin-right: 0.5em;
+    }
+    @media(min-width: $tablet) {
+      margin-right: 1em;
+    }
+  }
+
+  button.ui.button {
+    margin-top: 0.8em;
+    @media(min-width: $tablet) {
+      margin-top: 0;
+    }
+  }
+}
+
+#logo {
+  background-color: $pink;
+  color: $white;
+  padding: 0.6em 0.8em;
+  border-radius: 5px;
+  font-size: 1em;
+  line-height: 1;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-family: 'Roboto';
+  font-size: 1.2em;
+  display: inline-block;
+  span:nth-child(1) {
+    font-weight: 900;
+  }
+  span:nth-child(2) {
+    font-weight: 300;
+  }
+  &:hover, &:focus, &:active {
+    background-color: $pinkDark;
+  }
+}
+
+// Footer
+#footer.segment {
+  padding: 5em 0;
+  margin-top: 4em;
 }
 
 // Med andra ord

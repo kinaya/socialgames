@@ -5,23 +5,24 @@ const FakeArtistGamePlay = ({userId, users, word}) => {
   // Get the Fake User
   let amIFake = false;
   const fakeUser = users.find(function(user) {
-    return user.fakeArtist == true;
+    return user.fakeartist == true;
   })
   // The game state might update before the users state, so check if a fakeUser was found
-  if(fakeUser && fakeUser._id === userId) {
+  if(fakeUser && fakeUser.userId === userId) {
     amIFake = true;
   }
 
   return (
     <div className="ui text container center aligned">
 
+      <div className="ui info message">
+
         {amIFake ?
-          <h1 className="ui header">Du <span className="italic">är</span> fake artist!</h1>
+          <h2 className="ui header">Du <span className="italic">är</span> fake artist!</h2>
         :
-          <h1 classNAme="ui header">Du <span className="italic">är inte</span> fake artist!</h1>
+          <h2 className="ui header">Du <span className="italic">är inte</span> fake artist!</h2>
         }
 
-      <div className="ui info message">
         <div><span>Kategori:</span> {word.category}</div>
         <div><span>Ord:</span> {amIFake ? '?' : word.word}</div>
       </div>

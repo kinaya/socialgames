@@ -1,9 +1,9 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { fa_joinGame } from '../../actions'
+import { sga_newGame } from '../actions'
 import { connect } from 'react-redux';
 
-class JoinGameForm extends React.Component {
+class NewGameForm extends React.Component {
 
   renderInput = ({input, label, meta}) => {
     return (
@@ -20,7 +20,7 @@ class JoinGameForm extends React.Component {
   }
 
   onSubmit = (formValues) => {
-    this.props.fa_joinGame(formValues.name, formValues.code);
+    this.props.sga_newGame(formValues.name)
   }
 
   render() {
@@ -31,20 +31,13 @@ class JoinGameForm extends React.Component {
           component={this.renderInput}
           label="Ditt namn"
         />
-        <Field
-          name="code"
-          component={this.renderInput}
-          label="Spelkod"
-        />
-        <button className="ui large primary button" type="submit">Gå med i spel</button>
+        <button className="ui large primary button" type="submit">Skapa spel</button>
       </form>
     )
   }
 }
 
-// Validate the form. Run by redux-form every time the form changes
-// Return an empty object = nothing wrong!
-// Return av object with error message = errors!
+// Validate the form
 const validate = (formValues) => {
   const errors = {}
   if(!formValues.name) {
@@ -53,18 +46,10 @@ const validate = (formValues) => {
   if(!/^[A-Za-z]+$/i.test(formValues.name)) {
     errors.name = "Du kan bara ha bokstäver i namnet"
   }
-  if(!formValues.code) {
-    errors.code = "Du måste ange en spelkod"
-  }
-  if(!/^[A-Z0-9]{6}$/i.test(formValues.code)) {
-    errors.code = "Spelkoden har fel format"
-  }
   return errors;
 }
 
-// For me it needs to be a connected component, bc i don't pass the onsubmit action from parent.
-// I get it from action
-export default connect(null, {fa_joinGame})(reduxForm({
-  form: 'createGameForm',
+export default connect(null, {sga_newGame})(reduxForm({
+  form: 'NewGameForm',
   validate: validate
-})(JoinGameForm))
+})(NewGameForm))

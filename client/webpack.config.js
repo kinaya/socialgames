@@ -66,7 +66,7 @@ return {
      chunkFilenanem: "[id].css"
    }),
    new webpack.DefinePlugin({
-     'API_URL': JSON.stringify(env.API_URL)
+     'BASE_URL': JSON.stringify(env.BASE_URL)
    })
   ],
   resolve: {
@@ -74,7 +74,7 @@ return {
   },
   devServer: {
     proxy: {
-      '/': 'http://localhost:3000'
+      '*': 'http://localhost:3000'
     }
   },
 }

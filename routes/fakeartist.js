@@ -3,11 +3,11 @@ var router = express.Router();
 var fakeArtistController = require('../controllers/fakeArtistController');
 var path = require('path');
 
-module.exports = function(wss) {
+module.exports = function(io) {
 
-  router.post('/createGame', fakeArtistController.createGame);
+  //io.on('connection', fakeArtistController.fakeartist);
 
-  wss.on('connection', fakeArtistController.play);
+  io.of('/fake-artist').on('connection', fakeArtistController.fakeartist);
 
   return router;
 
