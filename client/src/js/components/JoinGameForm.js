@@ -1,50 +1,29 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { sga_joinGame } from '../actions'
+import { joinGame } from '../actions/userActions'
 import { connect } from 'react-redux';
+import { TextComponent } from './FormComponents'
 
-class JoinGameForm extends React.Component {
+const JoinGameForm = ({handleSubmit, joinGame}) => {
 
-  renderInput = ({input, label, meta}) => {
-    return (
-      <div className={`field ${meta.error && meta.touched && 'error'}`}>
-        <label>{label}</label>
-        <input {...input} />
-        {meta.touched && meta.error && (
-          <div className="ui error message">
-            <div className="header">{meta.error}</div>
-          </div>
-        )}
-      </div>
-    )
-  }
+  return (
+    <form className="ui form error" onSubmit={handleSubmit((formValues) => joinGame(formValues.name, formValues.code))}>
+      <Field
+        name="name"
+        component={TextComponent}
+        label="Ditt namn"
+      />
+      <Field
+        name="code"
+        component={TextComponent}
+        label="Spelkod"
+      />
+      <button className="ui large primary button" type="submit">Gå med</button>
+    </form>
+  )
 
-  onSubmit = (formValues) => {
-    this.props.sga_joinGame(formValues.name, formValues.code);
-  }
-
-  render() {
-    return (
-      <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field
-          name="name"
-          component={this.renderInput}
-          label="Ditt namn"
-        />
-        <Field
-          name="code"
-          component={this.renderInput}
-          label="Spelkod"
-        />
-        <button className="ui large primary button" type="submit">Gå med i spel</button>
-      </form>
-    )
-  }
 }
 
-// Validate the form. Run by redux-form every time the form changes
-// Return an empty object = nothing wrong!
-// Return av object with error message = errors!
 const validate = (formValues) => {
   const errors = {}
   if(!formValues.name) {
@@ -62,9 +41,7 @@ const validate = (formValues) => {
   return errors;
 }
 
-// For me it needs to be a connected component, bc i don't pass the onsubmit action from parent.
-// I get it from action
-export default connect(null, {sga_joinGame})(reduxForm({
+export default connect(null, {joinGame})(reduxForm({
   form: 'createGameForm',
   validate: validate
 })(JoinGameForm))

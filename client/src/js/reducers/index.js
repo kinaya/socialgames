@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux'
 import otherwords from './otherwords'
-import fakeartist from './fakeartist'
-import spyfall from './spyfall'
-import authenticated from './authenticated'
+import user from './user'
+import game from './game'
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
+  user,
+  game,
   otherwords,
-  fakeartist,
-  spyfall,
-  authenticated,
   form: formReducer
 })

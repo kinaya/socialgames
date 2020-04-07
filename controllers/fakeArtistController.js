@@ -92,6 +92,10 @@ var addWordToGame = (gameCode) => {
  */
 exports.fakeartist = async function(socket) {
 
+  // Var kommer socket.query ifrån?
+  // Jag skickar med det från frontend!
+  //console.log('socket query', socket.handshake.query)
+
   // Add user to the list of users
   fakeArtistSocketCollection.push({
     socketid: socket.id,
@@ -100,6 +104,8 @@ exports.fakeartist = async function(socket) {
     gameCode: socket.handshake.query.gameCode,
     fakeartist: false
   })
+
+  //console.log('fakeArtistCollection', fakeArtistSocketCollection)
 
   // Add user to a game room
   socket.join(socket.handshake.query.gameCode)

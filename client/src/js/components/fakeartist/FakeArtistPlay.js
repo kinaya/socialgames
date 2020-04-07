@@ -1,32 +1,21 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
-const FakeArtistGamePlay = ({userId, users, word}) => {
+const FakeArtistGamePlay = ({user, word, category, fakeArtist}) => {
+  const [amIFake, setAmIFake] = useState(false)
 
-  // Get the Fake User
-  let amIFake = false;
-  const fakeUser = users.find(function(user) {
-    return user.fakeartist == true;
-  })
-  // The game state might update before the users state, so check if a fakeUser was found
-  if(fakeUser && fakeUser.userId === userId) {
-    amIFake = true;
-  }
+  useEffect(() => {
+    if(fakeArtist === user.user.userId) {
+      setAmIFake(true)
+    }
+  }, [])
 
   return (
     <div className="ui text container center aligned">
-
       <div className="ui info message">
-
-        {amIFake ?
-          <h2 className="ui header">Du <span className="italic">är</span> fake artist!</h2>
-        :
-          <h2 className="ui header">Du <span className="italic">är inte</span> fake artist!</h2>
-        }
-
-        <div><span>Kategori:</span> {word.category}</div>
-        <div><span>Ord:</span> {amIFake ? '?' : word.word}</div>
+        <h2 className="ui header">Du <span className="italic">{amIFake ? 'är' : 'är inte'}</span> fake artist!</h2>
+        <div><span>Kategori:</span> {category}</div>
+        <div><span>Ord:</span> {amIFake ? '?' : word}</div>
       </div>
-
     </div>
   )
 }

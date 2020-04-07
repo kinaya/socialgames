@@ -1,57 +1,53 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { sga_logout } from '../actions'
+import { logout } from '../actions/userActions'
+import { changeGame } from '../actions/gameActions'
 import { connect } from 'react-redux';
 
-const Header = ({authenticated, sga_logout}) => {
+const Header = ({logout, changeGame, game, user, authenticated}) => {
 
-  let renderOutput = ''
-  if(authenticated) {
-    const gameCode = sessionStorage.getItem('gameCode')
-    const userName = sessionStorage.getItem('userName')
-    const userId = sessionStorage.getItem('userId')
+  let gameName = game.game.activeGame
+  if(game.game.activeGame === 'werewolf') gameName = 'Varulvspelet'
+  if(game.game.activeGame === 'fakeartist') gameName = 'Fake Artist'
+  if(game.game.activeGame === 'otherwords') gameName = 'Med andra ord'
+  if(game.game.activeGame === 'pictionary') gameName = 'Pictionary'
+  if(game.game.activeGame === 'spyfall') gameName = 'Spyfall'
 
-    renderOutput = (
-/*      <div className="site-header ui inverted stackable menu">
-        <div className="item">
-          <Link id="logo" to={{pathname: `/${gameCode}`}} ><span>Social</span> <span>Games</span></Link>
-        </div>
-        <div className="right menu">
-          <div className="item">
-            <span>Namn: {userName}</span>
-            <span>Spelkod: {gameCode}</span>
-          </div>
-          <div className="item">
-            <button className="ui inverted button" onClick={() => sga_logout()}>Lämna spelet</button>
-          </div>
-        </div>
-      </div>*/
-      <div className="site-header">
-        <Link id="logo" to={{pathname: `/${gameCode}`}} ><span>Social</span><span>Games</span></Link>
-        <div><span>Namn:</span>{userName}</div>
-        <div><span>Spelkod:</span>{gameCode}</div>
-        <button className="ui inverted button" onClick={() => sga_logout()}>Lämna spelet</button>
-      </div>
-    )
-  } else {
-    renderOutput = (
-      <div className="site-header">
-        <Link id="logo" to='/'><span>Social</span><span>Games</span></Link>
-      </div>
-    )
-  }
+  return (
+    <div className="site-header">
+      <Link id="logo" to={authenticated ? {pathname: `/${user.gameCode}`} : '/'} >
+        <span>Sociala</span><span>Spel</span>
+      </Link>
 
-  return renderOutput
+      {authenticated && (
+        <>
+          {gameName && (
+            <div>
+              <div>{gameName}</div>
+              <button className="ui inverted button" onClick={() => changeGame(null)}>Byt spel</button>
+            </div>
+          )}
+          <div><span>Ditt Namn:</span>{user.userName}</div>
+          <div><span>Spelkod:</span>{user.gameCode}</div>
+          <div><span>Antal spelare:</span>{game.users.length}</div>
+          <button className="ui inverted button" onClick={() => logout()}>Lämna spelet</button>
+        </>
+      )}
+
+    </div>
+  )
 
 }
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.authenticated
+    authenticated: state.user.authenticated,
+    user: state.user.user,
+    game: state.game
   }
 }
 
 export default connect(
   mapStateToProps,
-  { sga_logout }
+  { logout, changeGame }
 )(Header)

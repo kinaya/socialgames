@@ -1,43 +1,24 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { sga_newGame } from '../actions'
+import { newGame } from '../actions/userActions'
 import { connect } from 'react-redux';
+import { TextComponent } from './FormComponents'
 
-class NewGameForm extends React.Component {
+const NewGameForm = ({newGame, handleSubmit}) => {
 
-  renderInput = ({input, label, meta}) => {
-    return (
-      <div className={`field ${meta.error && meta.touched && 'error'}`}>
-        <label>{label}</label>
-        <input {...input} />
-        {meta.touched && meta.error && (
-          <div className="ui error message">
-            <div className="header">{meta.error}</div>
-          </div>
-        )}
-      </div>
-    )
-  }
+  return (
+    <form className="ui form error" onSubmit={handleSubmit((formValues) => newGame(formValues.name))}>
+      <Field
+        name="name"
+        component={TextComponent}
+        label="Ditt namn"
+      />
+      <button className="ui large primary button" type="submit">Skapa</button>
+    </form>
+  )
 
-  onSubmit = (formValues) => {
-    this.props.sga_newGame(formValues.name)
-  }
-
-  render() {
-    return (
-      <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field
-          name="name"
-          component={this.renderInput}
-          label="Ditt namn"
-        />
-        <button className="ui large primary button" type="submit">Skapa spel</button>
-      </form>
-    )
-  }
 }
 
-// Validate the form
 const validate = (formValues) => {
   const errors = {}
   if(!formValues.name) {
@@ -49,7 +30,7 @@ const validate = (formValues) => {
   return errors;
 }
 
-export default connect(null, {sga_newGame})(reduxForm({
+export default connect(null, {newGame})(reduxForm({
   form: 'NewGameForm',
   validate: validate
 })(NewGameForm))

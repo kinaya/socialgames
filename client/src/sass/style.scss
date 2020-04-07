@@ -19,6 +19,16 @@ p {
   font-size: 1.2em;
 }
 
+// Grid
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+
 // Site-header
 .site-header {
   background-color: $black;

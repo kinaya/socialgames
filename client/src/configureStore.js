@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import wsMiddleware from './js/middleware/middleware'
 import { createLogger } from 'redux-logger'
 import rootReducer from './js/reducers'
 
@@ -11,6 +12,7 @@ export default function configureStore(preloadedState) {
     preloadedState,
     applyMiddleware(
       thunkMiddleware,
+      wsMiddleware,
       loggerMiddleware
     )
   )

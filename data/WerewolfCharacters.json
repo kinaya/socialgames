@@ -1,0 +1,22 @@
+[
+  {
+    "name":"Siare",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "team": "Varulvarnas lag"
+  },
+  {
+    "name":"Varulv",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "team": "Varulvarnas lag"
+  },
+  {
+    "name":"Tjuv",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "team": "Varulvarnas lag"
+  },
+  {
+    "name":"Bybo",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "team": "Varulvarnas lag"
+  }
+]

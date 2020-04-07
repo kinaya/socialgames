@@ -10,10 +10,10 @@ const Start = () => {
         <p>Alla de bästa sociala spelen. Spela roligare tillsammans!</p>
 
       <Link to='/newgame' className="ui large primary button" role="button">
-        Skapa nytt spel
+        Skapa nytt spelrum
       </Link>
       <Link to='/joingame' className="ui large primary button" role="button">
-        Gå med i spel
+        Gå med i spelrum
       </Link>
       </div>
     </div>

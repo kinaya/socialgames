@@ -1,25 +1,27 @@
-// Timer
-export const TICK = 'TICK'
-export const RESET_TIMER = 'RESET_TIMER'
+// USER
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+
+// GAME
+export const START_GAME = 'START_GAME'
+export const RESET_GAMES = 'RESET_GAMES'
+export const UPDATE_USERS = 'UPDATE_USERS'
+export const UPDATE_GAME = 'UPDATE_GAME'
+export const CHANGE_GAME = 'CHANGE_GAME'
+
+// Websocket
+export const WS_CONNECT = 'WS_CONNECT'
+export const WS_DISCONNECT = 'WS_DISCONNECT'
+
+// Wherewolf
+export const DISPLAY_CHARACTERS = 'DISPLAY_CHARACTERS'
 
 // Other words
+export const TICK = 'TICK'
+export const RESET_TIMER = 'RESET_TIMER'
 export const CHANGE_WORD = 'CHANGE_WORD'
 export const SKIP_WORD = 'SKIP_WORD'
 export const CHANGE_SETTINGS = 'CHANGE_SETTINGS'
 export const SET_GAME_STATE = 'SET_GAME_STATE'
 export const SETUP = 'SETUP'
 export const RESET_GAME = 'RESET_GAME'
-
-// SPYFALL
-export const SPYFALL_UPDATE_USERS = 'SPYFALL_UPDATE_USERS'
-export const SPYFALL_UPDATE_GAME = 'SPYFALL_UPDATE_GAME'
-export const SPYFALL_RESET_GAME = 'SPYFALL_RESET_GAME'
-
-// GAME
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
-
-// Fake artist
-export const FAKEARTIST_UPDATE_GAME = 'SGA_UPDATE_GAME'
-export const FAKEARTIST_UPDATE_USERS = 'SGA_UPDATE_USERS'
-export const FAKEARTIST_RESET_GAME = 'FAKEARTIST_RESET_GAME'

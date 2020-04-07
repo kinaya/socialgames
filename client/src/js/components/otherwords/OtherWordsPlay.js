@@ -1,40 +1,37 @@
 import React from 'react'
 
-class OtherWordsPlay extends React.Component {
+const OtherWordsPlay = ({settings, score, time, currentword, changeWord, skipWord, finishRound}) => {
 
-  render() {
-    const {settings, score, time, currentword, changeWord, skipWord, finishRound} = this.props;
+  return (
+    <div className="ui text container center aligned">
 
-    return (
-      <div className="ui text container center aligned">
-
-        <div className="ui two column grid">
-          <div className="column">Poäng: {score}</div>
-          {settings.timer != 0 &&
-            <div className="column">Timer: {time}</div>
-          }
-        </div>
-
-        <h1 className="word">{currentword.word}</h1>
-
-        {settings.forbidden &&
-          <div>
-            {currentword.forbidden.map((word, i) => { return (
-              <div key={i}>{word}</div>
-            )})}
-          </div>
+      <div className="ui two column grid">
+        <div className="column">Poäng: {score}</div>
+        {settings.timer != 0 &&
+          <div className="column">Timer: {time}</div>
         }
-
-        <button className="ui primary button large" onClick={() => changeWord()} >Nästa ord</button>
-
-        <div>
-          <button className="ui button" onClick={() => skipWord()} >Hoppa över ord</button>
-          <button className="ui button" onClick={() => finishRound()}>Avsluta omgången</button>
-        </div>
-
       </div>
-    )
-  }
+
+      <h1 className="word">{currentword.word}</h1>
+
+      {settings.forbidden &&
+        <div>
+          {currentword.forbidden.map((word, i) => { return (
+            <div key={i}>{word}</div>
+          )})}
+        </div>
+      }
+
+      <button className="ui primary button large" onClick={changeWord} >Nästa ord</button>
+
+      <div>
+        <button className="ui button" onClick={skipWord} >Hoppa över ord</button>
+        <button className="ui button" onClick={finishRound}>Avsluta omgången</button>
+      </div>
+
+    </div>
+  )
 }
+
 
 export default OtherWordsPlay;

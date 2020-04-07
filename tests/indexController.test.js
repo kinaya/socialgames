@@ -1,45 +1,83 @@
-// export app somewhere
-const rquest = require('supertest')
-const app = require('../src/app')
+const request = require('supertest')
+const app = require('../app');
 const Game = require('../models/Game')
+const User = require('../models/User')
+const mongoose = require('mongoose')
+const {userOneId, userOne, gameOne, gameOneId, setupDatabase } = require('./fixtures/db')
 
-const gameOne = {
-  gameCode: 'GHJKLI',
-  fa_status: 'waiting'
-}
+beforeEach(setupDatabase)
 
-// Runs before each test
-beforeEach(async () => {
-  // Make sure we use the test db! This deletes all games
-  await Game.deleteMay()
-  // Put one game in db to be able to test it
-  await new Game(gameOne).save()
-})
-
-// Wipe data before running test! Thats why we need a separate db
-test('Test create a new game', async () => {
-  await request(app).post('/newGame').send({
+test('Create a new game works', async (done) => {
+  const response = await request(app).post('/newGame').send({
     userName: 'Alvine'
-  }).expect(201)
+  }).expect(200) // This should really be 201 "Created"
+
+  // Assert that the database was changes correctly
+  const game = await Game.findById(response.body.game._id)
+  expect(game).not.toBeNull()
+
+  const user = await User.findOne({name: "Alvine"})
+  expect(user).not.toBeNull()
+
+  // Assertions about the response. The body should include what we specify
+  expect(response.body).toMatchObject({
+    user: { name: "Alvine" }
+  })
+  done()
 })
 
-test('Should login correct', async () => {
-  await request(app).post('/newUser').send({
+test('Create a new game with invalid data does not work', async (done) => {
+  await request(app).post('/newGame').send({
+    userName: ''
+  }).expect(500)
+  done()
+})
+
+test('Join a game works', async (done) => {
+  const response = await request(app).post('/joinGame').send({
     userName: 'Anna',
     gameCode: 'QWERTY'
   }).expect(200)
-})
 
-test('Should not log in nonexistent user')
+  const user = await User.findOne({name: "Anna"})
+  expect(user).not.toBeNull()
 
-// Two ways to test async. Add 'done' argument when testing async code
-/*test('Promise based testing', (done) => {
-  add(2,3).then((sum) => {
-    expect(sum).toBe(5)
-    done()
+  expect(response.body).toMatchObject({
+    user: { name: "Anna"},
+    game: { code: "QWERTY" }
   })
+  done()
 })
-test('Another sync test', async () => {
-  const sum = await add(10,22)
-  expect(sum).toBe(22)
-})*/
+
+test('Joining a game with invalid data does not work', async (done) => {
+  await request(app).post('/joinGame').send({
+    userName: '',
+    gameCode: 'QUERTY'
+  }).expect(500)
+  done()
+})
+
+test('Joining a game that does not exist does not work', async (done) => {
+  await request(app).post('/joinGame').send({
+    userName: 'Sara',
+    gameCode: 'XXXXXX'
+  }).expect(500)
+  done()
+})
+
+test('Leaving a game works', async (done) => {
+  const response = await request(app).post('/leaveGame').send({
+    userId: userOneId
+  }).expect(200)
+
+  const user = await User.findById(response.body.user._id)
+  expect(user).toBeNull()
+  done()
+})
+
+test('Leaving a game with invalid data does not work', async (done) => {
+  await request(app).post('/leaveGame').send({
+    userId: 5555
+  }).expect(500)
+  done()
+})

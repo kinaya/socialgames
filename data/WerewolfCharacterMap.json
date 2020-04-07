@@ -1,0 +1,26 @@
+[
+  {
+    "players": 1,
+    "list": ["Siare", "Tjuv", "Varulv", "Bybo"]
+  },
+  {
+    "players": 2,
+    "list": ["Siare", "Tjuv", "Varulv", "Bybo", "Bybo"]
+  },
+  {
+    "players": 3,
+    "list": ["Siare", "Tjuv", "Varulv", "Varulv", "Bybo", "Bybo"]
+  },
+  {
+    "players": 4,
+    "list": ["Siare", "Tjuv", "Varulv", "Varulv", "Bybo", "Bybo", "Bybo"]
+  },
+  {
+    "players": 5,
+    "list": ["Siare", "Tjuv", "Varulv", "Varulv", "Bybo", "Bybo", "Bybo", "Bybo"]
+  },
+  {
+    "players": 6,
+    "list": ["Siare", "Tjuv", "Varulv", "Varulv", "Varulv", "Bybo", "Bybo", "Bybo", "Bybo"]
+  }
+]

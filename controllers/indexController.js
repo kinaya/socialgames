@@ -9,81 +9,78 @@ var async = require('async');
  * Params: userName, gameCode
  * Returns: user object
  */
-var saveUser = (userName, gameCode) => {
-  return new Promise((resolve, reject) => {
+var saveUser = (userName, gameCode) => new Promise((resolve, reject) => {
 
-    Game.findOne({'code': gameCode}, function(err, game) {
-      if(err) { reject(new Error(err)); return;}
-      if(!game) { reject(new Error('Invalid game code')); return; }
+  Game.findOne({'code': gameCode}, function(err, game) {
+    if(err) { reject(new Error(err)); return;}
+    if(!game) {
+      reject(new Error('Invalid game code')); return;
+    }
 
-      var user = new User({
-        name: userName,
-        game: game.id
-      })
-
-      user.save(function(err) {
-        if(err){ reject(new Error(err)); return;}
-        resolve(user);
-      })
+    var user = new User({
+      name: userName,
+      game: game.id
     })
 
-  });
-};
+    user.save(function(err) {
+      if(err){ reject(new Error(err)); return;}
+      resolve(user);
+    })
+  })
+
+});
+
 
 /**
  * Remove a user from the db
  * Params: userId
  * Returns: the user
  */
-var removeUser = (userId) => {
-  return new Promise((resolve, reject) => {
+var removeUser = (userId) => new Promise((resolve, reject) => {
 
-    User.findByIdAndRemove(userId, function(err, user) {
-      if(err) { reject(new Error(err)); return;}
-      resolve(user);
-    })
-
+  User.findByIdAndRemove(userId, function(err, user) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(user);
   })
-}
+
+})
+
 
 /**
  * Save a new game in the db
  * Params: none
  * Returns: game object
 */
-var saveGame = () => {
-  return new Promise((resolve, reject) => {
+var saveGame = () => new Promise((resolve, reject) => {
 
-    const code = randomize('A0',6);
+  const code = randomize('A0',6);
 
-    var game = new Game({
-      code: code
-    });
+  var game = new Game({
+    code: code
+  });
 
-    game.save(function(err) {
-      if(err) { reject(new Error(err)); return;}
-      resolve(game);
-    })
-
+  game.save(function(err) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(game);
   })
-}
+
+})
+
 
 /**
  * Get a game
  * Params: gameCode
  * Returns game object
  */
-var getGame = gameCode => {
-  return new Promise((resolve, reject) => {
+var getGame = gameCode => new Promise((resolve, reject) => {
 
-    Game.findOne({'code': gameCode}, function(err, game) {
-      if(err) { reject(new Error(err)); return;}
-      if(!game) { reject(new Error('Invalid game code')); return;}
-      resolve(game);
-    })
-
+  Game.findOne({'code': gameCode}, function(err, game) {
+    if(err) { reject(new Error(err)); return;}
+    if(!game) { reject(new Error('Invalid game code')); return;}
+    resolve(game);
   })
-}
+
+})
 
 /**
  * User trigged action at /newGame - Create a new game
@@ -94,6 +91,8 @@ exports.newGame = async function(req, res, next) {
     var game = await saveGame();
     var user = await saveUser(req.body.userName, game.code);
   } catch (err) {
+    console.log('error!')
+    console.log(err)
     return next(err);
   }
 

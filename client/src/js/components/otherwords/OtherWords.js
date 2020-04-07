@@ -1,27 +1,50 @@
 import React from 'react'
-import OtherWordsIntro from './OtherWordsIntro'
+import { connect } from 'react-redux'
 import OtherWordsPlay from './OtherWordsPlay'
+import OtherWordsForm from './OtherWordsForm'
 import OtherWordsFinished from './OtherWordsFinished'
+import { resetGames } from '../../actions/gameActions'
+import { startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame } from '../../actions/otherWordsActions'
 
-class OtherWords extends React.Component {
+const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame}) => {
+  return (
+    <div>
 
-  componentWillUnmount() {
-    this.props.resetGame();
-  }
+      <h1>Med andra ord</h1>
 
-  render() {
+      {otherwords.gamestate === 'intro' && (
+        <p>Ett familje- och partyspel som går ut på att du ska säga samma sak, med andra ord, under tidspress. Gör det svårare genom att ha med förbjudna ord som inte får användas i din förklaring!</p>
+      )}
 
-    const {gamestate, time, currentword, settings, changeWord, skipWord, newRound, setGameState, score, stopTimer, resetGame, finishRound, startGame, changeSettings} = this.props;
+      {otherwords.gamestate === 'intro' && (
+        <OtherWordsForm startGameLocal={startGameLocal}/>
+      )}
 
-    return (
-      <div>
-        {gamestate === 'intro' && <OtherWordsIntro settings={settings} startGame={startGame} changeSettings={changeSettings} setGameState={setGameState} />}
-        {gamestate === 'play' && <OtherWordsPlay score={score} time={time} finishRound={finishRound} stopTimer={stopTimer} settings={settings} changeWord={changeWord} skipWord={skipWord} setGameState={setGameState} currentword={currentword} /> }
-        {gamestate === 'finished' && <OtherWordsFinished newRound={newRound} resetGame={resetGame} score={score} setGameState={setGameState} />}
-      </div>
-    )
+      {otherwords.gamestate === 'play' && <OtherWordsPlay
+        settings={otherwords.settings}
+        score={otherwords.score}
+        time={otherwords.time}
+        currentword={otherwords.currentword}
+        changeWord={changeWord}
+        skipWord={skipWord}
+        finishRound={finishRound}
+       />}
 
+      {otherwords.gamestate === 'finished' && <OtherWordsFinished newRound={newRound} resetGame={resetGame} score={otherwords.score} />}
+
+      {otherwords.gamestate === 'intro' && <button className="ui primary large button" onClick={() => startGameLocal()}>Starta spelet</button>}
+
+    </div>
+  )
+}
+
+const mapStateToProps = state => {
+  return {
+    otherwords: state.otherwords
   }
 }
 
-export default OtherWords;
+export default connect(
+  mapStateToProps,
+  {startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame}
+)(OtherWords)

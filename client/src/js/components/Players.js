@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const FakeArtistPlayers = ({users}) => {
+const Players = ({users}) => {
   return (
     <div className="ui container left aligned">
       <h4 className="ui top attached block header">Spelare</h4>
@@ -13,4 +14,10 @@ const FakeArtistPlayers = ({users}) => {
   )
 }
 
-export default FakeArtistPlayers;
+const mapStateToProps = state => {
+  return {
+    users: state.game.users
+  }
+}
+
+export default connect(mapStateToProps, null)(Players);
