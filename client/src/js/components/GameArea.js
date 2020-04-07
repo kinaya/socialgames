@@ -55,9 +55,7 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
         <div>
           <div className="ui info message">
             <h2>Bjud in spelare</h2>
-            <p>Använd spelkoden eller länken nedan för att bjuda in andra att spela med</p>
             <p className="code"><span>Spelkod:</span> {match.params.id}</p>
-            <p className="link"><span>Direktlänk:</span> https://socialgamesapp.herokuapp.com/{match.params.id}</p>
             <h2>Spelare som är med:</h2>
             <ul>
             {game.users.map(user => (
