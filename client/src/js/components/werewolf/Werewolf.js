@@ -10,14 +10,14 @@ import { toast } from 'react-toastify';
 
 import characters from './werewolf.json'
 
-const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, nextStep}) => {
+const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep}) => {
 
   return (
     <div className="">
       <h1>Varulvspelet</h1>
 
       {werewolf.running && (
-        <WerewolfSteps step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
+        <WerewolfSteps userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
       )}
 
       {!werewolf.running && (
@@ -37,7 +37,8 @@ const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, nextStep}
 
 const mapStateToProps = state => {
   return {
-    werewolf: state.game.game.werewolf
+    werewolf: state.game.game.werewolf,
+    userId: state.user.user.userId
   }
 }
 
