@@ -21,18 +21,7 @@ const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, nextStep}
       )}
 
       {!werewolf.running && (
-        <p>Text om varulvspelet. Alla får ett motiv att rita tillsammans, där ni turas om att dra varsitt streck i samma teckning. Men en av er är the Fake Artist och vet inte vad ni ritar! Kommer ni avslöja vem som är the Fake Artist innan hen hinner lista ut vad ert konstverk föreställer?</p>
-      )}
-
-      {!werewolf.running && (
-        <div>
-          <h2>Karaktärer</h2>
-          <div className="ui three stackable cards">
-            {characters.map((character, i) => (
-              <WerewolfCharacter key={i} display={true} character={character} />
-            ))}
-          </div>
-        </div>
+        <p>Diskussionsspel där spelarna genom att bluffa, läsa av varandra och finna motsägelser i uttalanden ska lyckas avgöra vilka i sällskapet som har blivit tilldelade varulvsroller! Pekar byborna ut rätt person(er) när tiden har runnit ut och sanningens ögonblick är här?</p>
       )}
 
       {werewolf.running && <WerewolfPlay />}
@@ -56,3 +45,16 @@ export default connect(
   mapStateToProps,
   {resetGames, startGame, nextStep, displayCharacters}
 )(Werewolf)
+
+/*
+{!werewolf.running && (
+  <div>
+    <h2>Karaktärer</h2>
+    <div className="ui three stackable cards">
+      {characters.map((character, i) => (
+        <WerewolfCharacter key={i} display={true} character={character} />
+      ))}
+    </div>
+  </div>
+)}
+*/

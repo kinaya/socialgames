@@ -31,7 +31,7 @@ const WerewolfSteps = ({step, nextStep, displayCharacters}) => {
         <button className="ui primary large button" onClick={nextStep}>Gå vidare</button>
       )}
       {step === 3 && (
-        <button className="ui primary large button" onClick={displayCharacters}>Visa alla karaktärer</button>
+        <button className="ui basic button" onClick={displayCharacters}>Visa alla karaktärer</button>
       )}
 
     </div>
