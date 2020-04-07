@@ -1,22 +1,32 @@
 [
   {
     "name":"Siare",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
-    "team": "Varulvarnas lag"
+    "description": "På natten får siaren titta på en annan spelare kort, eller på två kort i mitten",
+    "team": "Bybornas lag"
   },
   {
     "name":"Varulv",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "description": "På natten vaknar varulvarna, och ser sig om efter andra varulvar",
     "team": "Varulvarnas lag"
   },
   {
     "name":"Tjuv",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "description": "På natten kan tjuven byta sitt kort mot en annan spelares kort",
     "team": "Varulvarnas lag"
   },
   {
     "name":"Bybo",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur euismod in risus sit amet vulputate",
+    "description": "",
     "team": "Varulvarnas lag"
+  },
+  {
+    "name": "Blackout",
+    "description": "På natten byter spelaren med blackout sitt kort mot ett kort i mitten, utan att titta på det",
+    "team": "Bybornas lag"
+  },
+  {
+    "name": "Joker",
+    "description": "Jokern vinner om hen blir utpekad som varulv",
+    "team": "Inget lag"
   }
 ]

@@ -115,6 +115,26 @@ main {
   margin: 1em 0;
 }
 
+
+// Werewolf
+.card.display-true {
+  text-align: center;
+  .team {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+}
+.card {
+  .playername {
+    z-index: 1;
+    background-color: white;
+    position: absolute;
+    padding: 0.3em 1em;
+    margin-top: 1em;
+  }
+}
+
 /*body {
   background-color: $black;
   color: $white;
