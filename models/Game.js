@@ -22,6 +22,7 @@ var GameSchema = Schema({
     showCharacters: {type: Boolean, required: true, default: false},
     characters: {type: Array, default: []},
     middleCards: {type: Array, default: []},
+    step: {type: Number, default: 0}
   },
   pictionary: {
     running: {type: Boolean, required: true, default: false}

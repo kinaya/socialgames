@@ -99,6 +99,14 @@ var displayCharacters = (gameCode) => new Promise((resolve, rejeect) => {
   });
 })
 
+var nextStep = (gameCode) => new Promise((resolve, rejeect) => {
+  Game.findOneAndUpdate({code: gameCode}, { $inc: { 'werewolf.step': 1} }, { new: true }, function (err, game) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(game);
+  });
+})
+
+
 var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
 
   // Get the characterlist according to number of players, and make a copy of it to manipulate
@@ -213,6 +221,12 @@ exports.game = async function(io, socket) {
 
     //var game = await startGame(gameCode, gameName);
     //io.in(gameCode).emit('game', {game})
+  })
+
+  // next step
+  socket.on('nextStep', async () => {
+    var game = await nextStep(gameCode)
+    io.in(gameCode).emit('game', {game})
   })
 
   // display characters

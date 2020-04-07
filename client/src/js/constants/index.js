@@ -15,6 +15,7 @@ export const WS_DISCONNECT = 'WS_DISCONNECT'
 
 // Wherewolf
 export const DISPLAY_CHARACTERS = 'DISPLAY_CHARACTERS'
+export const NEXT_STEP = 'NEXT_STEP'
 
 // Other words
 export const TICK = 'TICK'

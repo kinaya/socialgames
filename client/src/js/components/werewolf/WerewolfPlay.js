@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { displayCharacters } from '../../actions/werewolfActions'
 import WerewolfCharacter from './WerewolfCharacter'
 
-const WerewolfPlay = ({werewolf, userId, displayCharacters}) => {
+const WerewolfPlay = ({werewolf, userId}) => {
 
   return (
     <div className="ui text container center aligned">
@@ -31,8 +30,6 @@ const WerewolfPlay = ({werewolf, userId, displayCharacters}) => {
         ))}
       </div>
 
-      <button className="ui primary large button" onClick={displayCharacters}>Visa alla karaktärer</button>
-
     </div>
   )
 }
@@ -44,4 +41,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { displayCharacters })(WerewolfPlay);
+export default connect(mapStateToProps, null)(WerewolfPlay);
