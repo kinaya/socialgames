@@ -406,3 +406,13 @@ form {
     display: inline-block;
   }
 }*/
+
+// video
+.video {
+  border: 1px solid black;
+  padding: 5px;
+  display: inline-block;
+  > div {
+    text-align: center;
+  }
+}

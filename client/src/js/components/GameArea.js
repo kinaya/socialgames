@@ -9,12 +9,17 @@ import FakeArtist from './fakeartist/FakeArtist'
 import history from '../history';
 //import io from "socket.io-client";
 import { updateUsers } from '../actions/gameActions'
+import { addUserStream } from '../actions/streamActions'
 import { wsConnect, wsDisconnect } from '../actions/websocketActions'
 import ReactLoading from 'react-loading'
+import VideoContainer from './VideoContainer'
 
-const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect}) => {
-  const [isLoading, setIsLoading] = useState(false)
+const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect, addUserStream}) => {
+  const [isLoading, setIsLoading] = useState(true)
 
+  // Runs on mount and when video setting change
+
+  // Runs on mount
   useEffect(() => {
     setIsLoading(true)
     // TODO: check so state/sessionStorage match in update in App.js
@@ -23,7 +28,9 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
     const gameCode = user.user.gameCode
     const host = `${BASE_URL}/game`;
     const queryObject = {query: {userName, userId, gameCode}}
+
     wsConnect(host, queryObject)
+
     // TODO: how to wait until socket is connected and game/user state fetched?
     setIsLoading(false)
 
@@ -32,12 +39,29 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
     }
   }, [])
 
+  // This is run on mount and if video setting change
+  useEffect(() => {
+    if(game.game.video) {
+      const videoConstraints = {
+          height: window.innerHeight / 2,
+          width: window.innerWidth / 2
+      };
+      navigator.mediaDevices.getUserMedia({video: videoConstraints, audio: true }).then(stream => {
+        addUserStream(stream)
+      })
+    } else {
+      addUserStream(null)
+    }
+  }, [game.game.video])
+
   if(isLoading) {
     return <ReactLoading />
   }
 
   return (
     <div>
+
+      <VideoContainer />
 
       {authenticated && game.game.activeGame === 'werewolf' && (
         <Werewolf />
@@ -88,5 +112,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateUsers, wsConnect, wsDisconnect }
+  { updateUsers, wsConnect, wsDisconnect, addUserStream }
 )(GameArea)

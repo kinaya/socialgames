@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import configureStore from './configureStore'
 import './sass/style.scss'
 
-const store = configureStore()
+export const store = configureStore()
 
 render(
   <Provider store={store}>

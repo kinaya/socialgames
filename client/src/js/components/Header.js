@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { logout } from '../actions/userActions'
-import { changeGame } from '../actions/gameActions'
+import { changeGame, toggleVideo } from '../actions/gameActions'
 import { connect } from 'react-redux';
 
-const Header = ({logout, changeGame, game, user, authenticated}) => {
+const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) => {
 
   let gameName = game.game.activeGame
   if(game.game.activeGame === 'werewolf') gameName = 'Varulvspelet'
@@ -27,6 +27,9 @@ const Header = ({logout, changeGame, game, user, authenticated}) => {
               <button className="ui inverted button" onClick={() => changeGame(null)}>Byt spel</button>
             </div>
           )}
+          <button className="ui inverted button" onClick={() => toggleVideo(game.game.video ? false : true)}>
+            {game.game.video ? 'Stäng av video' : 'Sätt på video'}
+          </button>
           <div><span>Ditt Namn:</span>{user.userName}</div>
           <div><span>Spelkod:</span>{user.gameCode}</div>
           <div><span>Antal spelare:</span>{game.users.length}</div>
@@ -49,5 +52,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { logout, changeGame }
+  { logout, changeGame, toggleVideo }
 )(Header)

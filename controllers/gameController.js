@@ -37,6 +37,13 @@ var changeGame = (gameCode, game) => new Promise((resolve, reject) => {
   });
 })
 
+var toogleVideo = (gameCode, boolean) => new Promise((resolve, reject) => {
+  Game.findOneAndUpdate({code: gameCode}, { $set: {video: boolean}}, { new: true}, function (err, game) {
+    if(err) { reject(new Error(eerr)); return;}
+    resolve(game);
+  })
+})
+
 // TODO: Slå ihop startGame/stopGame eller kanske ha en generell "UpdateGame?"
 var startGame = (gameCode, gameName) => new Promise((resolve, reject) => {
   const setObject = {}
@@ -100,7 +107,10 @@ var displayCharacters = (gameCode) => new Promise((resolve, rejeect) => {
 })
 
 var nextStep = (gameCode) => new Promise((resolve, rejeect) => {
-  Game.findOneAndUpdate({code: gameCode}, { $inc: { 'werewolf.step': 1} }, { new: true }, function (err, game) {
+
+  // Something to call nextStep again in 10 (5-15?) seconds if no one has this role
+
+  Game.findOneAndUpdate({code: gameCode}, { $inc: { 'werewolf.step.number': 1} }, { new: true }, function (err, game) {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
   });
@@ -186,6 +196,20 @@ exports.game = async function(io, socket) {
   // Send updated game and list of users to all clients in 'gameCode' room, including sender
   io.in(gameCode).emit('game', { users, game });
 
+  // Send the 'existingusers' message to the newly added user, for creating Peers
+  io.to(socket.id).emit('existingusers', {users});
+
+  socket.on('sendingsignal', data => {
+    // Send a signal to the userToSignal that a user joined
+    // This is done on the client once for each exicting user
+    console.log('sendingsignal', data)
+    io.to(data.userToSignal).emit('userjoined', {signal: data.signal, callerID: data.callerID})
+  })
+
+  socket.on('returningsignal', data => {
+    io.to(data.callerID).emit('receivingreturnedsignal', {signal: data.signal, id: socket.id})
+  })
+
   socket.on('disconnecting', async () => {
     // Leave room
     socket.leave(gameCode)
@@ -201,6 +225,14 @@ exports.game = async function(io, socket) {
   socket.on('changeGame', async (gameName) => {
     await resetGames(gameCode);
     var game = await changeGame(gameCode, gameName);
+    io.in(gameCode).emit('game', { game })
+  })
+
+  // Toogle the video
+  socket.on('toggleVideo', async (boolean) => {
+    console.log('toggleVideo boolean', boolean)
+    var game = await toogleVideo(gameCode, boolean);
+    console.log('boolean in game to return', game.video)
     io.in(gameCode).emit('game', { game })
   })
 

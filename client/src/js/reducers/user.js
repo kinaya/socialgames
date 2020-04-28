@@ -1,13 +1,20 @@
-import { LOGIN, LOGOUT } from '../constants'
+import { ADD_USER_STREAM, LOGIN, LOGOUT } from '../constants'
 
 const initialState = {
   authenticated: false,
-  user: {}
+  user: {},
+  stream: null
 }
 
 const user = (state = initialState, action) => {
 
   switch (action.type) {
+
+    case ADD_USER_STREAM:
+      return {
+        ...state,
+        stream: action.stream
+      }
 
     case LOGIN:
       return {
@@ -20,7 +27,8 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         authenticated: false,
-        user: {}
+        user: {},
+        stream: null
       }
 
     default:

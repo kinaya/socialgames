@@ -1,4 +1,4 @@
-import { UPDATE_USERS, UPDATE_GAME, CHANGE_GAME, START_GAME, RESET_GAMES } from '../constants'
+import { TOGGLE_VIDEO, UPDATE_USERS, UPDATE_GAME, CHANGE_GAME, START_GAME, RESET_GAMES } from '../constants'
 
 export const updateUsers = (users) => {
   return ({
@@ -17,6 +17,14 @@ export const updateGame = (game) => {
   return ({
     type: UPDATE_GAME,
     game: game
+  })
+}
+
+export const toggleVideo = (boolean) => {
+  console.log('toggleVideo boolean', boolean)
+  return ({
+    type: TOGGLE_VIDEO,
+    boolean: boolean
   })
 }
 

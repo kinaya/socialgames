@@ -5,6 +5,7 @@ Schema = mongoose.Schema;
 var GameSchema = Schema({
   code: { type: String, required: true },
   activeGame: { type: String, default: null },
+  video: {type: Boolean, default: false },
   fakeArtist: {
     running: {type: Boolean, required: true, default: false},
     word: {type: String, default: ''},
@@ -22,7 +23,10 @@ var GameSchema = Schema({
     showCharacters: {type: Boolean, required: true, default: false},
     characters: {type: Array, default: []},
     middleCards: {type: Array, default: []},
-    step: {type: Number, default: 0}
+    step: {
+      number: {type: Number, default: 0},
+      exists: {type: Boolean, default: false}
+    }
   },
   pictionary: {
     running: {type: Boolean, required: true, default: false}
