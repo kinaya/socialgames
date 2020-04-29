@@ -30,6 +30,7 @@ export const JitsiComponent = ({game, user}) => {
        api.addEventListener('videoConferenceJoined', () => {
          setLoading(false);
          api.executeCommand('displayName', user.user.userName);
+         api.executeCommand('toggleTileView');
         });
 
       } catch (error) {
