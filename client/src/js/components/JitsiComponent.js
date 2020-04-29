@@ -12,11 +12,11 @@ export const JitsiComponent = ({game, user}) => {
        const domain = 'meet.jit.si';
        const options = {
         roomName: game.game.code,
-        height: '100%',
+        height: '800px',
         width: '100%',
         parentNode: document.getElementById('jitsi-container'),
         interfaceConfigOverwrite: {
-          filmStripOnly: true,
+          //filmStripOnly: true,
           TOOLBAR_BUTTONS: ['microphone', 'camera'],
           SHOW_JITSI_WATERMARK: false,
           DEFAULT_BACKGROUND: '#ffffff',
