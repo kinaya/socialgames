@@ -68,6 +68,10 @@ const socketMiddleware = () => {
                 socket.emit("sendingsignal", {userToSignal, callerID, callerName, signal})
               })
 
+              peer.on('error', (err) => {
+                console.log(err)
+              })
+
               peers.push({
                 userName: user.userName,
                 socketID: user.socketid,
@@ -106,13 +110,17 @@ const socketMiddleware = () => {
             // This triggers the above signal
             peer.signal(data.signal)
 
+            peer.on('error', (err) => {
+              console.log(err)
+            })
+
             // This is the newly added users we add to out peers
             store.dispatch(addPeer({
               userName: data.callerName,
               socketID: data.callerID,
               peer: peer
             }));
-            
+
           }
 
         })
