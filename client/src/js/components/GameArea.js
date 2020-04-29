@@ -13,6 +13,7 @@ import { addUserStream } from '../actions/streamActions'
 import { wsConnect, wsDisconnect } from '../actions/websocketActions'
 import ReactLoading from 'react-loading'
 import VideoContainer from './VideoContainer'
+import Jitsi from 'react-jitsi'
 
 const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect, addUserStream}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -57,10 +58,18 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
     return <ReactLoading />
   }
 
+//  <VideoContainer />
+
+  const interfaceConfig = {
+    TOOLBAR_BUTTONS: ['microphone', 'camera']
+  }
+
   return (
     <div>
 
-      <VideoContainer />
+      {game.game.video && (
+        <Jitsi loadingComponent={ReactLoading} interfaceConfig={interfaceConfig} roomName={user.user.gameCode} displayName={user.user.userName} />
+      )}
 
       {authenticated && game.game.activeGame === 'werewolf' && (
         <Werewolf />

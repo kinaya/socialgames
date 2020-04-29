@@ -36,7 +36,7 @@ const socketMiddleware = () => {
 
         // The new users get a list of all existing users from the server
         // This users has no peers when this runs!
-        socket.on('existingusers', (users) => {
+        /*socket.on('existingusers', (users) => {
           // All the existing users including the newly joined one
           // user.socketid, users.userName, user.userId, user.gameCode
           const userStream = store.getState().user.stream;
@@ -132,7 +132,7 @@ const socketMiddleware = () => {
           console.log('The new user send signal to old user again')
           console.log('the signa', data.signal)
           item.peer.signal(data.signal)
-        })
+        })*/
 
         socket.on('game', (data) => {
           if(data.game) { store.dispatch(updateGame(data.game))}

@@ -28,7 +28,7 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
             </div>
           )}
           <button className="ui inverted button" onClick={() => toggleVideo(game.game.video ? false : true)}>
-            {game.game.video ? 'Stäng av video' : 'Sätt på video'}
+            {game.game.video ? 'Spela utan video' : 'Spela med video'}
           </button>
           <div><span>Ditt Namn:</span>{user.userName}</div>
           <div><span>Spelkod:</span>{user.gameCode}</div>

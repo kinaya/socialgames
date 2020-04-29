@@ -199,7 +199,7 @@ exports.game = async function(io, socket) {
   io.in(gameCode).emit('game', { users, game });
 
   // Send the 'existingusers' message to the newly added user, for creating Peers
-  io.to(socket.id).emit('existingusers', users);
+/*  io.to(socket.id).emit('existingusers', users);
 
   socket.on('sendingsignal', data => {
     // This signal i of typ "offer". It is sent by the joining user to the existing ones
@@ -213,7 +213,7 @@ exports.game = async function(io, socket) {
     console.log(`${socket.id} receivingreturnedsignal to ${data.callerID}`)
     console.log('The signal:', data.signal)
     io.to(data.callerID).emit('receivingreturnedsignal', {signal: data.signal, id: socket.id})
-  })
+  })*/
 
   socket.on('disconnecting', async () => {
     // Leave room
