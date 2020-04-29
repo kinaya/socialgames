@@ -10,11 +10,6 @@ export const UPDATE_GAME = 'UPDATE_GAME'
 export const CHANGE_GAME = 'CHANGE_GAME'
 export const TOGGLE_VIDEO = 'TOGGLE_VIDEO'
 
-// Streams
-export const UPDATE_PEERS = 'UPDATE_PEERS'
-export const ADD_PEER = 'ADD_PEER'
-export const ADD_USER_STREAM = 'ADD_USER_STREAM'
-
 // Websocket
 export const WS_CONNECT = 'WS_CONNECT'
 export const WS_DISCONNECT = 'WS_DISCONNECT'

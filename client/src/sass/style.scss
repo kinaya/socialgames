@@ -430,3 +430,17 @@ form {
     margin: 4em 1em 0 4em;
   }
 }
+
+
+// Varulvarna
+.breadcrumb {
+  background-color: lightgray;
+  > div {
+    display: inline-block;
+    border: 1px solid gray;
+    padding: 0.2em 0.5em;
+    &.active {
+      background-color: pink;
+    }
+  }
+}

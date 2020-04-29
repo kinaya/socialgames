@@ -30,6 +30,8 @@ const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, n
 
       {werewolf.running && <button className="ui basic button" onClick={() => resetGames()}>Avsluta omgången</button>}
 
+      {werewolf.running && werewolf.step.number < 5 && <button className="ui basic button" onClick={() => nextStep()}>Nästa steg</button>}
+
     </div>
   )
 

@@ -1,13 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 
-export const JitsiComponent = ({game, user}) => {
-  const [loading, setLoading] = useState(true)
+export const JitsiComponent = ({game, user, width}) => {
 
   const startJitsu = () => {
-
-    console.log(user)
-
     try {
        const domain = 'meet.jit.si';
        const options = {
@@ -19,20 +15,21 @@ export const JitsiComponent = ({game, user}) => {
           //filmStripOnly: true,
           TOOLBAR_BUTTONS: ['microphone', 'camera', 'tileview'],
           SHOW_JITSI_WATERMARK: false,
+          SHOW_WATERMARK_FOR_GUESTS: false,
+          SHOW_BRAND_WATERMARK: false,
           DEFAULT_BACKGROUND: '#ffffff',
           DISABLE_VIDEO_BACKGROUND: true,
           DEFAULT_REMOTE_DISPLAY_NAME: 'Gäst',
+          // https://github.com/jitsi/jitsi-meet/issues/5142
           TILE_VIEW_MAX_COLUMNS: 1
         }
        };
        const api = new JitsiMeetExternalAPI(domain, options);
 
-       //api.executeCommand('toggleTileView');
        api.addEventListener('videoConferenceJoined', () => {
-         setLoading(false);
          api.executeCommand('displayName', user.user.userName);
-         api.executeCommand('toggleTileView');
-        });
+        // api.executeCommand('toggleTileView');
+       });
 
       } catch (error) {
        console.error('Failed to load Jitsi API', error);
@@ -52,7 +49,6 @@ export const JitsiComponent = ({game, user}) => {
     <div id="jitsi-container" />
   )
 }
-
 
 const mapStateToProps = state => {
   return {

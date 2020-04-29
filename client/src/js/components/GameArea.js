@@ -7,38 +7,16 @@ import OtherWords from './otherwords/OtherWords'
 import Werewolf from './werewolf/Werewolf'
 import FakeArtist from './fakeartist/FakeArtist'
 import history from '../history';
-//import io from "socket.io-client";
 import { updateUsers } from '../actions/gameActions'
-import { addUserStream } from '../actions/streamActions'
 import { wsConnect, wsDisconnect } from '../actions/websocketActions'
 import ReactLoading from 'react-loading'
-import VideoContainer from './VideoContainer'
-//import Jitsi from 'react-jitsi'
 import JitsiComponent from './JitsiComponent'
 import { Resizable } from 're-resizable'
 
-const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect, addUserStream}) => {
+const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect }) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [width, setWidth] = useState(400)
 
-  const videoRef = useRef();
-
-  // This is run on mount and if video setting change
-  /*useEffect(() => {
-    //if(game.game.video) {
-      const videoConstraints = {
-          height: window.innerHeight / 2,
-          width: window.innerWidth / 2
-      };
-      navigator.mediaDevices.getUserMedia({video: videoConstraints, audio: true }).then(stream => {
-        addUserStream(stream)
-      })
-    /*} else {
-      addUserStream(null)
-    }*/
-  /*}, [game.game.video])*/
-
-
-  // Runs on mount
   useEffect(() => {
     setIsLoading(true)
     // TODO: check so state/sessionStorage match in update in App.js
@@ -62,22 +40,12 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
     return <ReactLoading />
   }
 
-//  <VideoContainer />
-
-/*  const interfaceConfig = {
-    TOOLBAR_BUTTONS: ['microphone', 'camera']
-  }*/
-
-/*  {game.game.video && (
-    <Jitsi loadingComponent={ReactLoading} interfaceConfig={interfaceConfig} roomName={user.user.gameCode} displayName={user.user.userName} />
-  )}*/
-
   return (
     <div className={`gameArea ${game.game.video ? 'video' : 'no-video'}`}>
 
       {game.game.video && (
         <Resizable className="videoContainer"
-          defaultSize={{width:400}}
+          defaultSize={{width: 400}}
           enable={{top:false, right:true, bottom:false, left:false, topRight:false, bottomRight:false, bottomLeft:false, topLeft:false}}
         >
           <JitsiComponent />
@@ -136,5 +104,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateUsers, wsConnect, wsDisconnect, addUserStream }
+  { updateUsers, wsConnect, wsDisconnect }
 )(GameArea)

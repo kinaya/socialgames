@@ -24,7 +24,7 @@ var GameSchema = Schema({
     characters: {type: Array, default: []},
     middleCards: {type: Array, default: []},
     step: {
-      number: {type: Number, default: 0},
+      number: {type: Number, default: 1},
       exists: {type: Boolean, default: false}
     }
   },
