@@ -15,7 +15,7 @@ const Video = (props) => {
     return (
       <div className="video">
         <video height='auto' width='200' playsInline autoPlay ref={ref} />
-        <div>{props.peer._id}</div>
+        <div>{props.peer.userName}</div>
       </div>
     );
 }
