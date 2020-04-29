@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import GameList from './GameList'
 import JoinGameForm from './JoinGameForm'
 import { connect } from 'react-redux'
@@ -13,13 +13,17 @@ import { addUserStream } from '../actions/streamActions'
 import { wsConnect, wsDisconnect } from '../actions/websocketActions'
 import ReactLoading from 'react-loading'
 import VideoContainer from './VideoContainer'
-import Jitsi from 'react-jitsi'
+//import Jitsi from 'react-jitsi'
+import JitsiComponent from './JitsiComponent'
+import { Resizable } from 're-resizable'
 
 const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect, addUserStream}) => {
   const [isLoading, setIsLoading] = useState(true)
 
+  const videoRef = useRef();
+
   // This is run on mount and if video setting change
-  useEffect(() => {
+  /*useEffect(() => {
     //if(game.game.video) {
       const videoConstraints = {
           height: window.innerHeight / 2,
@@ -31,7 +35,7 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
     /*} else {
       addUserStream(null)
     }*/
-  }, [game.game.video])
+  /*}, [game.game.video])*/
 
 
   // Runs on mount
@@ -60,52 +64,64 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
 
 //  <VideoContainer />
 
-  const interfaceConfig = {
+/*  const interfaceConfig = {
     TOOLBAR_BUTTONS: ['microphone', 'camera']
-  }
+  }*/
+
+/*  {game.game.video && (
+    <Jitsi loadingComponent={ReactLoading} interfaceConfig={interfaceConfig} roomName={user.user.gameCode} displayName={user.user.userName} />
+  )}*/
 
   return (
-    <div>
+    <div className={`gameArea ${game.game.video ? 'video' : 'no-video'}`}>
 
       {game.game.video && (
-        <Jitsi loadingComponent={ReactLoading} interfaceConfig={interfaceConfig} roomName={user.user.gameCode} displayName={user.user.userName} />
+        <Resizable className="videoContainer"
+          defaultSize={{width:400}}
+          enable={{top:false, right:true, bottom:false, left:false, topRight:false, bottomRight:false, bottomLeft:false, topLeft:false}}
+        >
+          <JitsiComponent />
+        </Resizable>
       )}
 
-      {authenticated && game.game.activeGame === 'werewolf' && (
-        <Werewolf />
-      )}
+      <div className="gameContainer">
 
-      {authenticated && game.game.activeGame === 'fakeartist' && (
-        <FakeArtist />
-      )}
+        {authenticated && game.game.activeGame === 'werewolf' && (
+          <Werewolf />
+        )}
 
-      {authenticated && game.game.activeGame === 'otherwords' && (
-        <OtherWords />
-      )}
+        {authenticated && game.game.activeGame === 'fakeartist' && (
+          <FakeArtist />
+        )}
 
-      {authenticated && !game.game.activeGame && (
-        <div>
-          <div className="ui info message">
-            <h2>Bjud in spelare</h2>
-            <p className="code"><span>Spelkod:</span> {match.params.id}</p>
-            <h2>Spelare som är med:</h2>
-            <ul>
-            {game.users.map(user => (
-              <li key={user.userId}>{user.userName}</li>
-            ))}
-            </ul>
+        {authenticated && game.game.activeGame === 'otherwords' && (
+          <OtherWords />
+        )}
+
+        {authenticated && !game.game.activeGame && (
+          <div>
+            <div className="ui info message">
+              <h2>Bjud in spelare</h2>
+              <p className="code"><span>Spelkod:</span> {match.params.id}</p>
+              <h2>Spelare som är med:</h2>
+              <ul>
+              {game.users.map(user => (
+                <li key={user.userId}>{user.userName}</li>
+              ))}
+              </ul>
+            </div>
+            <GameList gameCode={match.params.id}/>
           </div>
-          <GameList gameCode={match.params.id}/>
-        </div>
-      )}
+        )}
 
-      {!authenticated && (
-        <div>
-          <h1 className="heading">Gå med i ett spel</h1>
-          <JoinGameForm initialValues={{code: match.params.id}} />
-        </div>
-      )}
+        {!authenticated && (
+          <div>
+            <h1 className="heading">Gå med i ett spel</h1>
+            <JoinGameForm initialValues={{code: match.params.id}} />
+          </div>
+        )}
 
+      </div>
     </div>
   )
 }

@@ -15,24 +15,26 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
 
   return (
     <div className="site-header">
+      <div className="logo-container">
       <Link id="logo" to={authenticated ? {pathname: `/${user.gameCode}`} : '/'} >
         <span>Sociala</span><span>Spel</span>
       </Link>
+      <div className="active-game" >{gameName}</div>
+      </div>
 
       {authenticated && (
         <>
-          {gameName && (
-            <div>
-              <div>{gameName}</div>
-              <button className="ui inverted button" onClick={() => changeGame(null)}>Byt spel</button>
-            </div>
-          )}
-          <button className="ui inverted button" onClick={() => toggleVideo(game.game.video ? false : true)}>
-            {game.game.video ? 'Spela utan video' : 'Spela med video'}
-          </button>
           <div><span>Ditt Namn:</span>{user.userName}</div>
           <div><span>Spelkod:</span>{user.gameCode}</div>
           <div><span>Antal spelare:</span>{game.users.length}</div>
+          {gameName && (
+            <div>
+              <button className="ui inverted button" onClick={() => changeGame(null)}>Byt spel</button>
+            </div>
+          )}
+          <div><button className="ui inverted button" onClick={() => toggleVideo(game.game.video ? false : true)}>
+            {game.game.video ? 'Spela utan video' : 'Spela med video'}
+          </button></div>
           <button className="ui inverted button" onClick={() => logout()}>Lämna spelet</button>
         </>
       )}

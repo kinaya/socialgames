@@ -27,24 +27,28 @@ p {
 }
 main {
   flex: 1;
+  display: flex;
 }
 
 // Site-header
 .site-header {
   background-color: $black;
   color: $white;
-  margin-bottom: 4em;
-  padding: 1em;
+  padding: 0.5em 1em;
   @media(min-width: $tablet) {
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
 
-  #logo {
+  .logo-container {
     @media(min-width: $tablet) {
       margin-right: auto;
     }
+  }
+
+  .active-game {
+    display: inline-block;
   }
 
   > div:first-of-type {
@@ -87,6 +91,7 @@ main {
   font-family: 'Roboto';
   font-size: 1.2em;
   display: inline-block;
+  margin-right: 0.5em;
   span:nth-child(1) {
     font-weight: 900;
   }
@@ -101,7 +106,6 @@ main {
 // Footer
 #footer.segment {
   padding: 5em 0;
-  margin-top: 4em;
 }
 
 // Med andra ord
@@ -407,12 +411,22 @@ form {
   }
 }*/
 
-// video
-.video {
-  border: 1px solid black;
-  padding: 5px;
-  display: inline-block;
-  > div {
-    text-align: center;
+.gameArea.no-video {
+  max-width: 800px;
+  margin: 4em auto 0 auto;
+}
+.gameArea.video {
+  display: flex;
+  align-items: stretch;
+  .videoContainer {
+    background-color: #000;
+    margin: 0;
+    iframe {
+      display: block;
+    }
+  }
+  .gameContainer {
+    max-width: 800px;
+    margin: 4em 1em 0 4em;
   }
 }

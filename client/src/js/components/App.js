@@ -27,7 +27,7 @@ const App = props => {
       <Router history={history}><>
         <Header />
         <ToastContainer position={toast.POSITION.TOP_CENTER} />
-        <main className="ui text container">
+        <main className="ui text">
           {!isAuthChecked && (
             <ReactLoading />
           )}
