@@ -17,11 +17,12 @@ export const JitsiComponent = ({game, user}) => {
         parentNode: document.getElementById('jitsi-container'),
         interfaceConfigOverwrite: {
           //filmStripOnly: true,
-          TOOLBAR_BUTTONS: ['microphone', 'camera'],
+          TOOLBAR_BUTTONS: ['microphone', 'camera', 'tileview'],
           SHOW_JITSI_WATERMARK: false,
           DEFAULT_BACKGROUND: '#ffffff',
           DISABLE_VIDEO_BACKGROUND: true,
-          DEFAULT_REMOTE_DISPLAY_NAME: 'Gäst'
+          DEFAULT_REMOTE_DISPLAY_NAME: 'Gäst',
+          TILE_VIEW_MAX_COLUMNS: 1
         }
        };
        const api = new JitsiMeetExternalAPI(domain, options);
