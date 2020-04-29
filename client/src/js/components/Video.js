@@ -5,12 +5,12 @@ const Video = (props) => {
     const ref = useRef();
 
     useEffect(() => {
-        /*props.peer.on("stream", stream => {
-          ref.current.srcObject = stream;
-        })*/
-        // todo: whaaat?
-        ref.current.srcObject = props.peer.streams[0];
-    }, [props.peer]);
+      // What is this and when is it called?
+      props.peer.peer.on("stream", stream => {
+        ref.current.srcObject = stream;
+      })
+      //ref.current.srcObject = props.peer.streams[0];
+    }, [props.peer.peer]);
 
     return (
       <div className="video">

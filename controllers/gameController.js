@@ -173,6 +173,8 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
  */
 exports.game = async function(io, socket) {
 
+  console.log('This socket joined:', socket.id)
+
   // Get the gameCode from query
   const gameCode = socket.handshake.query.gameCode
 
@@ -197,16 +199,19 @@ exports.game = async function(io, socket) {
   io.in(gameCode).emit('game', { users, game });
 
   // Send the 'existingusers' message to the newly added user, for creating Peers
-  io.to(socket.id).emit('existingusers', {users});
+  io.to(socket.id).emit('existingusers', users);
 
   socket.on('sendingsignal', data => {
-    // Send a signal to the userToSignal that a user joined
-    // This is done on the client once for each exicting user
-    console.log('sendingsignal', data)
-    io.to(data.userToSignal).emit('userjoined', {signal: data.signal, callerID: data.callerID})
+    // This signal i of typ "offer". It is sent by the joining user to the existing ones
+    console.log(`${data.callerID} sendingsignal to ${data.userToSignal}`)
+    console.log('The signal:', data.signal)
+    io.to(data.userToSignal).emit('userjoined', {signal: data.signal, callerID: data.callerID, callerName: data.callerName})
   })
 
   socket.on('returningsignal', data => {
+    // This signal is of type "answer". It is sent by the existing user to the new one
+    console.log(`${socket.id} receivingreturnedsignal to ${data.callerID}`)
+    console.log('The signal:', data.signal)
     io.to(data.callerID).emit('receivingreturnedsignal', {signal: data.signal, id: socket.id})
   })
 
@@ -230,9 +235,7 @@ exports.game = async function(io, socket) {
 
   // Toogle the video
   socket.on('toggleVideo', async (boolean) => {
-    console.log('toggleVideo boolean', boolean)
     var game = await toogleVideo(gameCode, boolean);
-    console.log('boolean in game to return', game.video)
     io.in(gameCode).emit('game', { game })
   })
 

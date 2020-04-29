@@ -17,7 +17,21 @@ import VideoContainer from './VideoContainer'
 const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect, addUserStream}) => {
   const [isLoading, setIsLoading] = useState(true)
 
-  // Runs on mount and when video setting change
+  // This is run on mount and if video setting change
+  useEffect(() => {
+    //if(game.game.video) {
+      const videoConstraints = {
+          height: window.innerHeight / 2,
+          width: window.innerWidth / 2
+      };
+      navigator.mediaDevices.getUserMedia({video: videoConstraints, audio: true }).then(stream => {
+        addUserStream(stream)
+      })
+    /*} else {
+      addUserStream(null)
+    }*/
+  }, [game.game.video])
+
 
   // Runs on mount
   useEffect(() => {
@@ -38,21 +52,6 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
       wsDisconnect()
     }
   }, [])
-
-  // This is run on mount and if video setting change
-  useEffect(() => {
-    if(game.game.video) {
-      const videoConstraints = {
-          height: window.innerHeight / 2,
-          width: window.innerWidth / 2
-      };
-      navigator.mediaDevices.getUserMedia({video: videoConstraints, audio: true }).then(stream => {
-        addUserStream(stream)
-      })
-    } else {
-      addUserStream(null)
-    }
-  }, [game.game.video])
 
   if(isLoading) {
     return <ReactLoading />
