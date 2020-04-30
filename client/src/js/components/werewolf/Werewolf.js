@@ -4,28 +4,31 @@ import { connect } from 'react-redux'
 import WerewolfPlay from './WerewolfPlay'
 import WerewolfCharacter from './WerewolfCharacter'
 import WerewolfSteps from './WerewolfSteps'
+import WerewolfBreadcrumb from './WerewolfBreadcrumb'
 import { startGame, resetGames } from '../../actions/gameActions'
 import { nextStep, displayCharacters } from '../../actions/werewolfActions'
-import { toggleLocalVideo } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 
 import characters from './werewolf.json'
 
-const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep, toggleLocalVideo}) => {
+const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep, user}) => {
 
   return (
     <div className="">
-      <h1>Varulvspelet</h1>
 
       {werewolf.running && (
-        <WerewolfSteps toggleLocalVideo={toggleLocalVideo} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
+        <WerewolfBreadcrumb step={werewolf.step} />
+      )}
+
+      {werewolf.running && <WerewolfPlay />}
+
+      {werewolf.running && (
+        <WerewolfSteps user={user} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
       )}
 
       {!werewolf.running && (
         <p>Diskussionsspel där spelarna genom att bluffa, läsa av varandra och finna motsägelser i uttalanden ska lyckas avgöra vilka i sällskapet som har blivit tilldelade varulvsroller! Pekar byborna ut rätt person(er) när tiden har runnit ut och sanningens ögonblick är här?</p>
       )}
-
-      {werewolf.running && <WerewolfPlay />}
 
       {!werewolf.running && <button className="ui primary large button" onClick={() => startGame('werewolf')}>Starta spelet</button>}
 
@@ -41,13 +44,14 @@ const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, n
 const mapStateToProps = state => {
   return {
     werewolf: state.game.game.werewolf,
-    userId: state.user.user.userId
+    userId: state.user.user.userId,
+    user: state.user
   }
 }
 
 export default connect(
   mapStateToProps,
-  {resetGames, startGame, nextStep, displayCharacters, toggleLocalVideo}
+  {resetGames, startGame, nextStep, displayCharacters}
 )(Werewolf)
 
 /*

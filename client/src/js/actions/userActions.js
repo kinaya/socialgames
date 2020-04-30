@@ -1,13 +1,51 @@
 import history from '../history'
 import axios from 'axios'
 
-import { LOGIN, LOGOUT, TOGGLE_LOCAL_VIDEO } from '../constants'
+import { LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED, JITSU_API } from '../constants'
 
-export const toggleLocalVideo = (boolean) => {
-  return ({
-    type: TOGGLE_LOCAL_VIDEO,
-    boolean: boolean
-  })
+export const startJitsu = (roomName, userName) => async dispatch => {
+  try {
+     const domain = 'meet.jit.si';
+     const options = {
+      roomName: roomName,
+      height: '800px',
+      width: '100%',
+      parentNode: document.getElementById('jitsi-container'),
+      interfaceConfigOverwrite: {
+        TOOLBAR_BUTTONS: ['microphone', 'camera', 'tileview'],
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_WATERMARK_FOR_GUESTS: false,
+        SHOW_BRAND_WATERMARK: false,
+        DEFAULT_BACKGROUND: '#ffffff',
+        DISABLE_VIDEO_BACKGROUND: true,
+        DEFAULT_REMOTE_DISPLAY_NAME: 'Gäst',
+        // https://github.com/jitsi/jitsi-meet/issues/5142
+        TILE_VIEW_MAX_COLUMNS: 1,
+        disableDeepLinking: true
+      }
+     };
+     const api = await new JitsiMeetExternalAPI(domain, options);
+
+     api.addEventListener('videoConferenceJoined', () => {
+       api.executeCommand('displayName', userName);
+       api.executeCommand('toggleTileView');
+     });
+
+     api.addEventListener('videoMuteStatusChanged', (data) => {
+       dispatch ({
+         type: VIDEO_MUTE_STATUS_CHANGED,
+         boolean: data.muted
+       })
+     })
+
+     await dispatch ({
+       type: JITSU_API,
+       api: api
+     })
+
+    } catch (error) {
+     console.error('Failed to load Jitsi API', error);
+   }
 }
 
 export const newGame = userName => async dispatch => {

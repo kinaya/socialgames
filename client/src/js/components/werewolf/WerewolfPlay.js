@@ -5,9 +5,7 @@ import WerewolfCharacter from './WerewolfCharacter'
 const WerewolfPlay = ({werewolf, userId}) => {
 
   return (
-    <div className="ui text container center aligned">
-
-      <div className="ui three stackable cards">
+    <div className="werewolf-cards">
       {werewolf.characters.map((character, i) => (
         <WerewolfCharacter
           key={i}
@@ -17,19 +15,14 @@ const WerewolfPlay = ({werewolf, userId}) => {
           showCharacters={werewolf.showCharacters}
         />
       ))}
-      </div>
-
-      <div className="ui three stackable cards info message">
-        {werewolf.middleCards.map((character, i) => (
-          <WerewolfCharacter
-            key={i}
-            display={false}
-            character={character.character}
-            showCharacters={werewolf.showCharacters}
-          />
-        ))}
-      </div>
-
+      {werewolf.middleCards.map((character, i) => (
+        <WerewolfCharacter
+          key={i}
+          display={false}
+          character={character.character}
+          showCharacters={werewolf.showCharacters}
+        />
+      ))}
     </div>
   )
 }

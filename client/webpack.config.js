@@ -41,17 +41,17 @@ return {
         ]
       },
       {
-        test: /\.(jpg|png|svg)$/,
+        test: /\.(jpg|png|svg|webp)$/,
         loader: 'url-loader',
         options: {
           limit: 25000
         }
       },
       {
-        test: /\.(jpg|png|svg)$/,
+        test: /\.(jpg|png|svg|webp)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[hash].[ext]'
+          name: '[name].[ext]'
         }
       }
     ]

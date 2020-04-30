@@ -2,27 +2,31 @@ import React from 'react'
 
 const WerewolfCharacters = ({character, display, playerName, showCharacters}) => {
   return (
-    <div className={`ui card display-${display}`} >
+    <div className={`ui card display-${display} ${character.name}`} >
 
       {playerName && (
         <div className="playername">{playerName}</div>
       )}
 
       <div className="image">
-        <img src="https://semantic-ui.com/examples/assets/images/wireframe/image.png" />
+        {(showCharacters || display) ? (
+          <img src={`${character.name}.png`} />
+        ):(
+          <img src="questionmark.png" />
+        )}
+
       </div>
 
       {(showCharacters || display) && (
         <div className="content">
           <div className="header">{character.name}</div>
-          <div className="team">{character.team}</div>
           <div className="description">{character.description}</div>
         </div>
       )}
 
       {!display && !showCharacters && (
         <div className="content">
-          <div className="header">???</div>
+          <div className="header"></div>
           <div className="description"></div>
         </div>
       )}

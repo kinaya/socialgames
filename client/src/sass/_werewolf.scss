@@ -1,0 +1,39 @@
+
+// Varulvarna
+.breadcrumb {
+  background-color: $grayLight;
+  margin: 0 0 1em 0;
+  display: inline-block;
+  > div {
+    display: inline-block;
+    border: 1px solid $grayMedium;
+    padding: 0.5em 0.8em;
+    &.active {
+      background-color: $pink;
+      color: $white;
+    }
+  }
+}
+
+
+// Cards
+.werewolf-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+
+  .card {
+    margin: 0 0.5em;
+    width: auto;
+    flex: 1;
+
+    .image {
+      background: #ffffff;
+    }
+
+    img {
+      padding: 5px 20px;
+    }
+  }
+}

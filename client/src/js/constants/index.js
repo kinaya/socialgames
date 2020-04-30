@@ -1,7 +1,8 @@
 // User
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
-export const TOGGLE_LOCAL_VIDEO = 'TOGGLE_LOCAL_VIDEO'
+export const JITSU_API = 'JITSU_API'
+export const VIDEO_MUTE_STATUS_CHANGED = 'VIDEO_MUTE_STATUS_CHANGED'
 
 // Game
 export const START_GAME = 'START_GAME'
@@ -10,6 +11,7 @@ export const UPDATE_USERS = 'UPDATE_USERS'
 export const UPDATE_GAME = 'UPDATE_GAME'
 export const CHANGE_GAME = 'CHANGE_GAME'
 export const TOGGLE_VIDEO = 'TOGGLE_VIDEO'
+
 
 // Websocket
 export const WS_CONNECT = 'WS_CONNECT'
