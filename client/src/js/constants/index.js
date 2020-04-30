@@ -1,6 +1,7 @@
 // User
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
+export const TOGGLE_LOCAL_VIDEO = 'TOGGLE_LOCAL_VIDEO'
 
 // Game
 export const START_GAME = 'START_GAME'

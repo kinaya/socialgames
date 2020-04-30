@@ -1,13 +1,20 @@
-import { LOGIN, LOGOUT } from '../constants'
+import { LOGIN, LOGOUT, TOGGLE_LOCAL_VIDEO } from '../constants'
 
 const initialState = {
   authenticated: false,
-  user: {}
+  user: {},
+  localVideo: true
 }
 
 const user = (state = initialState, action) => {
 
   switch (action.type) {
+
+    case TOGGLE_LOCAL_VIDEO:
+      return {
+        ...state,
+        localVideo: !state.localVideo
+      }
 
     case LOGIN:
       return {

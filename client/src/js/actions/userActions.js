@@ -1,7 +1,14 @@
 import history from '../history'
 import axios from 'axios'
 
-import { LOGIN, LOGOUT } from '../constants'
+import { LOGIN, LOGOUT, TOGGLE_LOCAL_VIDEO } from '../constants'
+
+export const toggleLocalVideo = (boolean) => {
+  return ({
+    type: TOGGLE_LOCAL_VIDEO,
+    boolean: boolean
+  })
+}
 
 export const newGame = userName => async dispatch => {
   try {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const WerewolfSteps = ({step, nextStep, displayCharacters, characters, userId}) => {
+const WerewolfSteps = ({step, nextStep, displayCharacters, characters, userId, toggleLocalVideo}) => {
 
   let myCharacter = null
   for(let character of characters) {
@@ -8,6 +8,17 @@ const WerewolfSteps = ({step, nextStep, displayCharacters, characters, userId}) 
       myCharacter = character.character.name
     }
   }
+
+  useEffect(() => {
+    console.log('UseEffect in steps!')
+    console.log(step.number)
+    if(step.number === 2) {
+      toggleLocalVideo(false)
+    }
+    if(step.number === 5) {
+      toggleLocalVideo(true)
+    }
+  }, [step.number])
 
   return (
     <div>

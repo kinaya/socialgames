@@ -6,18 +6,19 @@ import WerewolfCharacter from './WerewolfCharacter'
 import WerewolfSteps from './WerewolfSteps'
 import { startGame, resetGames } from '../../actions/gameActions'
 import { nextStep, displayCharacters } from '../../actions/werewolfActions'
+import { toggleLocalVideo } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 
 import characters from './werewolf.json'
 
-const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep}) => {
+const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep, toggleLocalVideo}) => {
 
   return (
     <div className="">
       <h1>Varulvspelet</h1>
 
       {werewolf.running && (
-        <WerewolfSteps userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
+        <WerewolfSteps toggleLocalVideo={toggleLocalVideo} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
       )}
 
       {!werewolf.running && (
@@ -46,7 +47,7 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {resetGames, startGame, nextStep, displayCharacters}
+  {resetGames, startGame, nextStep, displayCharacters, toggleLocalVideo}
 )(Werewolf)
 
 /*
