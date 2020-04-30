@@ -69,8 +69,6 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
         {authenticated && !game.game.activeGame && (
           <div>
             <div className="ui info message">
-              <h2>Bjud in spelare</h2>
-              <p className="code"><span>Spelkod:</span> {match.params.id}</p>
               <h2>Spelare som är med:</h2>
               <ul>
               {game.users.map(user => (

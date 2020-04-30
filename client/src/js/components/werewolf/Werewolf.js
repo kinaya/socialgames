@@ -13,6 +13,13 @@ import characters from './werewolf.json'
 
 const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep, user}) => {
 
+  let myCharacter = null
+  for(let character of werewolf.characters) {
+    if(character.userId === userId) {
+      myCharacter = character.character.name
+    }
+  }
+
   return (
     <div className="">
 
@@ -20,7 +27,7 @@ const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, n
         <WerewolfBreadcrumb step={werewolf.step} />
       )}
 
-      {werewolf.running && <WerewolfPlay />}
+      {werewolf.running && <WerewolfPlay myCharacter={myCharacter}/>}
 
       {werewolf.running && (
         <WerewolfSteps user={user} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>

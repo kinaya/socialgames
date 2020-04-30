@@ -1,16 +1,16 @@
 import React from 'react'
 
-const WerewolfCharacters = ({character, ownCharacter, playerName, showCharacters, handleClick}) => {
+const WerewolfCharacters = ({visibility, clickability, character, playerName, showCharacters, handleClick}) => {
 
   return (
-    <div className={`ui card display-${ownCharacter} ${character.name}`} onClick={handleClick}>
+    <div className={`ui card display-${visibility}`} onClick={handleClick}>
 
       {playerName && (
         <div className="playername">{playerName}</div>
       )}
 
       <div className="image">
-        {(showCharacters || ownCharacter) ? (
+        {(showCharacters || visibility) ? (
           <img src={`images/${character.name}.png`} />
         ):(
           <img src="images/questionmark.png" />
@@ -18,14 +18,14 @@ const WerewolfCharacters = ({character, ownCharacter, playerName, showCharacters
 
       </div>
 
-      {(showCharacters || ownCharacter) && (
+      {(showCharacters || visibility) && (
         <div className="content">
           <div className="header">{character.name}</div>
           <div className="description">{character.description}</div>
         </div>
       )}
 
-      {!ownCharacter && !showCharacters && (
+      {!visibility && !showCharacters && (
         <div className="content">
           <div className="header"></div>
           <div className="description"></div>
