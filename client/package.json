@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.9.0"
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "copy-webpack-plugin": "^5.1.1"
   },
   "dependencies": {
     "@andyet/simplewebrtc": "^1.18.0",

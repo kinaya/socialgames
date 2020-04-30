@@ -1,4 +1,4 @@
-import { TOGGLE_VIDEO, WS_CONNECT, WS_DISCONNECT, CHANGE_GAME, RESET_GAMES, START_GAME, DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
+import { SWITCH_CHARACTERS, TOGGLE_VIDEO, WS_CONNECT, WS_DISCONNECT, CHANGE_GAME, RESET_GAMES, START_GAME, DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
 import * as actions from '../actions/websocketActions';
 import { updateUsers, updateGame } from '../actions/gameActions';
 import io from "socket.io-client";
@@ -64,6 +64,10 @@ const socketMiddleware = () => {
 
       case START_GAME:
         socket.emit('startGame', action.gameName)
+        break;
+
+      case SWITCH_CHARACTERS:
+        socket.emit('switchCharacters', action.one, action.two)
         break;
 
       case NEXT_STEP:

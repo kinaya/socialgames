@@ -13,16 +13,23 @@ const WerewolfSteps = ({step, nextStep, displayCharacters, characters, userId, u
     const videoMuted = user.videoMuted;
     const jitsuApi = user.jitsuApi;
 
-    console.log('Mute status:', user.videoMuted)
+    if(jitsuApi) {
+      // Turn off camera for all except werewolfs
+      if(step.number === 2 && !videoMuted && myCharacter != 'Varulv') {
+        jitsuApi.executeCommand('toggleVideo')
+      }
 
-    if(step.number === 2 && !videoMuted) {
-      console.log('Video is not muted and step is 2 - mute video!')
-      jitsuApi.executeCommand('toggleVideo')
+      // Turn off camera for all who has it on (ie werewolfs)
+      if(step.number === 3 && !videoMuted) {
+        jitsuApi.executeCommand('toggleVideo')
+      }
+
+      // Turn everybodys camera back on
+      if(step.number === 5 && videoMuted) {
+        jitsuApi.executeCommand('toggleVideo')
+      }
     }
-    if(step.number === 5 && videoMuted) {
-      console.log('Video is muted and step is 5 - unmute video!')
-      jitsuApi.executeCommand('toggleVideo')
-    }
+
   }, [step.number])
 
   return (

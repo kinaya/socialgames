@@ -117,6 +117,18 @@ var nextStep = (gameCode) => new Promise((resolve, rejeect) => {
 })
 
 
+var switchCharacters = (gameCode, characters, one, two) => new Promise((resolve, reject) => {
+
+  let temp = characters[one].character
+  characters[one].character = characters[two].character
+  characters[two].character = temp
+
+  Game.findOneAndUpdate({code: gameCode}, { $set: {'werewolf.characters': characters} }, { new: true }, function (err, game) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(game);
+  });
+})
+
 var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
 
   // Get the characterlist according to number of players, and make a copy of it to manipulate
@@ -141,8 +153,18 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
     })
   }
 
+  // Append 3 extra cards
+  for(let i = 0; i < 3; i++) {
+    const i = Math.floor(Math.random()*characterList.length);
+    const randomCharacter = characterList[i];
+    characterList.splice(i, 1);
+    characters.push({
+      character: randomCharacter
+    })
+  }
+
   // Set the middle cards
-  middleCards = []
+  /*middleCards = []
   for(let i = 0; i < 3; i++) {
     const i = Math.floor(Math.random()*characterList.length);
     const randomCharacter = characterList[i];
@@ -151,13 +173,13 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
       userId: [i],
       character: randomCharacter
     })
-  }
+  }*/
 
   const setObject = {}
   setObject['werewolf'] = {
     running: true,
     characters: characters,
-    middleCards: middleCards
+//    middleCards: middleCards
    }
 
   Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
@@ -261,6 +283,13 @@ exports.game = async function(io, socket) {
   // next step
   socket.on('nextStep', async () => {
     var game = await nextStep(gameCode)
+    io.in(gameCode).emit('game', {game})
+  })
+
+  // Switch Characters
+  socket.on('switchCharacters', async (one, two) => {
+    var savedGame = await getGame(gameCode)
+    var game = await switchCharacters(gameCode, savedGame.werewolf.characters, one, two)
     io.in(gameCode).emit('game', {game})
   })
 

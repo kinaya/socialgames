@@ -1,4 +1,4 @@
-import { DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
+import { DISPLAY_CHARACTERS, NEXT_STEP, SWITCH_CHARACTERS } from '../constants'
 
 export const displayCharacters = () => {
   return ({
@@ -9,5 +9,13 @@ export const displayCharacters = () => {
 export const nextStep = () => {
   return ({
     type: NEXT_STEP
+  })
+}
+
+export const switchCharacters = (one, two) => {
+  return ({
+    type: SWITCH_CHARACTERS,
+    one: one,
+    two: two
   })
 }

@@ -1,30 +1,31 @@
 import React from 'react'
 
-const WerewolfCharacters = ({character, display, playerName, showCharacters}) => {
+const WerewolfCharacters = ({character, ownCharacter, playerName, showCharacters, handleClick}) => {
+
   return (
-    <div className={`ui card display-${display} ${character.name}`} >
+    <div className={`ui card display-${ownCharacter} ${character.name}`} onClick={handleClick}>
 
       {playerName && (
         <div className="playername">{playerName}</div>
       )}
 
       <div className="image">
-        {(showCharacters || display) ? (
-          <img src={`${character.name}.png`} />
+        {(showCharacters || ownCharacter) ? (
+          <img src={`images/${character.name}.png`} />
         ):(
-          <img src="questionmark.png" />
+          <img src="images/questionmark.png" />
         )}
 
       </div>
 
-      {(showCharacters || display) && (
+      {(showCharacters || ownCharacter) && (
         <div className="content">
           <div className="header">{character.name}</div>
           <div className="description">{character.description}</div>
         </div>
       )}
 
-      {!display && !showCharacters && (
+      {!ownCharacter && !showCharacters && (
         <div className="content">
           <div className="header"></div>
           <div className="description"></div>

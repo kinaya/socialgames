@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env) => {
@@ -65,6 +66,9 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
+   new CopyWebpackPlugin([
+     {from:'src/images', to:'images'}
+   ]),
    new webpack.DefinePlugin({
      'BASE_URL': JSON.stringify(env.BASE_URL)
    })
