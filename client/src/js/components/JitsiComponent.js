@@ -11,12 +11,15 @@ export const JitsiComponent = ({game, user, width, startJitsu}) => {
   useEffect(() => {
     startJitsu(game.game.code, user.user.userName)
     return () => {
+      //api.dispose();
       stopJitsu()
     }
   }, [])
 
   return (
-    <div id="jitsi-container" />
+    <div id="jitsi-container" >
+      <div id="jitsi-curtain" className={`curtain-${user.curtain}`} />
+    </div>
   )
 }
 

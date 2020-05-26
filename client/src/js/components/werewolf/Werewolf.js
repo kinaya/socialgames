@@ -7,11 +7,12 @@ import WerewolfSteps from './WerewolfSteps'
 import WerewolfBreadcrumb from './WerewolfBreadcrumb'
 import { startGame, resetGames } from '../../actions/gameActions'
 import { nextStep, displayCharacters } from '../../actions/werewolfActions'
+import { toggleCurtain } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 
 import characters from './werewolf.json'
 
-const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, nextStep, user}) => {
+const Werewolf = ({werewolf, startGame, toggleCurtain, resetGames, displayCharacters, userId, nextStep, user}) => {
 
   let myCharacter = null
   for(let character of werewolf.characters) {
@@ -30,18 +31,20 @@ const Werewolf = ({werewolf, startGame, resetGames, displayCharacters, userId, n
       {werewolf.running && <WerewolfPlay myCharacter={myCharacter}/>}
 
       {werewolf.running && (
-        <WerewolfSteps user={user} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
+        <WerewolfSteps toggleCurtain={toggleCurtain} user={user} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
       )}
 
       {!werewolf.running && (
-        <p>Diskussionsspel där spelarna genom att bluffa, läsa av varandra och finna motsägelser i uttalanden ska lyckas avgöra vilka i sällskapet som har blivit tilldelade varulvsroller! Pekar byborna ut rätt person(er) när tiden har runnit ut och sanningens ögonblick är här?</p>
+        <>
+          <h1>Varulvspelet</h1>
+          <p>Diskussionsspel där spelarna genom att bluffa, läsa av varandra och finna motsägelser i uttalanden ska lyckas avgöra vilka i sällskapet som har blivit tilldelade varulvsroller!</p>
+          <p>Pekar byborna ut rätt person(er) när tiden har runnit ut och sanningens ögonblick är här?</p>
+        </>
       )}
 
-      {!werewolf.running && <button className="ui primary large button" onClick={() => startGame('werewolf')}>Starta spelet</button>}
+      {!werewolf.running && <button onClick={() => startGame('werewolf')}>Starta spelet</button>}
 
-      {werewolf.running && <button className="ui basic button" onClick={() => resetGames()}>Avsluta omgången</button>}
-
-      {werewolf.running && werewolf.step.number < 5 && <button className="ui basic button" onClick={() => nextStep()}>Nästa steg</button>}
+      {werewolf.running && <button className="invisible end-game" onClick={() => resetGames()}>Avsluta omgången</button>}
 
     </div>
   )
@@ -58,7 +61,7 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {resetGames, startGame, nextStep, displayCharacters}
+  {resetGames, startGame, nextStep, displayCharacters, toggleCurtain}
 )(Werewolf)
 
 /*

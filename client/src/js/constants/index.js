@@ -3,6 +3,7 @@ export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const JITSU_API = 'JITSU_API'
 export const VIDEO_MUTE_STATUS_CHANGED = 'VIDEO_MUTE_STATUS_CHANGED'
+export const TOGGLE_CURTAIN = 'TOGGLE_CURTAIN'
 
 // Game
 export const START_GAME = 'START_GAME'

@@ -6,35 +6,35 @@ import { Link } from 'react-router-dom'
 const GameList = ({changeGame}) => {
 
   return (
-    <div className="ui three stackable cards">
+    <div className="gamelist">
 
-      <div onClick={() => changeGame('werewolf')} className="ui card" >
+      <div onClick={() => changeGame('werewolf')} className="card" >
         <div className="image">
-          <img src="https://semantic-ui.com/examples/assets/images/wireframe/image.png" />
+          <img src="images/game1.jpg" />
         </div>
         <div className="content">
-          <div className="header">Varulvspelet</div>
-          <div className="description">Vem är varulven?</div>
+          <h3>Varulvspelet</h3>
+          <p>Vem är varulven?</p>
         </div>
       </div>
 
-      <div onClick={() => changeGame('otherwords')} className="ui card" >
+      <div onClick={() => changeGame('otherwords')} className="card" >
         <div className="image">
-          <img src="https://semantic-ui.com/examples/assets/images/wireframe/image.png" />
+          <img src="images/game1.jpg" />
         </div>
         <div className="content">
-          <div className="header">Med andra ord</div>
-          <div className="description">Gissa ordet</div>
+          <h3>Med andra ord</h3>
+          <p>Gissa ordet</p>
         </div>
       </div>
 
-      <div onClick={() => changeGame('fakeartist')} className="ui card" >
+      <div onClick={() => changeGame('fakeartist')} className="card" >
         <div className="image">
-          <img src="https://semantic-ui.com/examples/assets/images/wireframe/image.png" />
+          <img src="images/game1.jpg" />
         </div>
         <div className="content">
-          <div className="header">Fake artist</div>
-          <div className="description">Vem luras?</div>
+          <h3>Fake artist</h3>
+          <p>Vem luras?</p>
         </div>
       </div>
 

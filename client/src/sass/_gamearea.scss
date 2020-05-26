@@ -1,0 +1,54 @@
+.gameArea.video {
+  display: flex;
+  align-items: stretch;
+  .videoContainer {
+    background-color: #000;
+    margin: 0;
+    iframe {
+      display: block;
+    }
+  }
+  .gameContainer {
+    padding: 1em;
+    margin-left: 0;
+  }
+}
+
+
+// ===== Gamelist
+.gamelist  > div {
+  margin-bottom: 1em;
+  flex-basis: 32%;
+}
+.no-video .gamelist {
+  @media(min-width: $tablet) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.wide-video .gamelist {
+  display: flex;
+  justify-content: space-between;
+}
+
+// ===== Card
+.card {
+  border: 1px solid $gray;
+  border-radius: 4px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    display: block;
+  }
+  .content {
+    padding: 1em 0.5em;
+    text-align: center;
+  }
+  h3 {
+    margin: 0 0 0.5em 0;
+  }
+  p {
+    margin: 0;
+  }
+}

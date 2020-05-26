@@ -106,16 +106,47 @@ var displayCharacters = (gameCode) => new Promise((resolve, rejeect) => {
   });
 })
 
-var nextStep = (gameCode) => new Promise((resolve, rejeect) => {
+var nextStep = (gameCode) => new Promise((resolve, reject) => {
+  Game.findOne({code: gameCode}, async (err, game) => {
+      if(err) { reject(new Error(err)); return };
 
-  // Something to call nextStep again in 10 (5-15?) seconds if no one has this role
+      // Update step number
+      game.werewolf.step.number = game.werewolf.step.number + 1;
 
-  Game.findOneAndUpdate({code: gameCode}, { $inc: { 'werewolf.step.number': 1} }, { new: true }, function (err, game) {
-    if(err) { reject(new Error(err)); return;}
-    resolve(game);
+      // Update if automatic step
+      game.werewolf.step.automatic = await isStepAutomatic(game.werewolf.characters, game.werewolf.step.number);
+
+      game.save((err, updatedGame) => {
+        if(err) {reject(new Error(err)); return};
+        resolve(updatedGame);
+      });
   });
+
 })
 
+var isStepAutomatic = (characters, step) => new Promise((resolve, reject) => {
+
+  // Todo: When to reject?
+
+  let roleIsAsigned = false;
+  if(step == 2) {
+    roleIsAsigned = characters.some(character => character.character.name == 'Varulv' && character.userId);
+    console.log('Varulv', roleIsAsigned)
+  } else if(step == 3) {
+    roleIsAsigned = characters.some(character => character.character.name == 'Siare' && character.userId);
+    console.log('Siare', roleIsAsigned)
+  } else if(step == 4) {
+    roleIsAsigned = characters.some(character => character.character.name == 'Tjuv' && character.userId);
+    console.log('Tjuv', roleIsAsigned)
+  }
+
+  if(step == 1 || step == 5 || roleIsAsigned) {
+    resolve(false)
+  } else {
+    resolve(true)
+  }
+
+})
 
 var switchCharacters = (gameCode, characters, one, two) => new Promise((resolve, reject) => {
 
@@ -282,15 +313,35 @@ exports.game = async function(io, socket) {
 
   // next step
   socket.on('nextStep', async () => {
-    var game = await nextStep(gameCode)
-    io.in(gameCode).emit('game', {game})
+
+    recursiveNextStep = async () => {
+      var game = await nextStep(gameCode)
+      io.in(gameCode).emit('game', {game})
+
+      if(!game.werewolf.step.automatic) {
+        console.log('The step is NOT automatic')
+        return;
+      }
+
+      let randomTime = Math.floor(Math.random() * (1500 - 7000 + 1) + 7000);
+      console.log('The step is automatic! Time:', randomTime);
+
+      setTimeout(function () {
+        recursiveNextStep()
+      }, randomTime)
+
+    }
+
+    recursiveNextStep();
+
   })
 
   // Switch Characters
   socket.on('switchCharacters', async (one, two) => {
     var savedGame = await getGame(gameCode)
     var game = await switchCharacters(gameCode, savedGame.werewolf.characters, one, two)
-    io.in(gameCode).emit('game', {game})
+    // Just update, don't send to anyone yet!
+    // io.in(gameCode).emit('game', {game})
   })
 
   // display characters

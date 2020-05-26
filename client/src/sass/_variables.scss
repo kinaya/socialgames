@@ -3,12 +3,21 @@ $black: #1A1A1d;
 $white: #ffffff;
 $pink: #E03997;
 $pinkDark: #c93387;
+
 //$gray: #4E4E50;
 $gray: #808080;
 $grayLight: #F5F5F5;
 $grayMedium: #DEDEDE;
 $turquoise: #66FCF1;
 $turquoiseDark: #5be2d8;
+
+// Messages
+$msg-info-bg: #f8ffff;
+$msg-info-text: #276f86;
+$msg-success-bg: #32CD32;
+$msg-success-text: black;
+$msg-error-bg: #fff6f6;
+$msg-error-text: #9f3a38;
 
 // Breakpoints
 $mobile: 480px;

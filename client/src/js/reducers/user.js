@@ -1,10 +1,11 @@
-import { JITSU_API, LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED } from '../constants'
+import { TOGGLE_CURTAIN, JITSU_API, LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED } from '../constants'
 
 const initialState = {
   authenticated: false,
   user: {},
   videoMuted: false,
-  jitsuApi: null
+  jitsuApi: null,
+  curtain: false
 }
 
 const user = (state = initialState, action) => {
@@ -15,6 +16,12 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         jitsuApi: action.api
+      }
+
+    case TOGGLE_CURTAIN:
+      return {
+        ...state,
+        curtain: action.boolean
       }
 
     case VIDEO_MUTE_STATUS_CHANGED:

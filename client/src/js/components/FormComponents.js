@@ -6,8 +6,8 @@ export const TextComponent = ({input, label, meta}) => {
       <label>{label}</label>
       <input {...input} />
       {meta.touched && meta.error && (
-        <div className="ui error message">
-          <div className="header">{meta.error}</div>
+        <div className="error message">
+          <div>{meta.error}</div>
         </div>
       )}
     </div>

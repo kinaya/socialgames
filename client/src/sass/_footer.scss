@@ -1,0 +1,19 @@
+#footer {
+  background-color: $black;
+  color: $white;
+  text-align: center;
+  padding: 2em 0;
+
+  a {
+    color: $white;
+    display: inline-block;
+    margin: 0.5em;
+    text-decoration: none;
+    border-bottom: 1px solid $white;
+    transition: all 0.3s;
+    &:hover, &:active, &:focus {
+      color: $pinkDark;
+      border-bottom: 1px solid $pinkDark;
+    }
+  }
+}

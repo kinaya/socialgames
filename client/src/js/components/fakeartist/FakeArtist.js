@@ -6,7 +6,6 @@ import FakeArtistPlay from './FakeArtistPlay'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import ReactLoading from 'react-loading'
-import Players from '../Players'
 
 const FakeArtist = ({fakeArtist, users, user, startGame, fakeArtistStart, resetGames}) => {
 
@@ -27,8 +26,6 @@ const FakeArtist = ({fakeArtist, users, user, startGame, fakeArtistStart, resetG
       )}
 
       {fakeArtist.running && <FakeArtistPlay user={user} fakeArtist={fakeArtist.fakeArtist} category={fakeArtist.category} word={fakeArtist.word} />}
-
-      <Players />
 
       {!fakeArtist.running && <button className="ui primary large button" onClick={() => startGame('fakeArtist')}>Starta spelet</button>}
 

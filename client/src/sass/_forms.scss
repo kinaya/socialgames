@@ -1,0 +1,78 @@
+button,
+.button {
+  background-color: $pink;
+  color: $white;
+  padding: 1em 1.5em;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  text-decoration: none;
+  margin: 0.5em 0;
+  border-radius: 4px;
+  transition: all 0.3s;
+  display: inline-block;
+  border: 0;
+  cursor: pointer;
+
+  &:hover, &:active, &:focus {
+    background-color: $pinkDark;
+  }
+}
+
+button.invisible {
+  background-color: transparent;
+  padding: 0;
+  color: $black;
+  text-transform:none;
+  letter-spacing:normal;
+  border-bottom: 1px solid $black;
+  border-radius: 0;
+  &:hover, &:active, &:focus {
+    border-color: $pinkDark;
+    color: $pinkDark;
+  }
+}
+
+.field {
+  margin: 0 0 2em;
+
+  input {
+    padding: 0.7em 0.9em;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  label {
+    margin: 0 0 0.2em 0;
+    display: block;
+  }
+}
+.field.error input {
+  border-color: $msg-error-text;
+}
+
+
+.message {
+  background-color: $msg-info-bg;
+  color: $msg-info-text;
+  border: 1px solid $msg-info-text;
+  color: $msg-info-text;
+  padding: 1em;
+  margin: 0.5em 0;
+
+  &.success {
+    background-color: $msg-success-bg;
+    color: $msg-success-text;
+    border-color: $msg-success-text;
+  }
+
+  &.error {
+    background-color: $msg-error-bg;
+    color: $msg-error-text;
+    border-color: $msg-error-text;
+  }
+}

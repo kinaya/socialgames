@@ -7,13 +7,13 @@ import { TextComponent } from './FormComponents'
 const NewGameForm = ({newGame, handleSubmit}) => {
 
   return (
-    <form className="ui form error" onSubmit={handleSubmit((formValues) => newGame(formValues.name))}>
+    <form onSubmit={handleSubmit((formValues) => newGame(formValues.name))}>
       <Field
         name="name"
         component={TextComponent}
         label="Ditt namn"
       />
-      <button className="ui large primary button" type="submit">Skapa</button>
+      <button type="submit">Skapa</button>
     </form>
   )
 

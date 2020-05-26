@@ -71,6 +71,7 @@ const socketMiddleware = () => {
         break;
 
       case NEXT_STEP:
+        console.log('NEXT_STEP in midleware')
         socket.emit('nextStep')
         break;
 

@@ -16,6 +16,22 @@ import { Resizable } from 're-resizable'
 const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [width, setWidth] = useState(400)
+  const [wideVideo, setWideVideo] = useState(false)
+
+  // Resize the video
+  const resize = (e, direction, ref, d) => {
+    setWidth(previousWidth =>  previousWidth + d.width);
+  }
+
+  // Check if videVideo
+  // todo: run this on window resize as well
+  useEffect(() => {
+    if((window.innerWidth - width) > 700) {
+      setWideVideo(true)
+    } else {
+      setWideVideo(false)
+    }
+  }, [width, window.innerWidth])
 
   useEffect(() => {
     setIsLoading(true)
@@ -41,18 +57,20 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
   }
 
   return (
-    <div className={`gameArea ${game.game.video ? 'video' : 'no-video'}`}>
+    <div className={`gameArea ${game.game.video ? 'video' : 'no-video'} ${game.game.video && wideVideo ? 'wide-video' : ''}`}>
 
       {game.game.video && (
-        <Resizable className="videoContainer"
+        <Resizable
+          className="videoContainer"
           defaultSize={{width: 400}}
           enable={{top:false, right:true, bottom:false, left:false, topRight:false, bottomRight:false, bottomLeft:false, topLeft:false}}
+          onResizeStop={(e, direction, ref, d) => resize(e, direction, ref, d)}
         >
           <JitsiComponent />
         </Resizable>
       )}
 
-      <div className="gameContainer">
+      <div className="gameContainer container wide">
 
         {authenticated && game.game.activeGame === 'werewolf' && (
           <Werewolf />
@@ -68,21 +86,14 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
 
         {authenticated && !game.game.activeGame && (
           <div>
-            <div className="ui info message">
-              <h2>Spelare som är med:</h2>
-              <ul>
-              {game.users.map(user => (
-                <li key={user.userId}>{user.userName}</li>
-              ))}
-              </ul>
-            </div>
+            <h1>Välj spel</h1>
             <GameList gameCode={match.params.id}/>
           </div>
         )}
 
         {!authenticated && (
           <div>
-            <h1 className="heading">Gå med i ett spel</h1>
+            <h1>Gå med i ett spel</h1>
             <JoinGameForm initialValues={{code: match.params.id}} />
           </div>
         )}

@@ -1,7 +1,7 @@
 [
   {
     "name":"Siare",
-    "description": "På natten får siaren titta på en annan spelare kort, eller på två kort i mitten",
+    "description": "På natten får siaren titta på en annan spelare kort, eller på två oanvända kort",
     "team": "Bybornas lag"
   },
   {
@@ -16,12 +16,12 @@
   },
   {
     "name":"Bybo",
-    "description": "",
+    "description": "Bybon sover hela natten och gör inget särskilt",
     "team": "Bybornas lag"
   },
   {
     "name": "Blackout",
-    "description": "På natten byter spelaren med blackout sitt kort mot ett kort i mitten, utan att titta på det",
+    "description": "På natten byter spelaren med blackout sitt kort mot ett av de oanvända korten, utan att titta på det",
     "team": "Bybornas lag"
   },
   {

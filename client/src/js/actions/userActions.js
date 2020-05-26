@@ -1,7 +1,14 @@
 import history from '../history'
 import axios from 'axios'
 
-import { LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED, JITSU_API } from '../constants'
+import { TOGGLE_CURTAIN, LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED, JITSU_API } from '../constants'
+
+export const toggleCurtain = (boolean) => {
+  return ({
+    type: TOGGLE_CURTAIN,
+    boolean: boolean
+  })
+}
 
 export const startJitsu = (roomName, userName) => async dispatch => {
   try {
