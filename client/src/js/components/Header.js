@@ -47,8 +47,8 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
               <div className="stat"><span className="label">Aktivt spel:</span><span className="value">{gameName}</span></div>
             }
             <div className="stat"><span className="label">{game.users.length} spelare:</span><span className="value">
-            {game.users.map(user => (
-              <span key={user.userId}>{user.userName}</span>
+            {game.users.map((user, i, arr) => (
+              <span key={user.userId}>{`${arr.length - 1 === i ? user.userName : user.userName + ', '}`}</span>
             ))}
             </span></div>
             <button id="button-settings" className="invisible" onClick={() => toggleSettings()}>
