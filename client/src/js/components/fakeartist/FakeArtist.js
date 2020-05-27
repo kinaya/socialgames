@@ -10,14 +10,7 @@ import ReactLoading from 'react-loading'
 const FakeArtist = ({fakeArtist, users, user, startGame, fakeArtistStart, resetGames}) => {
 
   return (
-    <div className="">
-
-      {!fakeArtist.running && users.length < 3 && (
-        <div className="ui info message">
-          <h3>Fler spelare behövs!</h3>
-          <p>Det behövs minst 3 spelare för att spela Fake Artist.</p>
-        </div>
-      )}
+    <div className="container-inner">
 
       <h1>Fake Artist</h1>
 

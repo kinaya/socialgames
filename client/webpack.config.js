@@ -67,7 +67,16 @@ return {
      chunkFilenanem: "[id].css"
    }),
    new CopyWebpackPlugin([
-     {from:'src/images', to:'images'}
+     {from:'src/images', to:'images'},
+     {from:'src/favicon.ico'},
+     {from:'src/android-chrome-192x192.png'},
+     {from:'src/android-chrome-256x256.png'},
+     {from:'src/apple-touch-icon.png'},
+     {from:'src/favicon-16x16.png'},
+     {from:'src/mstile-150x150.png'},
+     {from:'src/safari-pinned-tab.svg'},
+     {from:'src/browserconfig.xml'},
+     {from:'src/site.webmanifest'}
    ]),
    new webpack.DefinePlugin({
      'BASE_URL': JSON.stringify(env.BASE_URL)
