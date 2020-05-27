@@ -50,6 +50,11 @@ button.invisible {
   }
 }
 
+button:disabled {
+  background-color: $grayMedium;
+  cursor: default;
+}
+
 .buttons .button,
 .buttons button {
   margin-right: 1em;
@@ -99,6 +104,10 @@ button.invisible {
     background-color: $msg-error-bg;
     color: $msg-error-text;
     border-color: $msg-error-text;
+  }
+
+  &.center {
+    text-align: center;
   }
 }
 

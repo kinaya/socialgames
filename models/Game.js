@@ -10,7 +10,9 @@ var GameSchema = Schema({
     running: {type: Boolean, required: true, default: false},
     word: {type: String, default: ''},
     category: {type: String, default: ''},
-    fakeArtist: {type: Schema.Types.ObjectId, ref: 'User'}
+    fakeArtist: {type: Schema.Types.ObjectId, ref: 'User'},
+    canvas: {type: String, default: ''},
+    currentPlayer: {type: Schema.Types.ObjectId, ref: 'User'}
   },
   spyfall: {
     running: {type: Boolean, required: true, default: false}

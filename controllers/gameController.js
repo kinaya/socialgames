@@ -92,12 +92,16 @@ var startFakeArtist = (gameCode, users) => new Promise((resolve, reject) => {
   // Select the fake artist
   const fakeArtist = users[Math.floor(Math.random()*users.length)];
 
+  // Select the first player
+  const currentPlayer = users[Math.floor(Math.random()*users.length)];
+
   const setObject = {}
   setObject['fakeArtist'] = {
     running: true,
     word: randomWord.word,
     category: randomWord.category,
-    fakeArtist: fakeArtist.userId
+    fakeArtist: fakeArtist.userId,
+    currentPlayer: currentPlayer.userId
    }
 
   Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
@@ -105,6 +109,47 @@ var startFakeArtist = (gameCode, users) => new Promise((resolve, reject) => {
     resolve(game);
   });
 
+})
+
+/**
+* Updates the drawing canvasWidth
+* Params: gameCode, the code for the game
+* Params: canvas, the updated canvas
+* Returns: game object
+*/
+var updateCanvas = (gameCode, canvas) => new Promise((resolve, reject) => {
+  Game.findOneAndUpdate({code: gameCode}, { $set: { 'fakeArtist.canvas': canvas } }, { new: true }, function (err, game) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(game);
+  })
+})
+
+/**
+* Update whos turn it is
+* Params: gameCode, the code for the game
+* Returns: game object
+*/
+var nextTurn = (gameCode, users) => new Promise((resolve, reject) => {
+  Game.findOne({code: gameCode}, async (err, game) => {
+      if(err) { reject(new Error(err)); return };
+
+      // Find current player index
+      let i = users.findIndex(user => user.userId == game.fakeArtist.currentPlayer)
+
+      if(i == users.length - 1) {
+        i = 0;
+      } else {
+        i = i + 1;
+      }
+
+      game.fakeArtist.currentPlayer = users[i].userId
+
+      game.save((err, updatedGame) => {
+        if(err) {reject(new Error(err)); return};
+        resolve(updatedGame);
+      });
+
+  });
 })
 
 // ===================== Werewolf ===================== //
@@ -357,5 +402,24 @@ exports.game = async function(io, socket) {
     var game = await displayCharacters(gameCode)
     io.in(gameCode).emit('game', {game})
   })
+
+  /** ===== FakeArtist: Update canvas =====
+  * Update the drawing canvas
+  */
+  socket.on('updateCanvas', async (canvas) => {
+    var game = await updateCanvas(gameCode, canvas)
+    socket.to(gameCode).emit('game', {game}); // Not to the person who draw!
+  })
+
+  /** ===== FakeArtist: Next turn =====
+  * Update whos turn it is to draw
+  */
+  socket.on('nextTurn', async () => {
+    var users = await getAllUsers(gameCode)
+    var game = await nextTurn(gameCode, users)
+    io.in(gameCode).emit('game', {game});
+  })
+
+
 
 }

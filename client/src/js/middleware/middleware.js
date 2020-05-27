@@ -1,4 +1,4 @@
-import { SWITCH_CHARACTERS, TOGGLE_VIDEO, WS_CONNECT, WS_DISCONNECT, CHANGE_GAME, RESET_GAMES, START_GAME, DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
+import { NEXT_TURN, UPDATE_CANVAS, SWITCH_CHARACTERS, TOGGLE_VIDEO, WS_CONNECT, WS_DISCONNECT, CHANGE_GAME, RESET_GAMES, START_GAME, DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
 import * as actions from '../actions/websocketActions';
 import { updateUsers, updateGame } from '../actions/gameActions';
 import io from "socket.io-client";
@@ -71,20 +71,22 @@ const socketMiddleware = () => {
         break;
 
       case NEXT_STEP:
-        console.log('NEXT_STEP in midleware')
         socket.emit('nextStep')
         break;
-
+s
       case DISPLAY_CHARACTERS:
         socket.emit('displayCharacters')
         break;
 
-      // case 'NEW_MESSAGE':
-      //  socket.send(JSON.stringify({ command: 'NEW_MESSAGE', message: action.msg }));
-      //  break;
+      case UPDATE_CANVAS:
+        socket.emit('updateCanvas', action.canvas)
+        break;
+
+      case NEXT_TURN:
+        socket.emit('nextTurn')
+        break;
 
       default:
-        //console.log('the next action:', action);
         return next(action);
     }
   };
