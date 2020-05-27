@@ -5,6 +5,7 @@ import { updateCanvas, nextTurn } from '../../actions/fakeArtistActions'
 
 const FakeArtistGamePlay = ({user, word, users, category, fakeArtist, currentPlayer, canvas, updateCanvas, nextTurn}) => {
   const [amIFake, setAmIFake] = useState(false)
+  const [brushColor, setBrushColor] = useState('#333333')
 
   const refCanvas = useRef(null);
 
@@ -26,11 +27,25 @@ const FakeArtistGamePlay = ({user, word, users, category, fakeArtist, currentPla
     }
   }
 
+  const changeColor = (color) => {
+    setBrushColor(color)
+  }
+
   return (
     <div>
 
       <div className={`canvas ${currentPlayer != user.user.userId && 'disabled'}`}>
-        <CanvasDraw ref={refCanvas} disabled={currentPlayer === user.user.userId ? false : true} immediateLoading={true} saveData={canvas} onChange={() => draw()} brushRadius={2} hideGrid={true} canvasHeight='600px' canvasWidth='100%'/>
+        <CanvasDraw ref={refCanvas} disabled={currentPlayer === user.user.userId ? false : true} immediateLoading={true} saveData={canvas} onChange={() => draw()} brushColor={brushColor} brushRadius={2} hideGrid={true} canvasHeight='600px' canvasWidth='100%'/>
+        <div className="canvas-settings">
+          <div className="color-palette">
+            <span className={`black ${brushColor === '#333333' ? 'active' : 'non-active'}`} onClick={() => changeColor('#333333')}></span>
+            <span className={`red ${brushColor === '#FF0000' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#FF0000')}></span>
+            <span className={`yellow ${brushColor === '#FFFF00' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#FFFF00')}></span>
+            <span className={`green ${brushColor === '#008000' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#008000')}></span>
+            <span className={`blue ${brushColor === '#0000FF' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#0000FF')}></span>
+            <span className={`purple ${brushColor === '#800080' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#800080')}></span>
+          </div>
+        </div>
       </div>
 
       <div className="message center">
