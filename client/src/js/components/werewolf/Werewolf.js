@@ -39,8 +39,6 @@ const Werewolf = ({werewolf, startGame, toggleCurtain, resetGames, displayCharac
         <AboutWerewolf />
       )}
 
-      {!werewolf.running && <button onClick={() => startGame('werewolf')}>Starta spelet</button>}
-
       {werewolf.running && <button className="invisible end-game" onClick={() => resetGames()}>Avsluta omgången</button>}
 
     </div>

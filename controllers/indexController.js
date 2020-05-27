@@ -30,21 +30,17 @@ var saveUser = (userName, gameCode) => new Promise((resolve, reject) => {
 
 });
 
-
 /**
  * Remove a user from the db
  * Params: userId
  * Returns: the user
  */
 var removeUser = (userId) => new Promise((resolve, reject) => {
-
   User.findByIdAndRemove(userId, function(err, user) {
     if(err) { reject(new Error(err)); return;}
     resolve(user);
   })
-
 })
-
 
 /**
  * Save a new game in the db
@@ -91,8 +87,6 @@ exports.newGame = async function(req, res, next) {
     var game = await saveGame();
     var user = await saveUser(req.body.userName, game.code);
   } catch (err) {
-    console.log('error!')
-    console.log(err)
     return next(err);
   }
 
@@ -102,7 +96,7 @@ exports.newGame = async function(req, res, next) {
 }
 
 /**
- * User trigged action at /joinGame - Create a new game
+ * User trigged action at /joinGame - Join an existing game
  */
 exports.joinGame = async function(req, res, next) {
 

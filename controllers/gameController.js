@@ -19,8 +19,8 @@ var getAllUsers = gameCode => new Promise((resolve, reject) => {
 
 /**
  * Get a game
- * Params: gameCode
- * Returns game object
+ * Params: gameCode: The code for the game
+ * Returns: game object
  */
 var getGame = gameCode => new Promise((resolve, reject) => {
   Game.findOne({'code': gameCode}, function(err, game) {
@@ -30,32 +30,38 @@ var getGame = gameCode => new Promise((resolve, reject) => {
   })
 })
 
-var changeGame = (gameCode, game) => new Promise((resolve, reject) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: { activeGame: game }}, { new: true }, function (err, game) {
+/**
+ * Change the active game
+ * Params: gameCode, the code for the game
+ * Params: gameName, the name of the game to set as active
+ * Returns: game object
+ */
+var changeGame = (gameCode, gameName) => new Promise((resolve, reject) => {
+  Game.findOneAndUpdate({code: gameCode}, { $set: { activeGame: gameName }}, { new: true }, function (err, game) {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
   });
 })
 
-var toogleVideo = (gameCode, boolean) => new Promise((resolve, reject) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: {video: boolean}}, { new: true}, function (err, game) {
+/**
+ * Toggle where video is active or not
+ * Params: gameCode, the code for the game
+ * Params: videoState, if the video should be set to true or false
+ * Returns: game object
+ */
+var toogleVideo = (gameCode, videoState) => new Promise((resolve, reject) => {
+  Game.findOneAndUpdate({code: gameCode}, { $set: {video: videoState}}, { new: true}, function (err, game) {
     if(err) { reject(new Error(eerr)); return;}
     resolve(game);
   })
 })
 
-// TODO: Slå ihop startGame/stopGame eller kanske ha en generell "UpdateGame?"
-var startGame = (gameCode, gameName) => new Promise((resolve, reject) => {
-  const setObject = {}
-  setObject[gameName] = { running: true }
-  Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
-    if(err) { reject(new Error(err)); return;}
-    resolve(game);
-  });
-})
-
-// Reset the game so all that is left is running: false
-// Bättre sätt att resetta alla spel!
+// todo: Make this better
+/**
+* Resets all games
+* Params: gameCode, the code for the game
+* Returns: game object
+*/
 var resetGames = (gameCode) => new Promise((resolve, reject) => {
   const setObject = {}
   setObject['fakeArtist'] = { running: false}
@@ -70,13 +76,15 @@ var resetGames = (gameCode) => new Promise((resolve, reject) => {
   });
 })
 
+// ===================== Fake artist ===================== //
 
 /**
- * Add a random word to the saved game
- * Params: gameCode
+ * Starts the Fake Artist game. Adds a random word to the game, selects a
+ * fake artist and sets the game to running
+ * Params: gameCode, the code for the game
  * Returns: game object
  */
-var addWordToGame = (gameCode, users) => new Promise((resolve, reject) => {
+var startFakeArtist = (gameCode, users) => new Promise((resolve, reject) => {
 
   // Get a random word
   var randomWord = fakeArtistWords[Math.floor(Math.random()*fakeArtistWords.length)];
@@ -96,70 +104,17 @@ var addWordToGame = (gameCode, users) => new Promise((resolve, reject) => {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
   });
-})
-
-
-var displayCharacters = (gameCode) => new Promise((resolve, rejeect) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: { 'werewolf.showCharacters': true} }, { new: true }, function (err, game) {
-    if(err) { reject(new Error(err)); return;}
-    resolve(game);
-  });
-})
-
-var nextStep = (gameCode) => new Promise((resolve, reject) => {
-  Game.findOne({code: gameCode}, async (err, game) => {
-      if(err) { reject(new Error(err)); return };
-
-      // Update step number
-      game.werewolf.step.number = game.werewolf.step.number + 1;
-
-      // Update if automatic step
-      game.werewolf.step.automatic = await isStepAutomatic(game.werewolf.characters, game.werewolf.step.number);
-
-      game.save((err, updatedGame) => {
-        if(err) {reject(new Error(err)); return};
-        resolve(updatedGame);
-      });
-  });
 
 })
 
-var isStepAutomatic = (characters, step) => new Promise((resolve, reject) => {
+// ===================== Werewolf ===================== //
 
-  // Todo: When to reject?
-
-  let roleIsAsigned = false;
-  if(step == 2) {
-    roleIsAsigned = characters.some(character => character.character.name == 'Varulv' && character.userId);
-    console.log('Varulv', roleIsAsigned)
-  } else if(step == 3) {
-    roleIsAsigned = characters.some(character => character.character.name == 'Siare' && character.userId);
-    console.log('Siare', roleIsAsigned)
-  } else if(step == 4) {
-    roleIsAsigned = characters.some(character => character.character.name == 'Tjuv' && character.userId);
-    console.log('Tjuv', roleIsAsigned)
-  }
-
-  if(step == 1 || step == 5 || roleIsAsigned) {
-    resolve(false)
-  } else {
-    resolve(true)
-  }
-
-})
-
-var switchCharacters = (gameCode, characters, one, two) => new Promise((resolve, reject) => {
-
-  let temp = characters[one].character
-  characters[one].character = characters[two].character
-  characters[two].character = temp
-
-  Game.findOneAndUpdate({code: gameCode}, { $set: {'werewolf.characters': characters} }, { new: true }, function (err, game) {
-    if(err) { reject(new Error(err)); return;}
-    resolve(game);
-  });
-})
-
+/**
+* Starts the werewolf game. Assign roles for the users and set the game to running
+* Params: gameCode, the code for the game
+* Users: the users in the game
+* Returns: game object
+*/
 var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
 
   // Get the characterlist according to number of players, and make a copy of it to manipulate
@@ -194,23 +149,10 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
     })
   }
 
-  // Set the middle cards
-  /*middleCards = []
-  for(let i = 0; i < 3; i++) {
-    const i = Math.floor(Math.random()*characterList.length);
-    const randomCharacter = characterList[i];
-    characterList.splice(i, 1);
-    middleCards.push({
-      userId: [i],
-      character: randomCharacter
-    })
-  }*/
-
   const setObject = {}
   setObject['werewolf'] = {
     running: true,
     characters: characters,
-//    middleCards: middleCards
    }
 
   Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
@@ -219,6 +161,85 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
   });
 })
 
+/**
+* Displays all character cards
+* Params: gameCode, the code for the game
+* Returns: game object
+*/
+var displayCharacters = (gameCode) => new Promise((resolve, rejeect) => {
+  Game.findOneAndUpdate({code: gameCode}, { $set: { 'werewolf.showCharacters': true} }, { new: true }, function (err, game) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(game);
+  });
+})
+
+/**
+* Moves the game to the next step
+* Params: gameCode, the code for the game
+* Returns: game object
+*/
+var nextStep = (gameCode) => new Promise((resolve, reject) => {
+  Game.findOne({code: gameCode}, async (err, game) => {
+      if(err) { reject(new Error(err)); return };
+
+      // Update step number
+      game.werewolf.step.number = game.werewolf.step.number + 1;
+
+      // Check if step is automatic
+      game.werewolf.step.automatic = await isStepAutomatic(game.werewolf.characters, game.werewolf.step.number);
+
+      game.save((err, updatedGame) => {
+        if(err) {reject(new Error(err)); return};
+        resolve(updatedGame);
+      });
+  });
+})
+
+// todo: case for reject
+/**
+* Helper function to check if a step in the game should be automatic
+* Params: characters, the characters in the game
+* Param: step, the step that should be checked
+* Returns: true if step is automatic, false if not
+*/
+var isStepAutomatic = (characters, step) => new Promise((resolve, reject) => {
+
+  let roleIsAsigned = false;
+  if(step == 2) {
+    roleIsAsigned = characters.some(character => character.character.name == 'Varulv' && character.userId);
+  } else if(step == 3) {
+    roleIsAsigned = characters.some(character => character.character.name == 'Siare' && character.userId);
+  } else if(step == 4) {
+    roleIsAsigned = characters.some(character => character.character.name == 'Tjuv' && character.userId);
+  }
+
+  if(step == 1 || step == 5 || roleIsAsigned) {
+    resolve(false)
+  } else {
+    resolve(true)
+  }
+
+})
+
+/**
+* Switches two characters roles
+* Params: gameCode, the code for the game
+* Params: characters, the characters of the game
+* Params: one, the first character to be switched
+* Params: two, the second character to be switched
+* Returns: game object
+*/
+var switchCharacters = (gameCode, characters, one, two) => new Promise((resolve, reject) => {
+
+  let temp = characters[one].character
+  characters[one].character = characters[two].character
+  characters[two].character = temp
+
+  Game.findOneAndUpdate({code: gameCode}, { $set: {'werewolf.characters': characters} }, { new: true }, function (err, game) {
+    if(err) { reject(new Error(err)); return;}
+    resolve(game);
+  });
+})
 
 
 /**
@@ -226,7 +247,7 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
  */
 exports.game = async function(io, socket) {
 
-  console.log('This socket joined:', socket.id)
+  // ====== Connecting ======
 
   // Get the gameCode from query
   const gameCode = socket.handshake.query.gameCode
@@ -242,117 +263,98 @@ exports.game = async function(io, socket) {
     gameCode: gameCode,
   })
 
-  // Get all users for the game room
+  // Get users and game and send to all clients in the game room
   var users = await getAllUsers(gameCode);
-
-  // Get the game
   var game = await getGame(gameCode);
-
-  // Send updated game and list of users to all clients in 'gameCode' room, including sender
   io.in(gameCode).emit('game', { users, game });
 
-  // Send the 'existingusers' message to the newly added user, for creating Peers
-/*  io.to(socket.id).emit('existingusers', users);
-
-  socket.on('sendingsignal', data => {
-    // This signal i of typ "offer". It is sent by the joining user to the existing ones
-    console.log(`${data.callerID} sendingsignal to ${data.userToSignal}`)
-    console.log('The signal:', data.signal)
-    io.to(data.userToSignal).emit('userjoined', {signal: data.signal, callerID: data.callerID, callerName: data.callerName})
-  })
-
-  socket.on('returningsignal', data => {
-    // This signal is of type "answer". It is sent by the existing user to the new one
-    console.log(`${socket.id} receivingreturnedsignal to ${data.callerID}`)
-    console.log('The signal:', data.signal)
-    io.to(data.callerID).emit('receivingreturnedsignal', {signal: data.signal, id: socket.id})
-  })*/
-
+  /** ====== Disconnecting ======
+  * Leave room, remove the closing client from socket
+  * collection and send updated list of users to all clients in the room
+  */
   socket.on('disconnecting', async () => {
-    // Leave room
     socket.leave(gameCode)
-    // Remove the closing client from fakeArtistSocketCollection
     gameSocketCollection = await gameSocketCollection.filter(client => client.socketid != socket.id)
-    // Get all users for the room
     var users = await getAllUsers(gameCode)
-    // Sending to all clients in 'gameCode' room, except sender
     socket.to(gameCode).emit('game', { users });
   })
 
-  // Change the active game
+  /** ====== Change Game ======
+  * Reset all games and change the active game
+  */
   socket.on('changeGame', async (gameName) => {
     await resetGames(gameCode);
     var game = await changeGame(gameCode, gameName);
     io.in(gameCode).emit('game', { game })
   })
 
-  // Toogle the video
+  /** ===== Toogle Video =====
+  * Toggle the video true or false
+  */
   socket.on('toggleVideo', async (boolean) => {
     var game = await toogleVideo(gameCode, boolean);
     io.in(gameCode).emit('game', { game })
   })
 
-  // Start a game
+  /** ===== Start a game =====
+  * Make configurations and start a game
+  */
   socket.on('startGame', async (gameName) => {
-
     if(gameName === 'fakeArtist') {
       var users = await getAllUsers(gameCode)
-      var game = await addWordToGame(gameCode, users); // Also: running and select the fakeArtist!
+      var game = await startFakeArtist(gameCode, users);
       io.in(gameCode).emit('game', { game })
     }
-
     if(gameName === 'werewolf') {
       var users = await getAllUsers(gameCode)
       var game = await startWerewolf(gameCode, users);
       io.in(gameCode).emit('game', { game })
     }
-
-    //var game = await startGame(gameCode, gameName);
-    //io.in(gameCode).emit('game', {game})
   })
 
-  // next step
-  socket.on('nextStep', async () => {
+  /** ===== Reset all games =====
+  * Resets all games
+  */
+  socket.on('resetGames', async () => {
+    var game = await resetGames(gameCode);
+    io.in(gameCode).emit('game', {game})
+  })
 
+  /** ===== Werewolf: next step =====
+  * Move on to the nest step of the game.
+  * If the step is automatic, set timer and run again
+  */
+  socket.on('nextStep', async () => {
     recursiveNextStep = async () => {
       var game = await nextStep(gameCode)
       io.in(gameCode).emit('game', {game})
 
       if(!game.werewolf.step.automatic) {
-        console.log('The step is NOT automatic')
         return;
       }
 
       let randomTime = Math.floor(Math.random() * (1500 - 7000 + 1) + 7000);
-      console.log('The step is automatic! Time:', randomTime);
-
       setTimeout(function () {
         recursiveNextStep()
       }, randomTime)
-
     }
 
     recursiveNextStep();
-
   })
 
-  // Switch Characters
+  /** ===== Werewolf: Switch Characters =====
+  * Switch tocharacters. Does not send the updated game to the clients
+  */
   socket.on('switchCharacters', async (one, two) => {
     var savedGame = await getGame(gameCode)
     var game = await switchCharacters(gameCode, savedGame.werewolf.characters, one, two)
-    // Just update, don't send to anyone yet!
-    // io.in(gameCode).emit('game', {game})
   })
 
-  // display characters
+  /** ===== Werewolf: Display Characters =====
+  * Displays all characters
+  */
   socket.on('displayCharacters', async () => {
     var game = await displayCharacters(gameCode)
-    io.in(gameCode).emit('game', {game})
-  })
-
-  // Reset/Stop a game
-  socket.on('resetGames', async () => {
-    var game = await resetGames(gameCode);
     io.in(gameCode).emit('game', {game})
   })
 

@@ -40,10 +40,6 @@ app.use(function(req, res, next) {
 // === Set up routes
 var indexRouter = require('./routes/index');
 var gameRouter = require('./routes/game')(io);
-var fakeArtistRouter = require('./routes/fakeartist')(io); // Pass in io
-var spyfallRouter = require('./routes/spyfall')(io);
-app.use('/fake-artist', fakeArtistRouter);
-app.use('/spyfall', spyfallRouter);
 app.use('/game', gameRouter);
 app.use('/', indexRouter);
 

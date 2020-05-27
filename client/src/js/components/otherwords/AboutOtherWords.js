@@ -19,6 +19,7 @@ const AboutOtherWords = ({authenticated}) => {
           </Link>
         </div>
       )}
+
     </div>
   )
 }
@@ -30,6 +31,5 @@ const mapStateToProps = state => {
 }
 
 export default connect(
-  mapStateToProps,
-  null
+  mapStateToProps
 )(AboutOtherWords)

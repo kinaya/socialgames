@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { startGame, changeGame } from '../../actions/gameActions'
 
-const AboutWerewolf = ({authenticated}) => {
+const AboutWerewolf = ({authenticated, startGame, changeGame}) => {
 
   return (
     <div className="container">
@@ -21,17 +22,24 @@ const AboutWerewolf = ({authenticated}) => {
         </div>
       )}
 
+      {authenticated && (
+        <div className="buttons">
+          <button onClick={() => startGame('werewolf')}>Starta spelet</button>
+          <button className="gray" onClick={() => changeGame(null)}>Byt spel</button>
+        </div>
+      )}
+
     </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.user.authenticated,
+    authenticated: state.user.authenticated
   }
 }
 
 export default connect(
   mapStateToProps,
-  null
+  {startGame, changeGame}
 )(AboutWerewolf)

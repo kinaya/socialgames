@@ -4,10 +4,10 @@ import OtherWordsPlay from './OtherWordsPlay'
 import OtherWordsForm from './OtherWordsForm'
 import OtherWordsFinished from './OtherWordsFinished'
 import AboutOtherWords from './AboutOtherWords'
-import { resetGames } from '../../actions/gameActions'
+import { resetGames, changeGame } from '../../actions/gameActions'
 import { startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame } from '../../actions/otherWordsActions'
 
-const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame}) => {
+const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame, changeGame}) => {
   return (
     <div className="container-inner">
 
@@ -31,7 +31,12 @@ const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRou
 
       {otherwords.gamestate === 'finished' && <OtherWordsFinished newRound={newRound} resetGame={resetGame} score={otherwords.score} />}
 
-      {otherwords.gamestate === 'intro' && <button onClick={() => startGameLocal()}>Starta spelet</button>}
+      {otherwords.gamestate === 'intro' && (
+        <div className="buttons">
+          <button onClick={() => startGameLocal()}>Starta spelet</button>
+          <button className="gray" onClick={() => changeGame(null)}>Byt spel</button>
+        </div>
+      )}
 
     </div>
   )
@@ -45,5 +50,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame}
+  {startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame, changeGame}
 )(OtherWords)

@@ -20,6 +20,14 @@ button,
   }
 }
 
+button.gray {
+  background-color: $grayMedium;
+  color: $black;
+  &:hover, &:active, &:focus {
+    background-color: $grayMedium-hover;
+  }
+}
+
 button.invisible {
   background-color: transparent;
   padding: 0;

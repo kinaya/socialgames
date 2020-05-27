@@ -19,9 +19,7 @@ const FakeArtist = ({fakeArtist, users, user, startGame, fakeArtistStart, resetG
 
       {fakeArtist.running && <FakeArtistPlay user={user} fakeArtist={fakeArtist.fakeArtist} category={fakeArtist.category} word={fakeArtist.word} />}
 
-      {!fakeArtist.running && <button className="ui primary large button" onClick={() => startGame('fakeArtist')}>Starta spelet</button>}
-
-      {fakeArtist.running && <button className="ui basic button" onClick={() => resetGames()}>Avsluta omgången</button>}
+      {fakeArtist.running && <button className="invisible" onClick={() => resetGames()}>Avsluta omgången</button>}
 
     </div>
   )
