@@ -12,6 +12,9 @@ import Start from './Start'
 import GameArea from './GameArea'
 import NewGame from './NewGame'
 import JoinGame from './JoinGame'
+import AboutWerewolf from './werewolf/AboutWerewolf'
+import AboutOtherWords from './otherwords/AboutOtherWords'
+import AboutFakeArtist from './fakeartist/AboutFakeArtist'
 import { checkUserStatus } from '../actions/userActions'
 
 const App = props => {
@@ -36,6 +39,9 @@ const App = props => {
               <Route exact path='/' component={Start} />
               <Route exact path='/newgame' component={NewGame} />
               <Route exact path='/joinGame' component={JoinGame} />
+              <Route exact path='/werewolf' component={AboutWerewolf} />
+              <Route exact path='/otherwords' component={AboutOtherWords} />
+              <Route exact path='/fakeartist' component={AboutFakeArtist} />
               <Route path='/:id' component={GameArea} />
             </Switch>
           )}

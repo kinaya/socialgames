@@ -20,6 +20,7 @@
   margin-bottom: 1em;
   flex-basis: 32%;
 }
+.gamelist,
 .no-video .gamelist {
   @media(min-width: $tablet) {
     display: flex;

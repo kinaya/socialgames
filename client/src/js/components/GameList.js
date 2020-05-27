@@ -2,13 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { changeGame } from '../actions/gameActions'
 import { Link } from 'react-router-dom'
+import history from '../history'
 
-const GameList = ({changeGame}) => {
+const GameList = ({authenticated, changeGame}) => {
+
+  const navigate = (url) => {
+    history.push(url)
+  }
 
   return (
     <div className="gamelist">
 
-      <div onClick={() => changeGame('werewolf')} className="card" >
+      <div onClick={authenticated ? () => changeGame('werewolf') : () => navigate('/werewolf')} className="card" >
         <div className="image">
           <img src="images/game1.jpg" />
         </div>
@@ -18,7 +23,7 @@ const GameList = ({changeGame}) => {
         </div>
       </div>
 
-      <div onClick={() => changeGame('otherwords')} className="card" >
+      <div onClick={authenticated ? () => changeGame('otherwords') : () => navigate('/otherwords')} className="card" >
         <div className="image">
           <img src="images/game1.jpg" />
         </div>
@@ -28,7 +33,7 @@ const GameList = ({changeGame}) => {
         </div>
       </div>
 
-      <div onClick={() => changeGame('fakeartist')} className="card" >
+      <div onClick={authenticated ? () => changeGame('fakeartist') : () => navigate('/fakeartist')} className="card" >
         <div className="image">
           <img src="images/game1.jpg" />
         </div>
@@ -42,7 +47,12 @@ const GameList = ({changeGame}) => {
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    authenticated: state.user.authenticated,
+  }
+}
 export default connect(
-  null,
+  mapStateToProps,
   { changeGame }
 )(GameList)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 //import { fakeArtist_updateGame, fakeArtist_updateUsers, fakeArtist_resetGame } from '../../actions'
 import { startGame, resetGames } from '../../actions/gameActions'
 import FakeArtistPlay from './FakeArtistPlay'
+import AboutFakeArtist from './AboutFakeArtist'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import ReactLoading from 'react-loading'
@@ -12,10 +13,8 @@ const FakeArtist = ({fakeArtist, users, user, startGame, fakeArtistStart, resetG
   return (
     <div className="container-inner">
 
-      <h1>Fake Artist</h1>
-
       {!fakeArtist.running && (
-        <p>Alla får ett motiv att rita tillsammans, där ni turas om att dra varsitt streck i samma teckning. Men en av er är the Fake Artist och vet inte vad ni ritar! Kommer ni avslöja vem som är the Fake Artist innan hen hinner lista ut vad ert konstverk föreställer?</p>
+        <AboutFakeArtist />
       )}
 
       {fakeArtist.running && <FakeArtistPlay user={user} fakeArtist={fakeArtist.fakeArtist} category={fakeArtist.category} word={fakeArtist.word} />}

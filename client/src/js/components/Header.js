@@ -66,7 +66,7 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
             <div>
               <span className="label">Ditt Namn:</span><span className="value">{user.userName}</span>
               <span className="label">Spelkod:</span><span className="value">{user.gameCode}</span>
-              <a onClick={() => logout()}>Lämna spelet</a>
+              <button className="invisible" onClick={() => logout()}>Lämna spelet</button>
             </div>
             <div>
               <span className="label">Spelare:</span>

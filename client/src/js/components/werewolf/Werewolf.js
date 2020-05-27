@@ -5,6 +5,7 @@ import WerewolfPlay from './WerewolfPlay'
 import WerewolfCharacter from './WerewolfCharacter'
 import WerewolfSteps from './WerewolfSteps'
 import WerewolfBreadcrumb from './WerewolfBreadcrumb'
+import AboutWerewolf from './AboutWerewolf'
 import { startGame, resetGames } from '../../actions/gameActions'
 import { nextStep, displayCharacters } from '../../actions/werewolfActions'
 import { toggleCurtain } from '../../actions/userActions'
@@ -35,11 +36,7 @@ const Werewolf = ({werewolf, startGame, toggleCurtain, resetGames, displayCharac
       )}
 
       {!werewolf.running && (
-        <>
-          <h1>Varulvspelet</h1>
-          <p>Diskussionsspel där spelarna genom att bluffa, läsa av varandra och finna motsägelser i uttalanden ska lyckas avgöra vilka i sällskapet som har blivit tilldelade varulvsroller!</p>
-          <p>Pekar byborna ut rätt person(er) när tiden har runnit ut och sanningens ögonblick är här?</p>
-        </>
+        <AboutWerewolf />
       )}
 
       {!werewolf.running && <button onClick={() => startGame('werewolf')}>Starta spelet</button>}

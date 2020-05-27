@@ -33,6 +33,22 @@ button.invisible {
     color: $red-hover;
   }
 }
+.site-header button.invisible {
+  color: $white;
+  border-bottom: 1px solid $white;
+  &:hover, &:active, &:focus {
+    border-color: $red-hover;
+    color: $red-hover;
+  }
+}
+
+.buttons .button,
+.buttons button {
+  margin-right: 1em;
+  &:last-child {
+    margin-right: 0;
+  }
+}
 
 .field {
   margin: 0 0 2em;
