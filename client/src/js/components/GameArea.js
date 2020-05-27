@@ -85,10 +85,13 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
         )}
 
         {authenticated && !game.game.activeGame && (
-          <div>
-            <h1>Välj spel</h1>
+          <>
+            <div className="container-inner">
+              <h1>Välj spel</h1>
+              <p className="preamble">Suspendisse id venenatis magna. Nulla facilisi. Cras quis lorem pharetra dui viverra condimentum a ut eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut dolor ex, lacinia sed nisl at, semper bibendum dui.</p>
+              </div>
             <GameList gameCode={match.params.id}/>
-          </div>
+          </>
         )}
 
         {!authenticated && (

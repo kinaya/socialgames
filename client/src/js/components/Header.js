@@ -42,10 +42,10 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
 
         {authenticated && (
           <>
-            <div className="stat"><span className="label">Spelkod:</span><span className="value">{user.gameCode}</span></div>
             {gameName &&
-              <div className="stat"><span className="label">Aktivt spel:</span><span className="value">{gameName}</span></div>
+              <div className="stat"><span className="label">Du spelar:</span><span className="value">{gameName}</span></div>
             }
+            <div className="stat"><span className="label">Er spelkod:</span><span className="value">{user.gameCode}</span></div>
             <div className="stat"><span className="label">{game.users.length} spelare:</span><span className="value">
             {game.users.map((user, i, arr) => (
               <span key={user.userId}>{`${arr.length - 1 === i ? user.userName : user.userName + ', '}`}</span>
@@ -65,20 +65,26 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
           <div className="container">
             <div>
               <span className="label">Ditt Namn:</span><span className="value">{user.userName}</span>
-              <span className="label">Spelkod:</span><span className="value">{user.gameCode}</span>
-              <button className="invisible" onClick={() => logout()}>Lämna spelet</button>
+              <span className="label">Er spelkod:</span><span className="value">{user.gameCode}</span>
+              <button className="invisible" onClick={() => logout()}>Lämna spelrummet</button>
             </div>
             <div>
-              <span className="label">Spelare:</span>
+              <span className="label">{game.users.length} Spelare:</span>
               <ul>{game.users.map(user => (
                 <li key={user.userId}>{user.userName}</li>
               ))}</ul>
+              <p>Bjud in fler spelare med hjälp av spelkoden</p>
             </div>
-            <div>
+            <div className="game-settings">
               {gameName && (
-                <button className="ui inverted button" onClick={() => _changeGame()}>Byt spel</button>
+                <>
+                  <span className="label">Ni spelar:</span>
+                  <span className="value">{gameName}</span>
+                  <button className="value invisible" onClick={() => _changeGame()}>Avsluta omgången och byt spel</button>
+                </>
               )}
-              <button className="ui inverted button" onClick={() => _toggleVideo()}>
+              <span className="label">Ni spelar {game.game.vide ? 'med video' : 'utan video'}:</span>
+              <button className="invisible" onClick={() => _toggleVideo()}>
                 {game.game.video ? 'Spela utan video' : 'Spela med video'}
               </button>
             </div>

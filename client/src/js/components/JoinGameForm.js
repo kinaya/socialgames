@@ -7,7 +7,7 @@ import { TextComponent } from './FormComponents'
 const JoinGameForm = ({handleSubmit, joinGame}) => {
 
   return (
-    <form className="ui form error" onSubmit={handleSubmit((formValues) => joinGame(formValues.name, formValues.code))}>
+    <form onSubmit={handleSubmit((formValues) => joinGame(formValues.name, formValues.code))}>
       <Field
         name="name"
         component={TextComponent}

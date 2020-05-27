@@ -16,6 +16,9 @@
 
 
 // ===== Gamelist
+.gamelist {
+  padding: 4em 0;
+}
 .gamelist  > div {
   margin-bottom: 1em;
   flex-basis: 32%;
@@ -34,13 +37,20 @@
 
 // ===== Card
 .card {
-  border: 1px solid $gray;
   border-radius: 4px;
   cursor: pointer;
+  background-color: $white;
+
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  &:hover, &:active, &:focus {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
 
   img {
     width: 100%;
     display: block;
+    border-radius: 4px 4px 0 0;
   }
   .content {
     padding: 1em 0.5em;
@@ -51,5 +61,26 @@
   }
   p {
     margin: 0;
+  }
+}
+
+
+// ===== About a game
+.rules {
+  margin: 3em 0;
+  h3 {
+    color: $turqoise;
+    margin: 2em 0 0.4em 0;
+  }
+  p {
+    margin: 0 0 1em 2.65em;
+  }
+  span {
+    content: "1";
+    padding: 0.3em 0.6em;
+    border-radius: 50%;
+    background-color: $turqoise;
+    color: $white;
+    margin-right: 0.5em;
   }
 }

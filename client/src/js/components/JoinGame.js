@@ -3,9 +3,11 @@ import JoinGameForm from './JoinGameForm'
 
 const JoinGame = () => {
   return (
-    <div className="ui text container">
-      <h1 className="heading">Gå med i spelrum</h1>
-      <JoinGameForm />
+    <div className="container">
+      <h1>Gå med i spelrum</h1>
+      <div className="container-inner">
+        <JoinGameForm />
+      </div>
     </div>
   )
 }

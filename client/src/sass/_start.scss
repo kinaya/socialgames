@@ -1,20 +1,31 @@
 .intro {
   text-align: center;
-  margin-top: 4em;
-  margin-bottom: 6em;
+  background-color: $indigo;
+  padding-top: 6em;
+  padding-bottom: 6em;
+  color: $white;
+  margin-top: -4em;
 
   p {
     font-size: 1.6em;
+    color: $bg-black;
+  }
+
+  h1 {
+    display: inline-block;
+    background-color: $bg-black;
+    padding: 0.2em 0.5em;
+    transform: rotate(-3deg);
+    border-radius: 4px;
+    color: $white;
+    margin-bottom: 0.5em;
   }
 
 }
 
 .getstarted {
-  margin-top: 6em;
-  margin-bottom: 4em;
   padding-top: 8em;
-  padding-bottom: 6em;
-  background-color: $msg-info-bg;
+  padding-bottom: 8em;
 
   .container-inner {
     @media(min-width: $tablet) {
@@ -27,10 +38,25 @@
       flex-basis: 32%;
     }
 
+    h2 {
+      background-color: $bg-black;
+      color: $white;
+      display: inline-block;
+      border-radius: 4px;
+      padding: 0.2em 0.5em;
+    }
+
     img {
       max-width: 200px;
       border-radius: 50%;
     }
   }
 
+}
+
+.featured-games {
+  padding-top: 4em;
+  padding-bottom: 4em;
+  background-color: $msg-info-bg;
+  margin-bottom: -4em;
 }

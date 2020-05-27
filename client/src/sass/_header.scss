@@ -1,6 +1,7 @@
 .site-header {
   background-color: $indigo;
   color: $white;
+  margin-bottom: 4em;
 }
 
 .header-bar {
@@ -26,7 +27,6 @@
   .value {
     display: block;
     font-weight: 700;
-    margin-top: 0.4em;
   }
 }
 
@@ -73,12 +73,13 @@
     justify-content: space-between;
 
     > div {
-      flex-basis: 33%;
-      padding: 0.5em 1em;
+      flex-basis: 32%;
+      padding: 1em 1em 0.5em 1em;
 
       &:nth-child(2) {
-        border-right: 1px solid $white;
-        border-left: 1px solid $white;
+        border-right: 1px solid #bac5be;
+        border-left: 1px solid #bac5be;
+        flex-basis: 36%;
       }
     }
   }
@@ -91,12 +92,22 @@
   .value {
     display: block;
     font-weight: 700;
-    margin-top: 0.4em;
     margin-bottom: 1em;
   }
   ul {
     margin-top: 0.4em;
     padding-left: 1.2em;
+  }
+  p {
+    font-size: 1em;
+  }
+}
+.game-settings {
+  .value {
+    margin-bottom: 0;
+  }
+  button.value {
+    margin-bottom: 1em;
   }
 }
 

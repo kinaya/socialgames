@@ -7,6 +7,8 @@ const OtherWordsForm = ({startGameLocal}) => {
   return (
     <div className="form">
 
+      <h2>Inställningar</h2>
+
       <h4>Förbjudna ord</h4>
         <Field
           name="forbidden"

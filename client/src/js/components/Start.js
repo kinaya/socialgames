@@ -6,7 +6,8 @@ const Start = () => {
   return (
     <div className="start">
 
-      <div className="container intro">
+      <div className="container full intro">
+        <div className="container-inner">
         <h1>Riktigt roliga spel!</h1>
         <p>Hemsidan användas istället för spelbräde och kortlek. Och befinner ni er på olika platser kan ni spela via videolänk. De bästa sociala spelen var du än befinner dig. Helt gratis &#10084;</p>
 
@@ -17,6 +18,7 @@ const Start = () => {
           <Link to='/joingame' className="button" role="button">
             Gå med i spelrum
           </Link>
+        </div>
         </div>
       </div>
 
@@ -40,8 +42,10 @@ const Start = () => {
         </div>
       </div>
 
-      <div className="container">
-        <GameList />
+      <div className="container full featured-games">
+        <div className="container-inner wide">
+          <GameList />
+        </div>
       </div>
 
     </div>
