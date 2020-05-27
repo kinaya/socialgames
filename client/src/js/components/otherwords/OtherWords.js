@@ -8,7 +8,7 @@ import { startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame 
 
 const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame}) => {
   return (
-    <div>
+    <div className="container-inner">
 
       <h1>Med andra ord</h1>
 
@@ -32,7 +32,7 @@ const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRou
 
       {otherwords.gamestate === 'finished' && <OtherWordsFinished newRound={newRound} resetGame={resetGame} score={otherwords.score} />}
 
-      {otherwords.gamestate === 'intro' && <button className="ui primary large button" onClick={() => startGameLocal()}>Starta spelet</button>}
+      {otherwords.gamestate === 'intro' && <button onClick={() => startGameLocal()}>Starta spelet</button>}
 
     </div>
   )

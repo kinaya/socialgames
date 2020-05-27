@@ -1,6 +1,6 @@
 button,
 .button {
-  background-color: $pink;
+  background-color: $red;
   color: $white;
   padding: 1em 1.5em;
   text-transform: uppercase;
@@ -16,7 +16,7 @@ button,
   cursor: pointer;
 
   &:hover, &:active, &:focus {
-    background-color: $pinkDark;
+    background-color: $red-hover;
   }
 }
 
@@ -29,8 +29,8 @@ button.invisible {
   border-bottom: 1px solid $black;
   border-radius: 0;
   &:hover, &:active, &:focus {
-    border-color: $pinkDark;
-    color: $pinkDark;
+    border-color: $red-hover;
+    color: $red-hover;
   }
 }
 
@@ -63,6 +63,7 @@ button.invisible {
   color: $msg-info-text;
   padding: 1em;
   margin: 0.5em 0;
+  border-radius: 4px;
 
   &.success {
     background-color: $msg-success-bg;
@@ -75,4 +76,11 @@ button.invisible {
     color: $msg-error-text;
     border-color: $msg-error-text;
   }
+}
+
+.form {
+  background-color: $msg-info-bg;
+  border: 1px solid $msg-info-border;
+  padding: 1em;
+  border-radius: 5px;
 }

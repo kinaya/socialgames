@@ -3,9 +3,9 @@ import React from 'react'
 const OtherWordsPlay = ({settings, score, time, currentword, changeWord, skipWord, finishRound}) => {
 
   return (
-    <div className="ui text container center aligned">
+    <div className="play-area">
 
-      <div className="ui two column grid">
+      <div className="score">
         <div className="column">Poäng: {score}</div>
         {settings.timer != 0 &&
           <div className="column">Timer: {time}</div>
@@ -22,11 +22,11 @@ const OtherWordsPlay = ({settings, score, time, currentword, changeWord, skipWor
         </div>
       }
 
-      <button className="ui primary button large" onClick={changeWord} >Nästa ord</button>
+      <button onClick={changeWord} >Nästa ord</button>
 
       <div>
-        <button className="ui button" onClick={skipWord} >Hoppa över ord</button>
-        <button className="ui button" onClick={finishRound}>Avsluta omgången</button>
+        <button className="gray" onClick={skipWord} >Hoppa över ord</button>
+        <button className="invisible" onClick={finishRound}>Avsluta omgången</button>
       </div>
 
     </div>

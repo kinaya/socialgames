@@ -5,9 +5,9 @@ import { CheckboxComponent, RadioComponent } from '../FormComponents'
 const OtherWordsForm = ({startGameLocal}) => {
 
   return (
-    <div className="ui form">
+    <div className="form">
 
-      <h4 className="ui dividing header">Förbjudna ord</h4>
+      <h4>Förbjudna ord</h4>
         <Field
           name="forbidden"
           component={CheckboxComponent}
@@ -15,7 +15,7 @@ const OtherWordsForm = ({startGameLocal}) => {
           id="forbidden"
         />
 
-      <h4 className="ui dividing header">Timer</h4>
+      <h4>Timer</h4>
       <p><label><Field name="timer" component={RadioComponent} type="radio" value='0' />Ingen timer</label></p>
       <p><label><Field name="timer" component={RadioComponent} type="radio" value='60'/>60 sekunder</label></p>
       <p><label><Field name="timer" component={RadioComponent} type="radio" value='30' />30 sekunder</label></p>

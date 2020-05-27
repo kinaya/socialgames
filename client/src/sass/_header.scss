@@ -1,5 +1,5 @@
 .site-header {
-  background-color: $black;
+  background-color: $indigo;
   color: $white;
 }
 
@@ -48,19 +48,20 @@
     font-weight: 300;
   }
   &:hover, &:focus, &:active {
-    color: $pinkDark;
+    color: $red-hover;
   }
 }
 
 #button-settings {
   width: 30px;
+  border: 0;
   path {
     fill: $white;
     transition: all 0.3s;
   }
   &:hover, &:active, &:focus {
     path {
-      fill: $pinkDark;
+      fill: $red;
     }
   }
 }
