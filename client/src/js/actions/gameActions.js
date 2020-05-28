@@ -21,7 +21,6 @@ export const updateGame = (game) => {
 }
 
 export const toggleVideo = (boolean) => {
-  console.log('toggleVideo boolean', boolean)
   return ({
     type: TOGGLE_VIDEO,
     boolean: boolean

@@ -1,4 +1,4 @@
-import { UPDATE_CANVAS, NEXT_TURN } from '../constants'
+import { TOGGLE_CANVAS, UPDATE_CANVAS, NEXT_TURN } from '../constants'
 
 export const updateCanvas = (canvas) => (dispatch) => {
   dispatch({
@@ -10,5 +10,12 @@ export const updateCanvas = (canvas) => (dispatch) => {
 export const nextTurn = () => dispatch => {
   dispatch({
     type: NEXT_TURN
+  })
+}
+
+export const toggleCanvas = (boolean) => dispatch => {
+  dispatch({
+    type: TOGGLE_CANVAS,
+    boolean: boolean
   })
 }

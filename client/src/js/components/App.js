@@ -27,27 +27,27 @@ const App = props => {
   },[])
 
   return (
-      <Router history={history}><>
-        <Header />
-        <ToastContainer position={toast.POSITION.TOP_CENTER} />
-        <main>
-          {!isAuthChecked && (
-            <ReactLoading />
-          )}
-          {isAuthChecked && (
-            <Switch>
-              <Route exact path='/' component={Start} />
-              <Route exact path='/newgame' component={NewGame} />
-              <Route exact path='/joinGame' component={JoinGame} />
-              <Route exact path='/werewolf' component={AboutWerewolf} />
-              <Route exact path='/otherwords' component={AboutOtherWords} />
-              <Route exact path='/fakeartist' component={AboutFakeArtist} />
-              <Route path='/:id' component={GameArea} />
-            </Switch>
-          )}
-        </main>
-        <Footer />
-      </></Router>
+    <Router history={history}><>
+      <Header />
+      <ToastContainer position={toast.POSITION.TOP_CENTER} />
+      <main>
+        {!isAuthChecked && (
+          <ReactLoading />
+        )}
+        {isAuthChecked && (
+          <Switch>
+            <Route exact path='/' component={Start} />
+            <Route exact path='/newgame' component={NewGame} />
+            <Route exact path='/joinGame' component={JoinGame} />
+            <Route exact path='/werewolf' component={AboutWerewolf} />
+            <Route exact path='/otherwords' component={AboutOtherWords} />
+            <Route exact path='/fakeartist' component={AboutFakeArtist} />
+            <Route path='/:id' component={GameArea} />
+          </Switch>
+        )}
+      </main>
+      <Footer />
+    </></Router>
   )
 
 }

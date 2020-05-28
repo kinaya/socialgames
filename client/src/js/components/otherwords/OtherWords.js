@@ -44,7 +44,7 @@ const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRou
 
 const mapStateToProps = state => {
   return {
-    otherwords: state.otherwords
+    otherwords: state.localState.otherwords
   }
 }
 

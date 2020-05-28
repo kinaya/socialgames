@@ -49,7 +49,7 @@ var removeUser = (userId) => new Promise((resolve, reject) => {
 */
 var saveGame = () => new Promise((resolve, reject) => {
 
-  const code = randomize('A0',6);
+  const code = randomize('A0',6)
 
   var game = new Game({
     code: code
@@ -100,9 +100,11 @@ exports.newGame = async function(req, res, next) {
  */
 exports.joinGame = async function(req, res, next) {
 
+  const gameCode = req.body.gameCode.toUpperCase();
+
   try {
-    var user = await saveUser(req.body.userName, req.body.gameCode);
-    var game = await getGame(req.body.gameCode);
+    var user = await saveUser(req.body.userName, gameCode);
+    var game = await getGame(gameCode);
   } catch (err) {
     return next(err);
   }

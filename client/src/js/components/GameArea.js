@@ -13,7 +13,7 @@ import ReactLoading from 'react-loading'
 import JitsiComponent from './JitsiComponent'
 import { Resizable } from 're-resizable'
 
-const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsDisconnect }) => {
+const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConnect, wsDisconnect }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [width, setWidth] = useState(400)
   const [wideVideo, setWideVideo] = useState(false)
@@ -50,16 +50,16 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
     return () => {
       wsDisconnect()
     }
-  }, [])
+  }, [authenticated])
 
   if(isLoading) {
     return <ReactLoading />
   }
 
   return (
-    <div className={`gameArea ${game.game.video ? 'video' : 'no-video'} ${game.game.video && wideVideo ? 'wide-video' : ''}`}>
+    <div className={`gameArea ${sharedState.game.video ? 'video' : 'no-video'} ${sharedState.game.video && wideVideo ? 'wide-video' : ''}`}>
 
-      {game.game.video && (
+      {sharedState.game.video && (
         <Resizable
           className="videoContainer"
           defaultSize={{width: 400}}
@@ -72,19 +72,19 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
 
       <div className="gameContainer container wide">
 
-        {authenticated && game.game.activeGame === 'werewolf' && (
+        {authenticated && sharedState.game.activeGame === 'werewolf' && (
           <Werewolf />
         )}
 
-        {authenticated && game.game.activeGame === 'fakeartist' && (
+        {authenticated && sharedState.game.activeGame === 'fakeartist' && (
           <FakeArtist />
         )}
 
-        {authenticated && game.game.activeGame === 'otherwords' && (
+        {authenticated && sharedState.game.activeGame === 'otherwords' && (
           <OtherWords />
         )}
 
-        {authenticated && !game.game.activeGame && (
+        {authenticated && !sharedState.game.activeGame && (
           <>
             <div className="container-inner">
               <h1>Välj spel</h1>
@@ -95,7 +95,7 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
         )}
 
         {!authenticated && (
-          <div>
+          <div className="container-inner">
             <h1>Gå med i ett spel</h1>
             <JoinGameForm initialValues={{code: match.params.id}} />
           </div>
@@ -108,9 +108,9 @@ const GameArea = ({user, match, game, authenticated, updateUsers, wsConnect, wsD
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.user.authenticated,
-    game: state.game,
-    user: state.user
+    authenticated: state.localState.user.authenticated,
+    sharedState: state.sharedState,
+    user: state.localState.user
   }
 }
 

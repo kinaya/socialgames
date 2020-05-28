@@ -20,10 +20,8 @@ const WerewolfPlay = ({myCharacter, werewolf, userId, switchCharacters}) => {
         let clickability = []
         for(let character of werewolf.characters) {
           if(werewolf.characters[nr].userId || seerCount + 1 >= 2 || character.userId || werewolf.characters[nr] == character ) {
-            console.log('character should not be clickable', character)
             clickability.push(false)
           } else {
-            console.log('character SHOULD be clickable', character)
             clickability.push(true)
           }
           setCharacterClickability(clickability)
@@ -131,8 +129,8 @@ const WerewolfPlay = ({myCharacter, werewolf, userId, switchCharacters}) => {
 
 const mapStateToProps = (state) => {
   return {
-    werewolf: state.game.game.werewolf,
-    userId: state.user.user.userId
+    werewolf: state.sharedState.game.werewolf,
+    userId: state.localState.user.user.userId
   }
 }
 

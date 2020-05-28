@@ -1,12 +1,21 @@
 import { combineReducers } from 'redux'
 import otherwords from './otherwords'
 import user from './user'
-import game from './game'
+import sharedState from './sharedState'
 import { reducer as formReducer } from 'redux-form'
 
-export default combineReducers({
+/*export default combineReducers({
   user,
-  game,
+  sharedState,
   otherwords,
   form: formReducer
-})
+})*/
+
+export default combineReducers({
+  sharedState,
+  localState: combineReducers({
+    user,
+    otherwords
+  }),
+  form: formReducer
+});

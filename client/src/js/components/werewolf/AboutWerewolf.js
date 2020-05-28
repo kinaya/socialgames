@@ -44,7 +44,7 @@ const AboutWerewolf = ({authenticated, startGame, changeGame}) => {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.user.authenticated
+    authenticated: state.localState.user.authenticated
   }
 }
 

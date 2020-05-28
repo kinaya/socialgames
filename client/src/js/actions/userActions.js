@@ -1,5 +1,6 @@
 import history from '../history'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 import { TOGGLE_CURTAIN, LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED, JITSU_API } from '../constants'
 
@@ -119,7 +120,7 @@ export const logout = () => async dispatch => {
 export const checkUserStatus = () => async (dispatch, getState) => {
   const path = history.location.pathname;
 
-  const authenticated = getState().user.authenticated
+  const authenticated = getState().localState.user.authenticated
   const userId = sessionStorage.getItem('userId')
   const userName = sessionStorage.getItem('userName')
   const gameCode = sessionStorage.getItem('gameCode')

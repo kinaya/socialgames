@@ -5,15 +5,15 @@ import { changeGame, toggleVideo } from '../actions/gameActions'
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
 
-const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) => {
+const Header = ({logout, changeGame, toggleVideo, sharedState, user, authenticated}) => {
   const [settingsState, setSettingsState] = useState('closed');
 
-  let gameName = game.game.activeGame
-  if(game.game.activeGame === 'werewolf') gameName = 'Varulvspelet'
-  if(game.game.activeGame === 'fakeartist') gameName = 'Fake Artist'
-  if(game.game.activeGame === 'otherwords') gameName = 'Med andra ord'
-  if(game.game.activeGame === 'pictionary') gameName = 'Pictionary'
-  if(game.game.activeGame === 'spyfall') gameName = 'Spyfall'
+  let gameName = sharedState.game.activeGame
+  if(sharedState.game.activeGame === 'werewolf') gameName = 'Varulvspelet'
+  if(sharedState.game.activeGame === 'fakeartist') gameName = 'Fake Artist'
+  if(sharedState.game.activeGame === 'otherwords') gameName = 'Med andra ord'
+  if(sharedState.game.activeGame === 'pictionary') gameName = 'Pictionary'
+  if(sharedState.game.activeGame === 'spyfall') gameName = 'Spyfall'
 
   const toggleSettings = () => {
     settingsState == 'closed' ? setSettingsState('open') : setSettingsState('closed')
@@ -26,7 +26,7 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
 
   const _toggleVideo = () => {
     toggleSettings()
-    toggleVideo(game.game.video ? false : true)
+    toggleVideo(sharedState.game.video ? false : true)
   }
 
   return (
@@ -46,8 +46,8 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
               <div className="stat"><span className="label">Du spelar:</span><span className="value">{gameName}</span></div>
             }
             <div className="stat"><span className="label">Er spelkod:</span><span className="value">{user.gameCode}</span></div>
-            <div className="stat"><span className="label">{game.users.length} spelare:</span><span className="value">
-            {game.users.map((user, i, arr) => (
+            <div className="stat"><span className="label">{sharedState.users.length} spelare:</span><span className="value">
+            {sharedState.users.map((user, i, arr) => (
               <span key={user.userId}>{`${arr.length - 1 === i ? user.userName : user.userName + ', '}`}</span>
             ))}
             </span></div>
@@ -69,8 +69,8 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
               <button className="invisible" onClick={() => logout()}>Lämna spelrummet</button>
             </div>
             <div>
-              <span className="label">{game.users.length} Spelare:</span>
-              <ul>{game.users.map(user => (
+              <span className="label">{sharedState.users.length} Spelare:</span>
+              <ul>{sharedState.users.map(user => (
                 <li key={user.userId}>{user.userName}</li>
               ))}</ul>
               <p>Bjud in fler spelare med hjälp av spelkoden</p>
@@ -83,9 +83,9 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
                   <button className="value invisible" onClick={() => _changeGame()}>Avsluta omgången och byt spel</button>
                 </>
               )}
-              <span className="label">Ni spelar {game.game.vide ? 'med video' : 'utan video'}:</span>
+              <span className="label">Ni spelar {sharedState.game.video ? 'med video' : 'utan video'}:</span>
               <button className="invisible" onClick={() => _toggleVideo()}>
-                {game.game.video ? 'Spela utan video' : 'Spela med video'}
+                {sharedState.game.video ? 'Spela utan video' : 'Spela med video'}
               </button>
             </div>
           </div>
@@ -100,9 +100,9 @@ const Header = ({logout, changeGame, toggleVideo, game, user, authenticated}) =>
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.user.authenticated,
-    user: state.user.user,
-    game: state.game
+    authenticated: state.localState.user.authenticated,
+    user: state.localState.user.user,
+    sharedState: state.sharedState
   }
 }
 

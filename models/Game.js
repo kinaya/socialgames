@@ -6,6 +6,7 @@ var GameSchema = Schema({
   code: { type: String, required: true },
   activeGame: { type: String, default: null },
   video: {type: Boolean, default: false },
+  canvasState: {type: Boolean, default: true},
   fakeArtist: {
     running: {type: Boolean, required: true, default: false},
     word: {type: String, default: ''},

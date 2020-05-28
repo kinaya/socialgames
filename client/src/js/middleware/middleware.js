@@ -1,4 +1,4 @@
-import { NEXT_TURN, UPDATE_CANVAS, SWITCH_CHARACTERS, TOGGLE_VIDEO, WS_CONNECT, WS_DISCONNECT, CHANGE_GAME, RESET_GAMES, START_GAME, DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
+import { TOGGLE_CANVAS, NEXT_TURN, UPDATE_CANVAS, SWITCH_CHARACTERS, TOGGLE_VIDEO, WS_CONNECT, WS_DISCONNECT, CHANGE_GAME, RESET_GAMES, START_GAME, DISPLAY_CHARACTERS, NEXT_STEP } from '../constants'
 import * as actions from '../actions/websocketActions';
 import { updateUsers, updateGame } from '../actions/gameActions';
 import io from "socket.io-client";
@@ -6,23 +6,6 @@ import io from "socket.io-client";
 const socketMiddleware = () => {
 
   let socket = null;
-
-// const onOpen = store => (event) => {};
-// const onClose = store => () => {};
-
-/*  const onMessage = store => (event) => {
-    const payload = JSON.parse(event.data);
-    console.log('receiving server message');
-    switch (payload.type) {
-      case 'update_game_players':
-        //store.dispatch(updateGame(payload.game, payload.current_player));
-        break;
-      default:
-        break;
-    }
-  };*/
-
-
 
   return store => next => action => {
 
@@ -38,9 +21,6 @@ const socketMiddleware = () => {
           if(data.error) { toast.error(data.error)}
         })
 
-        // socket.onmessage = onMessage(store);
-        // socket.onclose = onClose(store);
-        // socket.onopen = onOpen(store);
         break;
 
       case WS_DISCONNECT:
@@ -84,6 +64,10 @@ s
 
       case NEXT_TURN:
         socket.emit('nextTurn')
+        break;
+
+      case TOGGLE_CANVAS:
+        socket.emit('toggleCanvas', action.boolean)
         break;
 
       default:

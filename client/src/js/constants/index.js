@@ -2,7 +2,6 @@
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const JITSU_API = 'JITSU_API'
-export const VIDEO_MUTE_STATUS_CHANGED = 'VIDEO_MUTE_STATUS_CHANGED'
 export const TOGGLE_CURTAIN = 'TOGGLE_CURTAIN'
 
 // Game
@@ -13,7 +12,6 @@ export const UPDATE_GAME = 'UPDATE_GAME'
 export const CHANGE_GAME = 'CHANGE_GAME'
 export const TOGGLE_VIDEO = 'TOGGLE_VIDEO'
 
-
 // Websocket
 export const WS_CONNECT = 'WS_CONNECT'
 export const WS_DISCONNECT = 'WS_DISCONNECT'
@@ -21,6 +19,7 @@ export const WS_DISCONNECT = 'WS_DISCONNECT'
 // Fake artist
 export const UPDATE_CANVAS = 'UPDATE_CANVAS'
 export const NEXT_TURN = 'NEXT_TURN'
+export const TOGGLE_CANVAS = 'TOGGLE_CANVAS'
 
 // Wherewolf
 export const DISPLAY_CHARACTERS = 'DISPLAY_CHARACTERS'

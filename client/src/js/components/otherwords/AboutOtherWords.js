@@ -36,7 +36,7 @@ const AboutOtherWords = ({authenticated}) => {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.user.authenticated,
+    authenticated: state.localState.user.authenticated,
   }
 }
 

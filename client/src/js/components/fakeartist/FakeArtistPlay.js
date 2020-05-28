@@ -3,7 +3,7 @@ import CanvasDraw from 'react-canvas-draw';
 import { connect } from 'react-redux'
 import { updateCanvas, nextTurn } from '../../actions/fakeArtistActions'
 
-const FakeArtistGamePlay = ({user, word, users, category, fakeArtist, currentPlayer, canvas, updateCanvas, nextTurn}) => {
+const FakeArtistGamePlay = ({user, word, users, category, fakeArtist, currentPlayer, canvasState, canvas, updateCanvas, nextTurn}) => {
   const [amIFake, setAmIFake] = useState(false)
   const [brushColor, setBrushColor] = useState('#333333')
 
@@ -34,19 +34,21 @@ const FakeArtistGamePlay = ({user, word, users, category, fakeArtist, currentPla
   return (
     <div>
 
-      <div className={`canvas ${currentPlayer != user.user.userId && 'disabled'}`}>
-        <CanvasDraw ref={refCanvas} disabled={currentPlayer === user.user.userId ? false : true} immediateLoading={true} saveData={canvas} onChange={() => draw()} brushColor={brushColor} brushRadius={2} hideGrid={true} canvasHeight='600px' canvasWidth='100%'/>
-        <div className="canvas-settings">
-          <div className="color-palette">
-            <span className={`black ${brushColor === '#333333' ? 'active' : 'non-active'}`} onClick={() => changeColor('#333333')}></span>
-            <span className={`red ${brushColor === '#FF0000' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#FF0000')}></span>
-            <span className={`yellow ${brushColor === '#FFFF00' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#FFFF00')}></span>
-            <span className={`green ${brushColor === '#008000' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#008000')}></span>
-            <span className={`blue ${brushColor === '#0000FF' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#0000FF')}></span>
-            <span className={`purple ${brushColor === '#800080' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#800080')}></span>
+      {canvasState && (
+        <div className={`canvas ${currentPlayer != user.user.userId && 'disabled'}`}>
+          <CanvasDraw ref={refCanvas} disabled={currentPlayer === user.user.userId ? false : true} immediateLoading={true} saveData={canvas} onChange={() => draw()} brushColor={brushColor} brushRadius={2} hideGrid={true} canvasHeight='600px' canvasWidth='100%'/>
+          <div className="canvas-settings">
+            <div className="color-palette">
+              <span className={`black ${brushColor === '#333333' ? 'active' : 'non-active'}`} onClick={() => changeColor('#333333')}></span>
+              <span className={`red ${brushColor === '#FF0000' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#FF0000')}></span>
+              <span className={`yellow ${brushColor === '#FFFF00' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#FFFF00')}></span>
+              <span className={`green ${brushColor === '#008000' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#008000')}></span>
+              <span className={`blue ${brushColor === '#0000FF' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#0000FF')}></span>
+              <span className={`purple ${brushColor === '#800080' ? 'active' : 'non-active'}`}  onClick={() => changeColor('#800080')}></span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="message center">
         <h2>Du <span className="italic">{amIFake ? 'är' : 'är inte'}</span> fake artist!</h2>
@@ -69,13 +71,14 @@ const FakeArtistGamePlay = ({user, word, users, category, fakeArtist, currentPla
 
 const mapStateToProps = state => {
   return {
-    fakeArtist: state.game.game.fakeArtist.fakeArtist,
-    canvas: state.game.game.fakeArtist.canvas,
-    currentPlayer: state.game.game.fakeArtist.currentPlayer,
-    category: state.game.game.fakeArtist.category,
-    word: state.game.game.fakeArtist.word,
-    users: state.game.users,
-    user: state.user
+    fakeArtist: state.sharedState.game.fakeArtist.fakeArtist,
+    canvas: state.sharedState.game.fakeArtist.canvas,
+    canvasState: state.sharedState.game.canvasState,
+    currentPlayer: state.sharedState.game.fakeArtist.currentPlayer,
+    category: state.sharedState.game.fakeArtist.category,
+    word: state.sharedState.game.fakeArtist.word,
+    users: state.sharedState.users,
+    user: state.localState.user
   }
 }
 

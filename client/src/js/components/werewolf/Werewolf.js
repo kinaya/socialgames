@@ -48,9 +48,9 @@ const Werewolf = ({werewolf, startGame, toggleCurtain, resetGames, displayCharac
 
 const mapStateToProps = state => {
   return {
-    werewolf: state.game.game.werewolf,
-    userId: state.user.user.userId,
-    user: state.user
+    werewolf: state.sharedState.game.werewolf,
+    userId: state.localState.user.user.userId,
+    user: state.localState.user
   }
 }
 
@@ -58,16 +58,3 @@ export default connect(
   mapStateToProps,
   {resetGames, startGame, nextStep, displayCharacters, toggleCurtain}
 )(Werewolf)
-
-/*
-{!werewolf.running && (
-  <div>
-    <h2>Karaktärer</h2>
-    <div className="ui three stackable cards">
-      {characters.map((character, i) => (
-        <WerewolfCharacter key={i} display={true} character={character} />
-      ))}
-    </div>
-  </div>
-)}
-*/

@@ -31,29 +31,16 @@ var getGame = gameCode => new Promise((resolve, reject) => {
 })
 
 /**
- * Change the active game
- * Params: gameCode, the code for the game
- * Params: gameName, the name of the game to set as active
- * Returns: game object
- */
-var changeGame = (gameCode, gameName) => new Promise((resolve, reject) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: { activeGame: gameName }}, { new: true }, function (err, game) {
+* Update a game
+* Params: gameCode, the code for the game
+* Params: setObject, the object used for changing the game
+* Returns: game object
+*/
+var updateGame = (gameCode, setObject) => new Promise((resolve, reject) => {
+  Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
   });
-})
-
-/**
- * Toggle where video is active or not
- * Params: gameCode, the code for the game
- * Params: videoState, if the video should be set to true or false
- * Returns: game object
- */
-var toogleVideo = (gameCode, videoState) => new Promise((resolve, reject) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: {video: videoState}}, { new: true}, function (err, game) {
-    if(err) { reject(new Error(eerr)); return;}
-    resolve(game);
-  })
 })
 
 // todo: Make this better
@@ -64,12 +51,11 @@ var toogleVideo = (gameCode, videoState) => new Promise((resolve, reject) => {
 */
 var resetGames = (gameCode) => new Promise((resolve, reject) => {
   const setObject = {}
+
   setObject['fakeArtist'] = { running: false}
   setObject['otherwords'] = { running: false}
-  setObject['spyfall'] = { running: false}
   setObject['werewolf'] = { running: false}
-  setObject['pictionary'] = { running: false}
-  //setObject[gameName] = {running: false}
+
   Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
@@ -95,33 +81,19 @@ var startFakeArtist = (gameCode, users) => new Promise((resolve, reject) => {
   // Select the first player
   const currentPlayer = users[Math.floor(Math.random()*users.length)];
 
-  const setObject = {}
-  setObject['fakeArtist'] = {
-    running: true,
-    word: randomWord.word,
-    category: randomWord.category,
-    fakeArtist: fakeArtist.userId,
-    currentPlayer: currentPlayer.userId
-   }
+  const setObject = {
+    'fakeArtist.running' : true,
+    'fakeArtist.word': randomWord.word,
+    'fakeArtist.category': randomWord.category,
+    'fakeArtist.fakeArtist': fakeArtist.userId,
+    'fakeArtist.currentPlayer': currentPlayer.userId
+  }
 
   Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
   });
 
-})
-
-/**
-* Updates the drawing canvasWidth
-* Params: gameCode, the code for the game
-* Params: canvas, the updated canvas
-* Returns: game object
-*/
-var updateCanvas = (gameCode, canvas) => new Promise((resolve, reject) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: { 'fakeArtist.canvas': canvas } }, { new: true }, function (err, game) {
-    if(err) { reject(new Error(err)); return;}
-    resolve(game);
-  })
 })
 
 /**
@@ -201,18 +173,6 @@ var startWerewolf = (gameCode, users) => new Promise((resolve, reject) => {
    }
 
   Game.findOneAndUpdate({code: gameCode}, { $set: setObject }, { new: true }, function (err, game) {
-    if(err) { reject(new Error(err)); return;}
-    resolve(game);
-  });
-})
-
-/**
-* Displays all character cards
-* Params: gameCode, the code for the game
-* Returns: game object
-*/
-var displayCharacters = (gameCode) => new Promise((resolve, rejeect) => {
-  Game.findOneAndUpdate({code: gameCode}, { $set: { 'werewolf.showCharacters': true} }, { new: true }, function (err, game) {
     if(err) { reject(new Error(err)); return;}
     resolve(game);
   });
@@ -329,15 +289,17 @@ exports.game = async function(io, socket) {
   */
   socket.on('changeGame', async (gameName) => {
     await resetGames(gameCode);
-    var game = await changeGame(gameCode, gameName);
+    setObject = { 'activeGame': gameName }
+    var game = await updateGame(gameCode, setObject)
     io.in(gameCode).emit('game', { game })
   })
 
   /** ===== Toogle Video =====
   * Toggle the video true or false
   */
-  socket.on('toggleVideo', async (boolean) => {
-    var game = await toogleVideo(gameCode, boolean);
+  socket.on('toggleVideo', async (videoState) => {
+    setObject = { 'video': videoState }
+    var game = await updateGame(gameCode, setObject)
     io.in(gameCode).emit('game', { game })
   })
 
@@ -399,7 +361,8 @@ exports.game = async function(io, socket) {
   * Displays all characters
   */
   socket.on('displayCharacters', async () => {
-    var game = await displayCharacters(gameCode)
+    var setObject = { 'werewolf.showCharacters': true}
+    var game = await updateGame(gameCode, setObject)
     io.in(gameCode).emit('game', {game})
   })
 
@@ -407,7 +370,8 @@ exports.game = async function(io, socket) {
   * Update the drawing canvas
   */
   socket.on('updateCanvas', async (canvas) => {
-    var game = await updateCanvas(gameCode, canvas)
+    var setObject = { 'fakeArtist.canvas': canvas }
+    var game = await updateGame(gameCode, setObject)
     socket.to(gameCode).emit('game', {game}); // Not to the person who draw!
   })
 
@@ -421,5 +385,13 @@ exports.game = async function(io, socket) {
   })
 
 
+  /** ===== FakeArtist: Toggle canvas =====
+  * Update wheter to use the online canvas
+  */
+  socket.on('toggleCanvas', async (canvasState) => {
+    var setObject = { 'canvasState': canvasState}
+    var game = await updateGame(gameCode, setObject)
+    io.in(gameCode).emit('game', {game});
+  })
 
 }

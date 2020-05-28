@@ -7,7 +7,6 @@ export const displayCharacters = () => {
 }
 
 export const nextStep = () => {
-  console.log('nextStep action!')
   return ({
     type: NEXT_STEP
   })
