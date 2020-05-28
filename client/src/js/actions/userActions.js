@@ -2,7 +2,7 @@ import history from '../history'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 
-import { TOGGLE_CURTAIN, LOGIN, LOGOUT, VIDEO_MUTE_STATUS_CHANGED, JITSU_API } from '../constants'
+import { TOGGLE_CURTAIN, LOGIN, LOGOUT, JITSU_API } from '../constants'
 
 export const toggleCurtain = (boolean) => {
   return ({

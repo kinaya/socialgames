@@ -50,8 +50,13 @@ var updateGame = (gameCode, setObject) => new Promise((resolve, reject) => {
 * Returns: game object
 */
 var resetGames = (gameCode) => new Promise((resolve, reject) => {
-  const setObject = {}
 
+  // Stop the autoamtic stepper for werewolf
+  if(automaticStepper) {
+    clearTimeout(automaticStepper);
+  }
+
+  const setObject = {}
   setObject['fakeArtist'] = { running: false}
   setObject['otherwords'] = { running: false}
   setObject['werewolf'] = { running: false}
@@ -250,6 +255,7 @@ var switchCharacters = (gameCode, characters, one, two) => new Promise((resolve,
 /**
  * Websocket at /game
  */
+var automaticStepper = null;
 exports.game = async function(io, socket) {
 
   // ====== Connecting ======
@@ -332,7 +338,10 @@ exports.game = async function(io, socket) {
   * If the step is automatic, set timer and run again
   */
   socket.on('nextStep', async () => {
+
     recursiveNextStep = async () => {
+      console.log('now!')
+
       var game = await nextStep(gameCode)
       io.in(gameCode).emit('game', {game})
 
@@ -341,9 +350,9 @@ exports.game = async function(io, socket) {
       }
 
       let randomTime = Math.floor(Math.random() * (1500 - 7000 + 1) + 7000);
-      setTimeout(function () {
+      automaticStepper = setTimeout(function () {
         recursiveNextStep()
-      }, randomTime)
+      }, 2000)
     }
 
     recursiveNextStep();

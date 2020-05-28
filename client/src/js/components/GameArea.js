@@ -14,7 +14,6 @@ import JitsiComponent from './JitsiComponent'
 import { Resizable } from 're-resizable'
 
 const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConnect, wsDisconnect }) => {
-  const [isLoading, setIsLoading] = useState(true)
   const [width, setWidth] = useState(400)
   const [wideVideo, setWideVideo] = useState(false)
 
@@ -34,7 +33,6 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
   }, [width, window.innerWidth])
 
   useEffect(() => {
-    setIsLoading(true)
     // TODO: check so state/sessionStorage match in update in App.js
     const userName = user.user.userName
     const userId = user.user.userId
@@ -44,15 +42,12 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
 
     wsConnect(host, queryObject)
 
-    // TODO: how to wait until socket is connected and game/user state fetched?
-    setIsLoading(false)
-
     return () => {
       wsDisconnect()
     }
   }, [authenticated])
 
-  if(isLoading) {
+  if(Object.entries(sharedState.game).length === 0 && authenticated || Object.entries(sharedState.game).length != 0 && !authenticated) {
     return <ReactLoading />
   }
 
@@ -86,10 +81,7 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
 
         {authenticated && !sharedState.game.activeGame && (
           <>
-            <div className="container-inner">
-              <h1>Välj spel</h1>
-              <p className="preamble">Suspendisse id venenatis magna. Nulla facilisi. Cras quis lorem pharetra dui viverra condimentum a ut eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut dolor ex, lacinia sed nisl at, semper bibendum dui.</p>
-              </div>
+            <h1>Välj spel</h1>
             <GameList gameCode={match.params.id}/>
           </>
         )}
@@ -104,6 +96,7 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
       </div>
     </div>
   )
+
 }
 
 const mapStateToProps = state => {

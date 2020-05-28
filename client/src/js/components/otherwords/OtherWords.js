@@ -2,12 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import OtherWordsPlay from './OtherWordsPlay'
 import OtherWordsForm from './OtherWordsForm'
-import OtherWordsFinished from './OtherWordsFinished'
 import AboutOtherWords from './AboutOtherWords'
 import { resetGames, changeGame } from '../../actions/gameActions'
-import { startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame } from '../../actions/otherWordsActions'
+import { startGameLocal } from '../../actions/otherWordsActions'
 
-const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame, changeGame}) => {
+const OtherWords = ({otherwords, startGameLocal, changeGame}) => {
   return (
     <div className="container-inner">
 
@@ -16,20 +15,10 @@ const OtherWords = ({otherwords, startGameLocal, changeWord, skipWord, finishRou
       )}
 
       {otherwords.gamestate === 'intro' && (
-        <OtherWordsForm startGameLocal={startGameLocal}/>
+        <OtherWordsForm startGameLocal={startGameLocal} />
       )}
 
-      {otherwords.gamestate === 'play' && <OtherWordsPlay
-        settings={otherwords.settings}
-        score={otherwords.score}
-        time={otherwords.time}
-        currentword={otherwords.currentword}
-        changeWord={changeWord}
-        skipWord={skipWord}
-        finishRound={finishRound}
-       />}
-
-      {otherwords.gamestate === 'finished' && <OtherWordsFinished newRound={newRound} resetGame={resetGame} score={otherwords.score} />}
+      {(otherwords.gamestate === 'play' || otherwords.gamestate === 'finished') && <OtherWordsPlay />}
 
       {otherwords.gamestate === 'intro' && (
         <div className="buttons">
@@ -50,5 +39,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {startGameLocal, changeWord, skipWord, finishRound, newRound, resetGame, changeGame}
+  {startGameLocal, changeGame}
 )(OtherWords)

@@ -19,15 +19,12 @@ const otherwords = (state = initialState, action) => {
   switch (action.type) {
 
     case SETUP:
-      console.log('SETUP!')
-      console.log(action)
-
-
       for(let i = 0; i < newState.words.length; i++) {
         if(newState.words[i].word === action.currentword.word) {
           newState.words[i].used = true;
         }
       }
+      newState.settings = action.settings;
       newState.score = 0;
       newState.time = action.settings.timer;
       newState.currentword = action.currentword;

@@ -17,12 +17,12 @@ import AboutOtherWords from './otherwords/AboutOtherWords'
 import AboutFakeArtist from './fakeartist/AboutFakeArtist'
 import { checkUserStatus } from '../actions/userActions'
 
-const App = props => {
+const App = ({checkUserStatus}) => {
 
   const [isAuthChecked, setIsAuthChecked] = useState(false)
 
   useEffect(() => {
-    props.checkUserStatus()
+    checkUserStatus()
     setIsAuthChecked(true)
   },[])
 

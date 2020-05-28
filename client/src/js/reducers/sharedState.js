@@ -1,12 +1,7 @@
 import { UPDATE_USERS, UPDATE_GAME } from '../constants'
 
 const initialState = {
-  game: {
-    id: null,
-    code: null,
-    activeGame: null,
-    video: false
-  },
+  game: {},
   users: []
 }
 
