@@ -15,7 +15,7 @@ const GameList = ({authenticated, changeGame}) => {
 
       <div onClick={authenticated ? () => changeGame('werewolf') : () => navigate('/werewolf')} className="card" >
         <div className="image">
-          <img src="images/game1.jpg" />
+          <img src="images/werewolf.jpg" />
         </div>
         <div className="content">
           <h3>Varulvspelet</h3>
@@ -25,7 +25,7 @@ const GameList = ({authenticated, changeGame}) => {
 
       <div onClick={authenticated ? () => changeGame('otherwords') : () => navigate('/otherwords')} className="card" >
         <div className="image">
-          <img src="images/game1.jpg" />
+          <img src="images/otherwords.jpg" />
         </div>
         <div className="content">
           <h3>Med andra ord</h3>
@@ -35,7 +35,7 @@ const GameList = ({authenticated, changeGame}) => {
 
       <div onClick={authenticated ? () => changeGame('fakeartist') : () => navigate('/fakeartist')} className="card" >
         <div className="image">
-          <img src="images/game1.jpg" />
+          <img src="images/fakeartist.jpg" />
         </div>
         <div className="content">
           <h3>Fake artist</h3>
