@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env) => {
@@ -66,21 +66,23 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new CopyWebpackPlugin([
-     {from:'src/images', to:'images'},
-     {from:'src/favicon.ico'},
-     {from:'src/android-chrome-192x192.png'},
-     {from:'src/android-chrome-256x256.png'},
-     {from:'src/apple-touch-icon.png'},
-     {from:'src/favicon-16x16.png'},
-     {from:'src/mstile-150x150.png'},
-     {from:'src/safari-pinned-tab.svg'},
-     {from:'src/browserconfig.xml'},
-     {from:'src/site.webmanifest'}
-   ]),
-   new webpack.DefinePlugin({
+   new CopyPlugin({
+    patterns: [
+      {from:'src/images', to:'images'},
+      {from:'src/favicon.ico'},
+      {from:'src/android-chrome-192x192.png'},
+      {from:'src/android-chrome-256x256.png'},
+      {from:'src/apple-touch-icon.png'},
+      {from:'src/favicon-16x16.png'},
+      {from:'src/mstile-150x150.png'},
+      {from:'src/safari-pinned-tab.svg'},
+      {from:'src/browserconfig.xml'},
+      {from:'src/site.webmanifest'}
+    ],
+  }),
+  new webpack.DefinePlugin({
      'BASE_URL': JSON.stringify(env.BASE_URL)
-   })
+  })
   ],
   resolve: {
     extensions: ['.js','.jsx'],

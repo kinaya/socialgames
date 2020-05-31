@@ -1,4 +1,4 @@
 # socialgames
-A collection of social games to play live together, but with the help of this webapp
+A collection of social games to play live together or online through video.
 
-Demo at: https://socialgamesapp.herokuapp.com
+Live at: https://socialgamesapp.herokuapp.com

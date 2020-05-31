@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import ReactLoading from 'react-loading';
 
+import Page from './Page'
 import Header from './Header'
 import Footer from './Footer'
 import Start from './Start'
@@ -36,13 +37,13 @@ const App = ({checkUserStatus}) => {
         )}
         {isAuthChecked && (
           <Switch>
-            <Route exact path='/' component={Start} />
-            <Route exact path='/newgame' component={NewGame} />
-            <Route exact path='/joinGame' component={JoinGame} />
-            <Route exact path='/werewolf' component={AboutWerewolf} />
-            <Route exact path='/otherwords' component={AboutOtherWords} />
-            <Route exact path='/fakeartist' component={AboutFakeArtist} />
-            <Route path='/:id' component={GameArea} />
+            <Page exact path='/' component={Start} title="Start" />
+            <Page exact path='/newgame' component={NewGame} title="Nytt rum" />
+            <Page exact path='/joinGame' component={JoinGame} title="Gå med" />
+            <Page exact path='/werewolf' component={AboutWerewolf} title="Varulvspelet" />
+            <Page exact path='/otherwords' component={AboutOtherWords} title="Med andra ord" />
+            <Page exact path='/fakeartist' component={AboutFakeArtist} title="Fake artist" />
+            <Page path='/:id' component={GameArea} title="Aktivt spel" />
           </Switch>
         )}
       </main>

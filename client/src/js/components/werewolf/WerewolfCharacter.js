@@ -14,7 +14,7 @@ const WerewolfCharacters = ({visibility, clickability, character, playerName, sh
       {(showCharacters || visibility) && (
         <>
           <div className="image">
-            <img src={`images/Varulv.jpeg`} />
+            <img src={`images/${character.name}.jpg`} />
           </div>
           <div className="content">
             <h3>{character.name}</h3>

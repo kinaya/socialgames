@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { logout } from '../actions/userActions'
 import { changeGame, toggleVideo } from '../actions/gameActions'
 import { connect } from 'react-redux';
-import ReactSVG from 'react-svg';
+import SVG from 'react-inlinesvg';
 
 const Header = ({logout, changeGame, toggleVideo, sharedState, user, authenticated}) => {
   const [settingsState, setSettingsState] = useState('closed');
@@ -52,7 +52,7 @@ const Header = ({logout, changeGame, toggleVideo, sharedState, user, authenticat
             ))}
             </span></div>
             <button id="button-settings" className="invisible" onClick={() => toggleSettings()}>
-              <ReactSVG src="/images/settings.svg" />
+              <SVG src="/images/settings.svg" />
             </button>
           </>
         )}
