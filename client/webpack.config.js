@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyPlugin = require('copy-webpack-plugin');
+//const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env) => {
@@ -66,7 +66,7 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new CopyPlugin({
+/*   new CopyPlugin({
     patterns: [
       {from:'src/images', to:'images'},
       {from:'src/favicon.ico'},
@@ -79,7 +79,7 @@ return {
       {from:'src/browserconfig.xml'},
       {from:'src/site.webmanifest'}
     ],
-  }),
+  }),*/
   new webpack.DefinePlugin({
      'BASE_URL': JSON.stringify(env.BASE_URL)
   })
