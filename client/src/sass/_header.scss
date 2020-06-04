@@ -1,6 +1,7 @@
 .site-header {
   background-color: $indigo;
   color: $white;
+
   margin-bottom: 2em;
   @media(min-width: $mobile) {
     margin-bottom: 3em;
@@ -8,6 +9,7 @@
   @media(min-width: $tablet) {
     margin-bottom: 4em;
   }
+
 }
 
 // Open close desktop mobile

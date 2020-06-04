@@ -63,7 +63,12 @@ img {
 }
 main {
   flex: 1;
-//  display: flex;
+  display: flex;
+//  flex-direction: column;
+}
+
+.start {
+  width: 100%;
 }
 
 .container {

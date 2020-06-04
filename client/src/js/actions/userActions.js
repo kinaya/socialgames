@@ -16,7 +16,8 @@ export const startJitsu = (roomName, userName) => async dispatch => {
      const domain = 'meet.jit.si';
      const options = {
       roomName: roomName,
-      height: '800px',
+      //height: '800px',
+      height: '100%',
       width: '100%',
       parentNode: document.getElementById('jitsi-container'),
       interfaceConfigOverwrite: {
