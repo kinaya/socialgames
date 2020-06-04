@@ -66,7 +66,7 @@ return {
      filename: "style.css",
      chunkFilenanem: "[id].css"
    }),
-   new CopyPlugin({
+/*   new CopyPlugin({
     patterns: [
       {from:'src/images', to:'images'},
       {from:'src/favicon.ico'},
@@ -79,7 +79,7 @@ return {
       {from:'src/browserconfig.xml'},
       {from:'src/site.webmanifest'}
     ],
-  }),
+  }),*/
   new webpack.DefinePlugin({
      'BASE_URL': JSON.stringify(env.BASE_URL)
   })
