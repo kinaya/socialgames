@@ -9,13 +9,8 @@ const FakeArtistForm = ({toggleCanvas, canvasState}) => {
 
       <h2>Inställningar</h2>
 
-      <h4>Online eller live</h4>
-
-      <input checked={canvasState}  onChange={() => toggleCanvas(true)} type="radio" id="online" name="canvas" value="online" />
-      <label htmlFor="online">Online</label>
-
-      <input checked={!canvasState} onChange={() => toggleCanvas(false)} type="radio" id="live" name="canvas" value="live" />
-      <label htmlFor="live">Live</label>
+      <input checked={canvasState} onChange={() => toggleCanvas(canvasState ? false : true)} type="checkbox" id="canvas" name="canvas" />
+      <label htmlFor="canvas">Rita på skärmen</label>
 
     </div>
   )

@@ -9,7 +9,7 @@ var async = require('async');
  * Params: userName, gameCode
  * Returns: user object
  */
-var saveUser = (userName, gameCode) => new Promise((resolve, reject) => {
+var saveUser = (userName, gameCode, color) => new Promise((resolve, reject) => {
 
   Game.findOne({'code': gameCode}, function(err, game) {
     if(err) { reject(new Error(err)); return;}
@@ -19,16 +19,41 @@ var saveUser = (userName, gameCode) => new Promise((resolve, reject) => {
 
     var user = new User({
       name: userName,
-      game: game.id
+      game: game.id,
+      color: color
     })
 
     user.save(function(err) {
       if(err){ reject(new Error(err)); return;}
       resolve(user);
     })
+
   })
 
 });
+
+
+// get an unused color!
+// Only return colors!
+var getUnusedColor = (gameId) => new Promise((resolve, reject) => {
+
+  User.find({game: gameId}, 'name color', function(err, users) {
+    colors = ["black", "red", "yellow", "green", "blue", "purple"];
+
+    if(users.length == 0) {
+      resolve(colors[0])
+    }
+
+    takenColors = []
+    for(user of users) {
+      takenColors.push(user.color);
+    }
+    notTakenColors = colors.filter(color => !takenColors.includes(color))
+    resolve(notTakenColors[0])
+  })
+
+})
+
 
 /**
  * Remove a user from the db
@@ -85,7 +110,8 @@ exports.newGame = async function(req, res, next) {
 
   try {
     var game = await saveGame();
-    var user = await saveUser(req.body.userName, game.code);
+    var color = await getUnusedColor(game._id);
+    var user = await saveUser(req.body.userName, game.code, color);
   } catch (err) {
     return next(err);
   }
@@ -103,7 +129,9 @@ exports.joinGame = async function(req, res, next) {
   const gameCode = req.body.gameCode.toUpperCase();
 
   try {
-    var user = await saveUser(req.body.userName, gameCode);
+    var game = await getGame(gameCode)
+    var color = await getUnusedColor(game._id);
+    var user = await saveUser(req.body.userName, gameCode, color);
     var game = await getGame(gameCode);
   } catch (err) {
     return next(err);

@@ -9,24 +9,36 @@ import ReactLoading from 'react-loading'
 const FakeArtist = ({fakeArtist, resetGames, startGame, changeGame}) => {
 
   return (
-    <div className="container-inner wide">
-
-      {!fakeArtist.running && <AboutFakeArtist />}
-
-      {!fakeArtist.running && <FakeArtistForm />}
+    <>
 
       {!fakeArtist.running && (
-        <div className="buttons">
-          <button onClick={() => startGame('fakeArtist')}>Starta spelet</button>
-          <button className="gray" onClick={() => changeGame(null)}>Byt spel</button>
+        <AboutFakeArtist />
+      )}
+
+      {!fakeArtist.running && (
+        <div className="container">
+          <FakeArtistForm />
+        </div>
+      )}
+
+      {!fakeArtist.running && (
+        <div className="container">
+          <div className="buttons">
+            <button onClick={() => startGame('fakeArtist')}>Starta spelet</button>
+            <button className="gray" onClick={() => changeGame(null)}>Byt spel</button>
+          </div>
         </div>
       )}
 
       {fakeArtist.running && <FakeArtistPlay />}
 
-      {fakeArtist.running && <button className="invisible" onClick={() => resetGames()}>Avsluta omgången</button>}
+      {fakeArtist.running && (
+        <div className="container">
+          <button className="invisible" onClick={() => resetGames()}>Avsluta omgången</button>
+        </div>
+      )}
 
-    </div>
+    </>
   )
 
 }

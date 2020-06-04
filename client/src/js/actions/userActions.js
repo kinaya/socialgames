@@ -61,13 +61,15 @@ export const newGame = userName => async dispatch => {
     const response = await axios.post('/newGame', { userName })
     sessionStorage.setItem('userName', response.data.user.name);
     sessionStorage.setItem('userId', response.data.user._id);
+    sessionStorage.setItem('color', response.data.user.color);
     sessionStorage.setItem('gameCode', response.data.game.code);
     await dispatch ({
       type: LOGIN,
       user: {
         userName: response.data.user.name,
         userId: response.data.user._id,
-        gameCode: response.data.game.code,
+        color: response.data.user.color,
+        gameCode: response.data.game.code
       }
     })
     history.push('/'+ response.data.game.code);
@@ -81,12 +83,14 @@ export const joinGame = (userName, gameCode) => async dispatch => {
     const response = await axios.post('/joinGame', { userName, gameCode })
     sessionStorage.setItem('userName', response.data.user.name);
     sessionStorage.setItem('userId', response.data.user._id);
+    sessionStorage.setItem('color', response.data.user.color);
     sessionStorage.setItem('gameCode', response.data.game.code);
     await dispatch ({
       type: LOGIN,
       user: {
         userName: response.data.user.name,
         userId: response.data.user._id,
+        color: response.data.user.color,
         gameCode: response.data.game.code,
       }
     })
@@ -106,6 +110,7 @@ export const logout = () => async dispatch => {
     })
     sessionStorage.removeItem('userName')
     sessionStorage.removeItem('userId')
+    sessionStorage.removeItem('color')
     sessionStorage.removeItem('gameCode')
     dispatch ({ type: LOGOUT })
     history.push('/');
@@ -124,6 +129,7 @@ export const checkUserStatus = () => async (dispatch, getState) => {
   const userId = sessionStorage.getItem('userId')
   const userName = sessionStorage.getItem('userName')
   const gameCode = sessionStorage.getItem('gameCode')
+  const color = sessionStorage.getItem('color')
 
   // If user has data in sessionStorage but is not logged in in state. Ie if she reloaded page
   // Log her in and redirect if on /
@@ -133,6 +139,7 @@ export const checkUserStatus = () => async (dispatch, getState) => {
       user: {
         userName,
         userId,
+        color,
         gameCode,
       }
     })

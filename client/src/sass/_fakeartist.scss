@@ -5,29 +5,6 @@
   }
 }
 
-.players {
-  margin-top: 2em;
-  border-top: 1px solid $msg-info-text;
-  div {
-    background-color: $msg-info-bg;
-    color: $msg-info-text;
-    display: block;
-    padding: 0.2em 0.5em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid $msg-info-text;
-    &.current-player {
-      background-color: $msg-info-text;
-      color: $white;
-    }
-  }
-  span {
-    font-size: 1.2em;
-    padding: 1em 0;
-  }
-}
-
 .canvas-settings {
   display: flex;
   justify-content: space-between;
@@ -35,15 +12,15 @@
   padding: 1em;
 }
 
-.color-palette {
-  span {
+.canvas-players {
+  div {
     display: inline-block;
-    width: 30px;
-    height: 30px;
     background-color: $black;
-    border-radius: 50%;
+    color: $white;
+    border-radius: 4px;
     margin: 0 0.4em;
-    cursor: pointer;
+    padding: 0.2em 0.5em;
+
     &.yellow {
       background-color: yellow;
     }
@@ -59,7 +36,7 @@
     &.red {
       background-color: red;
     }
-    &.active {
+    &.current-player {
       transform: scale(1.3)
     }
   }

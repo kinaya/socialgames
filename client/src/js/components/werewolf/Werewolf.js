@@ -23,25 +23,37 @@ const Werewolf = ({werewolf, startGame, toggleCurtain, resetGames, displayCharac
   }
 
   return (
-    <div className="">
+    <>
 
       {werewolf.running && (
-        <WerewolfBreadcrumb step={werewolf.step} />
+        <div className="container">
+          <WerewolfBreadcrumb step={werewolf.step} />
+        </div>
       )}
 
-      {werewolf.running && <WerewolfPlay myCharacter={myCharacter}/>}
+      {werewolf.running && (
+        <div className="container">
+          <WerewolfPlay myCharacter={myCharacter}/>
+        </div>
+      )}
 
       {werewolf.running && (
-        <WerewolfSteps toggleCurtain={toggleCurtain} user={user} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
+        <div className="container">
+          <WerewolfSteps toggleCurtain={toggleCurtain} user={user} userId={userId} characters={werewolf.characters} step={werewolf.step} displayCharacters={displayCharacters} nextStep={nextStep}/>
+        </div>
       )}
 
       {!werewolf.running && (
         <AboutWerewolf />
       )}
 
-      {werewolf.running && <button className="invisible end-game" onClick={() => resetGames()}>Avsluta omgången</button>}
+      {werewolf.running && (
+        <div className="container">
+          <button className="invisible end-game" onClick={() => resetGames()}>Avsluta omgången</button>
+        </div>
+      )}
 
-    </div>
+    </>
   )
 
 }

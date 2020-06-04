@@ -1,10 +1,20 @@
 .intro {
   text-align: center;
   background-color: $indigo;
-  padding-top: 6em;
-  padding-bottom: 6em;
+  padding-top: 2em;
+  padding-bottom: 3em;
   color: $white;
-  margin-top: -4em;
+  margin-top: -2em;
+  @media(min-width: $mobile) {
+    margin-top: -3em;
+    padding-top: 4em;
+    padding-bottom: 5em;
+  }
+  @media(min-width: $tablet) {
+    margin-top: -4em;
+    padding-top: 5em;
+    padding-bottom: 6em;
+  }
 
   p {
     font-size: 1.6em;
@@ -24,8 +34,20 @@
 }
 
 .getstarted {
-  padding-top: 8em;
-  padding-bottom: 8em;
+  padding-top: 3em;
+  padding-bottom: 3em;
+  @media(min-width: $mobile) {
+    padding-top: 5em;
+    padding-bottom: 5em;
+  }
+  @media(min-width: $tablet) {
+    padding-top: 6em;
+    padding-bottom: 6em;
+  }
+  @media(min-width: $desktop) {
+    padding-top: 8em;
+    padding-bottom: 8em;
+  }
 
   .container-inner {
     @media(min-width: $tablet) {
@@ -36,6 +58,10 @@
     > div {
       text-align: center;
       flex-basis: 32%;
+      margin-bottom: 2em;
+      @media(min-width: $tablet) {
+        margin-bottom: 0;
+      }
     }
 
     h2 {
@@ -44,19 +70,32 @@
       display: inline-block;
       border-radius: 4px;
       padding: 0.2em 0.5em;
+      margin: 0;
     }
 
     img {
       max-width: 200px;
       border-radius: 50%;
+      display: block;
+      margin: 0 auto 0.5em auto;
     }
   }
 
 }
 
 .featured-games {
-  padding-top: 4em;
-  padding-bottom: 4em;
   background-color: $msg-info-bg;
   margin-bottom: -4em;
+
+  padding-top: 5em;
+  padding-bottom: 5em;
+  @media(min-width: $tablet) {
+    padding-top: 6em;
+    padding-bottom: 6em;
+  }
+  @media(min-width: $desktop) {
+    padding-top: 8em;
+    padding-bottom: 8em;
+  }
+
 }

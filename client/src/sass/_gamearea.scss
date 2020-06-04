@@ -17,7 +17,7 @@
 
 // ===== Gamelist
 .gamelist {
-  padding: 4em 0;
+//  padding: 4em 0;
 }
 .gamelist  > div {
   margin-bottom: 1em;
@@ -64,23 +64,66 @@
   }
 }
 
+// Create room ad
+.createRoomAd {
+  background-color: $msg-info-bg;
+  text-align: center;
+  padding: 3em 2em 4em 2em;
+}
 
 // ===== About a game
+.rules-inner {
+  transition: all 0.3s;
+  overflow: hidden;
+  max-height: 0;
+}
+.rules.open .rules-inner {
+  max-height: 2000px;
+}
+
+#rules-button {
+  display: flex;
+  align-items: center;
+  div {
+    font-size: 1.2em;
+  }
+  svg {
+    width: 16px;
+    margin-left: 0.5em;
+    path {
+      fill: $black;
+      transition: all 0.3s;
+    }
+  }
+  &:hover, &:active, &:focus {
+    svg path {
+      fill: $red;
+    }
+  }
+}
+.rules.open #rules-button svg {
+  transform: scaleY(-1);
+}
+
 .rules {
   margin: 3em 0;
   h3 {
     color: $turqoise;
     margin: 2em 0 0.4em 0;
+    position: relative;
+    padding-left: 2.3em;
   }
   p {
     margin: 0 0 1em 2.65em;
   }
   span {
-    content: "1";
     padding: 0.3em 0.6em;
     border-radius: 50%;
     background-color: $turqoise;
     color: $white;
     margin-right: 0.5em;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }

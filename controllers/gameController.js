@@ -251,7 +251,6 @@ var switchCharacters = (gameCode, characters, one, two) => new Promise((resolve,
   });
 })
 
-
 /**
  * Websocket at /game
  */
@@ -271,7 +270,8 @@ exports.game = async function(io, socket) {
     socketid: socket.id,
     userName: socket.handshake.query.userName,
     userId: socket.handshake.query.userId,
-    gameCode: gameCode,
+    color: socket.handshake.query.color,
+    gameCode: gameCode
   })
 
   // Get users and game and send to all clients in the game room

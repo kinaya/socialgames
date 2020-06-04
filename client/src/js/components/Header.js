@@ -7,6 +7,7 @@ import SVG from 'react-inlinesvg';
 
 const Header = ({logout, changeGame, toggleVideo, sharedState, user, authenticated}) => {
   const [settingsState, setSettingsState] = useState('closed');
+  const [menuState, setMenuState] = useState('closed');
 
   let gameName = sharedState.game.activeGame
   if(sharedState.game.activeGame === 'werewolf') gameName = 'Varulvspelet'
@@ -15,83 +16,87 @@ const Header = ({logout, changeGame, toggleVideo, sharedState, user, authenticat
   if(sharedState.game.activeGame === 'pictionary') gameName = 'Pictionary'
   if(sharedState.game.activeGame === 'spyfall') gameName = 'Spyfall'
 
-  const toggleSettings = () => {
+  const _toggleSettings = () => {
     settingsState == 'closed' ? setSettingsState('open') : setSettingsState('closed')
   }
 
+  const _toggleMenu = () => {
+    menuState == 'closed' ? setMenuState('open') : setMenuState('closed')
+  }
+
   const _changeGame = () => {
-    toggleSettings()
+    //toggleSettings()
     changeGame(null)
   }
 
   const _toggleVideo = () => {
-    toggleSettings()
+    //toggleSettings()
     toggleVideo(sharedState.game.video ? false : true)
   }
 
   return (
-    <div className="site-header">
+    <div className={`site-header ${menuState}`}>
 
       <div className="header-bar">
 
-        <div className="logo-container">
-          <Link id="logo" to={authenticated ? {pathname: `/${user.gameCode}`} : '/'} >
-            <span>Sociala</span><span>Spel</span>
-          </Link>
-        </div>
+        <Link id="logo" to={authenticated ? {pathname: `/${user.gameCode}`} : '/'} >
+          <img src="images/logo.png" alt="logotyp" />
+          <span>Sociala</span><span>Spel</span>
+        </Link>
 
         {authenticated && (
-          <>
-            {gameName &&
-              <div className="stat"><span className="label">Du spelar:</span><span className="value">{gameName}</span></div>
-            }
-            <div className="stat"><span className="label">Er spelkod:</span><span className="value">{user.gameCode}</span></div>
-            <div className="stat"><span className="label">{sharedState.users.length} spelare:</span><span className="value">
-            {sharedState.users.map((user, i, arr) => (
-              <span key={user.userId}>{`${arr.length - 1 === i ? user.userName : user.userName + ', '}`}</span>
-            ))}
-            </span></div>
-            <button id="button-settings" className="invisible" onClick={() => toggleSettings()}>
-              <SVG src="/images/settings.svg" />
-            </button>
-          </>
+          <button id="menu-button" onClick={() => _toggleMenu()}>
+            <SVG src="/images/settings.svg" />
+          </button>
         )}
 
-      </div>
+        {authenticated && (
+          <div className="menu">
+            {gameName && (
+              <div className="menu-item">
+                <SVG src="/images/menu_game.svg" />
+                <div>
+                  <span className="label">{gameName}</span>
+                  <button className="value invisible" onClick={() => _changeGame()}>Byt spel</button>
+                </div>
+              </div>
+            )}
 
-      {authenticated && (
-        <div className={`settings ${settingsState}`}>
+            <div className="menu-item">
+              <SVG src="/images/menu_video.svg" />
+              <div>
+                <span className="label">{sharedState.game.video ? 'Med video' : 'Utan video'}</span>
+                <button className="invisible" onClick={() => _toggleVideo()}>
+                  {sharedState.game.video ? 'Spela utan video' : 'Spela med video'}
+                </button>
+              </div>
+            </div>
 
-          <div className="container">
-            <div>
-              <span className="label">Ditt Namn:</span><span className="value">{user.userName}</span>
-              <span className="label">Er spelkod:</span><span className="value">{user.gameCode}</span>
-              <button className="invisible" onClick={() => logout()}>Lämna spelrummet</button>
+            <div className="menu-item">
+              <SVG src="/images/menu_players.svg" />
+              <div>
+                <span className="label">{sharedState.users.length} spelare</span>
+                <div>
+                {sharedState.users.map((user, i, arr) => (
+                  <span key={user.userId}>{`${arr.length - 1 === i ? user.userName : user.userName + ', '}`}</span>
+                ))}
+                </div>
+              </div>
             </div>
-            <div>
-              <span className="label">{sharedState.users.length} Spelare:</span>
-              <ul>{sharedState.users.map(user => (
-                <li key={user.userId}>{user.userName}</li>
-              ))}</ul>
-              <p>Bjud in fler spelare med hjälp av spelkoden</p>
+
+            <div className="menu-item">
+              <SVG src="/images/menu_room.svg" />
+              <div>
+                <span className="label">{user.gameCode}</span>
+                <button className="invisible" onClick={() => logout()}>Lämna spelrummet</button>
+              </div>
             </div>
-            <div className="game-settings">
-              {gameName && (
-                <>
-                  <span className="label">Ni spelar:</span>
-                  <span className="value">{gameName}</span>
-                  <button className="value invisible" onClick={() => _changeGame()}>Avsluta omgången och byt spel</button>
-                </>
-              )}
-              <span className="label">Ni spelar {sharedState.game.video ? 'med video' : 'utan video'}:</span>
-              <button className="invisible" onClick={() => _toggleVideo()}>
-                {sharedState.game.video ? 'Spela utan video' : 'Spela med video'}
-              </button>
-            </div>
+
           </div>
+        )}
 
-        </div>
-      )}
+
+      </div>
 
     </div>
   )

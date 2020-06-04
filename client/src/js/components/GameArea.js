@@ -37,8 +37,9 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
     const userName = user.user.userName
     const userId = user.user.userId
     const gameCode = user.user.gameCode
+    const color = user.user.color
     const host = `${BASE_URL}/game`;
-    const queryObject = {query: {userName, userId, gameCode}}
+    const queryObject = {query: {userName, userId, color, gameCode}}
 
     wsConnect(host, queryObject)
 
@@ -65,7 +66,7 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
         </Resizable>
       )}
 
-      <div className="gameContainer container wide">
+      <div className="gameContainer">
 
         {authenticated && sharedState.game.activeGame === 'werewolf' && (
           <Werewolf />
@@ -80,14 +81,14 @@ const GameArea = ({user, match, sharedState, authenticated, updateUsers, wsConne
         )}
 
         {authenticated && !sharedState.game.activeGame && (
-          <>
+          <div className="container wide">
             <h1>Välj spel</h1>
             <GameList gameCode={match.params.id}/>
-          </>
+          </div>
         )}
 
         {!authenticated && (
-          <div className="container-inner">
+          <div>
             <h1>Gå med i ett spel</h1>
             <JoinGameForm initialValues={{code: match.params.id}} />
           </div>

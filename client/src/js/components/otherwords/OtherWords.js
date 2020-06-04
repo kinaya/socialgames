@@ -8,26 +8,34 @@ import { startGameLocal } from '../../actions/otherWordsActions'
 
 const OtherWords = ({otherwords, startGameLocal, changeGame}) => {
   return (
-    <div className="container-inner">
+    <>
 
       {otherwords.gamestate === 'intro' && (
         <AboutOtherWords />
       )}
 
       {otherwords.gamestate === 'intro' && (
-        <OtherWordsForm startGameLocal={startGameLocal} />
-      )}
-
-      {(otherwords.gamestate === 'play' || otherwords.gamestate === 'finished') && <OtherWordsPlay />}
-
-      {otherwords.gamestate === 'intro' && (
-        <div className="buttons">
-          <button onClick={() => startGameLocal()}>Starta spelet</button>
-          <button className="gray" onClick={() => changeGame(null)}>Byt spel</button>
+        <div className="container">
+          <OtherWordsForm startGameLocal={startGameLocal} />
         </div>
       )}
 
-    </div>
+      {(otherwords.gamestate === 'play' || otherwords.gamestate === 'finished') && (
+        <div className="container">
+          <OtherWordsPlay />
+        </div>
+      )}
+
+      {otherwords.gamestate === 'intro' && (
+        <div className="container">
+          <div className="buttons">
+            <button onClick={() => startGameLocal()}>Starta spelet</button>
+            <button className="gray" onClick={() => changeGame(null)}>Byt spel</button>
+          </div>
+        </div>
+      )}
+
+    </>
   )
 }
 

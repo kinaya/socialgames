@@ -4,7 +4,7 @@ const Footer = () => {
 
   return (
     <div id="footer" className="container full">
-      <div className="container">
+      <div className="container-inner">
         <a href="https://github.com/kinaya/socialgames">github.com</a>
         <a href="https://alvineandersson.se">alvineandersson.se</a>
       </div>
