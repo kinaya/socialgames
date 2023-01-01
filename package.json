@@ -26,7 +26,7 @@
     "randomatic": "^3.1.1",
     "request": "^2.88.2",
     "socket.io": "^2.3.0",
-    "webpack": "^4.43.0"
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
     "env-cmd": "^8.0.2"
